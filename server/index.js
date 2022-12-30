@@ -45,8 +45,16 @@ mongoose
   .then(() => {
     console.log("MongoDB database connected");
   })
-  .catch((error) => {
-    console.log(error);
+  .catch((e) => {
     console.log("db not connected");
   });
   
+
+  import fs from 'fs'
+  // // fs.rename('./post4.jpeg','./post',cb)
+  // // console.log()
+  // // fs.mkdirSync('./xy')
+
+
+
+  // fs.rmSync('./xy/p1.jpeg')
