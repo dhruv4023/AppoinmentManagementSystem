@@ -15,8 +15,6 @@ import postRoute from "./routes/postRoute.js";
 // configuration
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// console.log(import.meta.url)
-// console.log(__dirname)
 const app = express();
 app.use(express.json());
 app.use(helmet());
@@ -42,9 +40,8 @@ app.listen(process.env.PORT, () => {
 import mongoose from "mongoose";
 mongoose.set("strictQuery", true);
 
-const DB_URL = "mongodb://127.0.0.1:27017/demo";
 mongoose
-.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("MongoDB database connected");
   })

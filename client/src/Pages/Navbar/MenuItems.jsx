@@ -42,7 +42,6 @@ const MenuItems = () => {
       <Message sx={{ fontSize: "25px" }} />
       <Notifications sx={{ fontSize: "25px" }} />
       <Help sx={{ fontSize: "25px" }} />
-      {}
       <FormControl variant="standard" value={fullName}>
         <Select
           value={fullName}

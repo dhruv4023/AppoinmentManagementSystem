@@ -1,15 +1,17 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import fs from "fs";
 /*REGISTER USER*/
 export const registerControl = async (req, res) => {
+  console.log(req.body);
   try {
     const {
       firstName,
       lastName,
       email,
       password,
-      picPath,
+      picturePath,
       friends,
       location,
       occupation,
@@ -22,26 +24,29 @@ export const registerControl = async (req, res) => {
       lastName: lastName,
       email: email,
       password: passwordHash,
-      picPath: picPath,
+      picPath: picturePath,
       friends: friends,
       location: location,
       occupation: occupation,
       viewedProfile: Math.random() * 1000,
       impressions: Math.random() * 1000,
     });
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    console.log("xs");
+    console.log(newUser._id, picturePath)
+    let x = fs.readFileSync("../post4.jpeg");
+    // fs.writeFileSync("./post5", x);
+    console.log(x);
+    // fs.rename('./hello/new.png','./images.jpg')
+    // const savedUser = await newUser.save();
+    // res.status(200).json(savedUser);
   } catch (error) {
     res.status(500).json("something went wrong");
-    console.log("error in auth controller");
   }
 };
 export const loginControl = async (req, res) => {
-  console.log(process.env.JWT_SECRECT)
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
-
     if (!user) return res.status(400).json("user doesn't exit !");
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -52,6 +57,5 @@ export const loginControl = async (req, res) => {
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(500).json("failed to login");
-    console.log("error in auth login controller");
   }
 };

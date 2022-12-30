@@ -1,5 +1,4 @@
 import { AllRoutes } from "Components/AllRoutes";
-import { Navbar } from "Pages/Navbar/Navbar";
 import React, { useMemo } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -17,7 +16,6 @@ const App = () => {
       <Router>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Navbar />
           <AllRoutes />
         </ThemeProvider>
       </Router>

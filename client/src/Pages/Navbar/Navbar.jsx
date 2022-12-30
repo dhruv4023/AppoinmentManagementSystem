@@ -104,7 +104,6 @@ export const Navbar = () => {
                   <Close />
                 </IconButton>
               </Box>
-              {/* <Typography>Hello</Typography> */}
               <MenuItems />
             </FlexBetween>
           </Box>
