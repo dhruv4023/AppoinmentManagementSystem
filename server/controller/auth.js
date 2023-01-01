@@ -36,7 +36,10 @@ export const registerControl = async (req, res) => {
       viewedProfile: Math.random() * 1000,
       impressions: Math.random() * 1000,
     });
-    await renameAndMove("public/" + newUser._id, picturePath);
+    await renameAndMove(
+      "public/" + newUser.firstName + newUser._id,
+      picturePath
+    );
     const savedUser = await newUser.save();
     res.status(200).json(savedUser);
   } catch (error) {
@@ -45,18 +48,22 @@ export const registerControl = async (req, res) => {
   }
 };
 export const loginControl = async (req, res) => {
+  // console.log(req.body)
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
-    if (!user) return res.status(400).json("user doesn't exist !");
+    if (!user)
+      return res
+        .status(400)
+        .json({ exist: false, mess: "user doesn't exist !" });
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) return res.status(400).json("Invalid credintials");
-    const token = jsw.sign({ id: user._id }, process.env.JWT_SECRECT);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRECT);
     delete user.password;
 
-    res.status(200).json({ token, user });
+    res.status(200).json({ exist: true, token, user });
   } catch (error) {
-    res.status(500).json("failed to login");
+    res.status(500).json({ exist: false, mess: "failed to login" });
   }
 };

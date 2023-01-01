@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import FlexBetween from "Components/FlexBetween";
-import { Formik } from "formik";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import * as yup from "yup";
 import FlexEvenly from "Components/FlexEvenly";
-
+import { login } from "./functions";
 const Form = () => {
   // const RegisterSchema = yup.object().shape({
   //   firstName: yup.string(), //.required("required"),
@@ -45,46 +43,10 @@ const Form = () => {
   const navigate = useNavigate();
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
-  const login = async (values) => {
-    const loggedInResponse = await fetch("http://localhost:5612/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    console.log(loggedIn)
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
-      navigate("/home");
-    }
-  };
-  const register = async (values) => {
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picturePath", values.picPath.name);
-    // console.log(values.picPath.name);
-    const savedUserResponse = await fetch(
-      "http://localhost:5612/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const savedUser = await savedUserResponse.json();
-    // onSubmitProps.resetForm();
-    console.log(savedUser);
-  };
+
   const [values, setValues] = useState(
     isLogin ? initialValuesLogin : initialValuesRegister
   );
-  console.log(values);
   const onChangehandle = (e, name) => {
     let tmpData = e.target === undefined ? e : e.target.value;
     let tmp = {};
@@ -94,9 +56,10 @@ const Form = () => {
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
-    if (isLogin) await login(values);
-    if (isRegister) await register(values);
+    if (isLogin) await login(values,dispatch,setLogin,navigate);
+    if (isRegister) {
+      navigate("/verifyemail", { state: values });
+    }
   };
   const resetForm = () => {
     setValues(!isLogin ? initialValuesLogin : initialValuesRegister);

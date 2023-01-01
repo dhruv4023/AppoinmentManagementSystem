@@ -1,6 +1,6 @@
 import fs from "fs";
 export const renameAndMove = async (userDir, oldPath) => {
-  fs.mkdirSync(userDir);
+  if (!fs.existsSync(userDir)) fs.mkdirSync(userDir);
   fs.renameSync(
     "public/assets/" + oldPath,
     userDir +

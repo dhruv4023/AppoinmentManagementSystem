@@ -1,19 +1,12 @@
 import Form from "./Form";
 import React from "react";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import EmailVerification from "./EmailVerification";
 export const LoginPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 800px)");
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
-  const dark = theme.palette.neutral.dark;
-  const background = theme.palette.background.default;
-  const primaryLight = theme.palette.primary.light;
-
+  const { page } = useParams();
   return (
     <Box>
       <Box
@@ -33,10 +26,8 @@ export const LoginPage = () => {
         borderRadius={"1.5rem"}
         width={isNonMobileScreens ? "40%" : "90%"}
       >
-        <Typography fontWeight={"500"} variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Sociopedia, the Social media for Sociopaths !
-        </Typography>
-        <Form></Form>
+        {page === "verifyemail" && <EmailVerification />}
+        {!page && <Form />}
       </Box>
     </Box>
   );

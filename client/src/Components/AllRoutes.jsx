@@ -1,4 +1,5 @@
 import HomePage from "Pages/HomePage/HomePage";
+import EmailVerification from "Pages/LoginPage/EmailVerification";
 import { LoginPage } from "Pages/LoginPage/LoginPage";
 import { ProfilePage } from "Pages/ProfilePage/ProfilePage";
 import React from "react";
@@ -8,6 +9,7 @@ export const AllRoutes = () => {
     <Routes>
       <Route path={"/home"} element={<HomePage />} />
       <Route path={"/"} element={<LoginPage />} />
+      <Route path={"/:page"} element={<LoginPage />} />
       <Route path={"/ProfilePage/:userId"} element={<ProfilePage />} />
     </Routes>
   );
