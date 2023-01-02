@@ -19,7 +19,6 @@ export const login = async (values, dispatch, setLogin, navigate) => {
     body: JSON.stringify(values),
   });
   const loggedIn = await loggedInResponse.json();
-  console.log(loggedIn.exist);
   if (loggedIn.exist) {
     dispatch(
       setLogin({
@@ -28,5 +27,7 @@ export const login = async (values, dispatch, setLogin, navigate) => {
       })
     );
     navigate("/home");
+  }else{
+    alert(loggedIn.mess)
   }
 };

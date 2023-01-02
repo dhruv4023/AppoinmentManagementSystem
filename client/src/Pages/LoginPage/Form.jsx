@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "Components/FlexBetween";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import FlexEvenly from "Components/FlexEvenly";
-import { login } from "./functions";
+import { login } from "./LoginRegisterFunctions";
 const Form = () => {
   // const RegisterSchema = yup.object().shape({
   //   firstName: yup.string(), //.required("required"),
@@ -54,6 +54,7 @@ const Form = () => {
       tmp[value] = value === name ? tmpData : values[value];
     setValues(tmp);
   };
+  // console.log(values)
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) await login(values,dispatch,setLogin,navigate);
