@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "Components/FlexBetween";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import FlexEvenly from "Components/FlexEvenly";
-import { login } from "./LoginRegisterFunctions";
+import { login } from "./LoginRegisterChangePass";
 const Form = () => {
   // const RegisterSchema = yup.object().shape({
   //   firstName: yup.string(), //.required("required"),
@@ -57,7 +57,7 @@ const Form = () => {
   // console.log(values)
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) await login(values,dispatch,setLogin,navigate);
+    if (isLogin) await login(values, dispatch, setLogin, navigate);
     if (isRegister) {
       navigate("/verifyemail", { state: values });
     }
@@ -190,6 +190,24 @@ const Form = () => {
             ? "Don't have an account? Sign Up here."
             : "Already have an account? Login here."}
         </Typography>
+        {
+          isLogin &&
+          <Typography
+            onClick={() => {
+              navigate("/changepass", { state: { page: "enteremail" } })
+            }}
+            sx={{
+              textDecoration: "underline",
+              color: palette.primary.main,
+              "&:hover": {
+                cursor: "pointer",
+                color: palette.primary.light,
+              },
+            }}
+          >
+            Forgot Password ?
+          </Typography>
+        }
       </Box>
     </form>
   );

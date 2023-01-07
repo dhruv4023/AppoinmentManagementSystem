@@ -48,7 +48,7 @@ export const registerControl = async (req, res) => {
   }
 };
 export const loginControl = async (req, res) => {
-  // console.log(req.body)
+  console.log(req.body)
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
@@ -58,12 +58,36 @@ export const loginControl = async (req, res) => {
         .json({ exist: false, mess: "user doesn't exist !" });
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch) return res.status(400).json("Invalid credintials");
+    if (!isMatch)
+      return res
+        .status(400)
+        .json({ exist: false, mess: "Invalid credintials" });
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRECT);
     delete user.password;
 
     res.status(200).json({ exist: true, token, user });
   } catch (error) {
     res.status(500).json({ exist: false, mess: "failed to login" });
+  }
+};
+
+export const changePassControl = async (req, res) => {
+  console.log(req.body);
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user)
+      return res
+        .status(400)
+        .json({ exist: false, msg: "user doesn't exist !" });
+
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+    await User.findByIdAndUpdate(user._id,{
+      $set:{password:passwordHash}
+    })
+    res.status(200).json({ msg: "Password Changed successfully !" });
+  } catch (error) {
+    res.status(500).json({ msg: "failed to Change password" });
   }
 };

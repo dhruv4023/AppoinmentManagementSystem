@@ -7,8 +7,8 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { Search, Menu, Close, CloseRounded } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { Search, Menu, Close } from "@mui/icons-material";
+// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../Components/FlexBetween";
 import MenuItems from "./MenuItems";
@@ -17,11 +17,11 @@ export const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const isNonMobileScreens = useMediaQuery("(min-width: 800px)");
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
-  const dark = theme.palette.neutral.dark;
+  // const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
@@ -31,7 +31,7 @@ export const Navbar = () => {
       <FlexBetween backgroundColor={alt} padding="1rem 6%">
         <Typography
           color={"primary"}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
           fontWeight={"bold"}
           fontSize={"clamp(1rem,1.5rem,2rem)"}
           sx={{
@@ -41,7 +41,7 @@ export const Navbar = () => {
             },
           }}
         >
-          Sociopedia
+          AppointsApp
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween

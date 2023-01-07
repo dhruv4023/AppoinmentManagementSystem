@@ -10,8 +10,10 @@ dotenv.config();
 
 // routes
 import authRoute from "./routes/authRoutes.js";
-import userRoute from "./routes/userRoutes.js";
-import postRoute from "./routes/postRoute.js";
+// import appoinmentRoute from "./routes/appoinmentRoutes.js";
+
+// import userRoute from "./routes/userRoutes.js";
+// import postRoute from "./routes/postRoute.js";
 // configuration
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,8 +31,9 @@ app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 app.use("/auth", authRoute);
-app.use("/user", userRoute);
-app.use("/posts", postRoute);
+// app.use("/appointment", appoinmentRoute);
+// app.use("/user", userRoute);
+// app.use("/posts", postRoute);
 app.listen(process.env.PORT, () => {
   console.log("Server running...");
 });

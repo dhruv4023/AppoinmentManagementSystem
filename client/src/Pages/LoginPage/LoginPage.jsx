@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useParams } from "react-router-dom";
 import EmailVerification from "./EmailVerification";
+import ChangePass from "./ChangePass";
 export const LoginPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 800px)");
   const theme = useTheme();
@@ -16,7 +17,7 @@ export const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight={"bold"} fontSize="32px" color={"primary"}>
-          Sociopedia
+          AppointsApp
         </Typography>
       </Box>
       <Box
@@ -27,6 +28,7 @@ export const LoginPage = () => {
         width={isNonMobileScreens ? "40%" : "90%"}
       >
         {page === "verifyemail" && <EmailVerification />}
+        {page === "changepass" && <ChangePass />}
         {!page && <Form />}
       </Box>
     </Box>

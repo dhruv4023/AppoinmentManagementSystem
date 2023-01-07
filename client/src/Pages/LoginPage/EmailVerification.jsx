@@ -4,7 +4,7 @@ import emailjs from "@emailjs/browser";
 import FlexEvenly from "Components/FlexEvenly";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { register } from "./LoginRegisterFunctions";
+import { register } from "./LoginRegisterChangePass";
 const EmailVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,37 +18,42 @@ const EmailVerification = () => {
   // const sentMail = () => {
   //   console.log(sentOTP);
   // };
+  // console.log(values)
   const [otp, setOtp] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(otp, sentOtp);
     if (String(otp) === String(sentOtp)) {
-      register(values)
-        ? alert("Registered Successfully")
-        : alert("Registration Failed");
-      navigate("/", { state: null });
+      if (values?.page === "changepass") {
+        navigate("/changepass", { state: { email: values.email, page: "makenewpass" } })
+      } else {
+        register(values)
+          ? alert("Registered Successfully")
+          : alert("Registration Failed");
+        navigate("/login", { state: null });
+      }
     } else {
       alert("Invalid OTP");
     }
   };
   const sendOtpMail = (otpnum, to_mail) => {
     setSentOtp(otpnum);
-    // console.log(otpnum, to_mail);
-    emailjs
-      .send(
-        process.env.REACT_APP_MAIL_VERIFY_SERVICE_ID,
-        process.env.REACT_APP_MAIL_VERIFY_TEMPLATE_ID,
-        {
-          name: "dhruv",
-          otp: otpnum,
-          email: to_mail,
-        },
-        process.env.REACT_APP_MAIL_VERIFY_PUBLIC_ID
-      )
-      .catch((e) => {
-        // console.log(e);
-        alert("Somethings wents wrong Plz Try again later !");
-      });
+    console.log(otpnum, to_mail);
+    // emailjs
+    //   .send(
+    //     process.env.REACT_APP_MAIL_VERIFY_SERVICE_ID,
+    //     process.env.REACT_APP_MAIL_VERIFY_TEMPLATE_ID,
+    //     {
+    //       name: "dhruv",
+    //       otp: otpnum,
+    //       email: to_mail,
+    //     },
+    //     process.env.REACT_APP_MAIL_VERIFY_PUBLIC_ID
+    //   )
+    //   .catch((e) => {
+    //     // console.log(e);
+    //     alert("Somethings wents wrong Plz Try again later !");
+    //   });
   };
   const [sendOtpBtnVal, setSendOtpBtnVal] = useState("Click here to Send OTP");
   const [disableBtn, setdisableBtn] = useState(false);
@@ -77,7 +82,7 @@ const EmailVerification = () => {
             variant="standard"
             label={"Enter OTP here"}
             required
-            type={"number"}
+            type={"text"}
             onChange={(e) => setOtp(e.target.value)}
           />
           <Button
@@ -94,8 +99,8 @@ const EmailVerification = () => {
             Verify
           </Button>
         </form>
-        <Button 
-        disabled={disableBtn} onClick={() => sendOtpBtn()}>
+        <Button
+          disabled={disableBtn} onClick={() => sendOtpBtn()}>
           {sendOtpBtnVal}
         </Button>
       </FlexEvenly>
