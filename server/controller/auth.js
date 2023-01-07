@@ -36,11 +36,14 @@ export const registerControl = async (req, res) => {
       viewedProfile: Math.random() * 1000,
       impressions: Math.random() * 1000,
     });
-    await renameAndMove(
-      "public/" + newUser.firstName + newUser._id,
+    const picPath = renameAndMove(
+      "user/" + newUser.firstName + newUser._id,
       picturePath
     );
     const savedUser = await newUser.save();
+    await User.findByIdAndUpdate(newUser._id, {
+      $set: { picPath: picPath },
+    });
     res.status(200).json(savedUser);
   } catch (error) {
     deleteFile("public/assets/" + req.body.picturePath);
@@ -48,7 +51,7 @@ export const registerControl = async (req, res) => {
   }
 };
 export const loginControl = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body);
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
@@ -72,7 +75,7 @@ export const loginControl = async (req, res) => {
 };
 
 export const changePassControl = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
@@ -83,9 +86,9 @@ export const changePassControl = async (req, res) => {
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-    await User.findByIdAndUpdate(user._id,{
-      $set:{password:passwordHash}
-    })
+    await User.findByIdAndUpdate(user._id, {
+      $set: { password: passwordHash },
+    });
     res.status(200).json({ msg: "Password Changed successfully !" });
   } catch (error) {
     res.status(500).json({ msg: "failed to Change password" });

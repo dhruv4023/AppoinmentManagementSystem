@@ -8,11 +8,20 @@ const appoinmentSchema = mongoose.Schema(
       min: 2,
       max: 50,
     },
+    category: {
+      type: String,
+      require: true,
+      min: 2,
+      max: 50,
+    },
     location: String,
     description: String,
     AppoinmentList: {
       name: { type: String },
       contactNumber: { type: String },
+      dateAndTime: { type: String },
+      email: { type: String },
+      message: { type: String },
     },
   },
   { timestamps: true }

@@ -15,6 +15,7 @@ import {
   Typography,
   InputBase,
   Tooltip,
+  Button,
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +34,7 @@ const MenuItems = () => {
   const user = useSelector((s) => s.user);
   const fullName = `${user?.firstName} ${user?.lastName}`;
   // const fullName = "Dhruv";
-  console.log(user)
+  // console.log(user)
   // const x = fullName.charAt(0);
   return (
     <>
@@ -56,7 +57,7 @@ const MenuItems = () => {
           <Select
             value={fullName}
             sx={{
-              width: "100px",
+              width: "7.5rem",
               borderRadius: "0.25rem",
               p: "0 2rem",
               "& .MuiSvgIcon-root:": {
@@ -71,7 +72,9 @@ const MenuItems = () => {
           >
             <MenuItem value={fullName}>
               <Tooltip title={fullName}>
-                <Typography>{fullName}</Typography>
+                <Button onClick={() => navigate(`/profile/${user?._id}`)} >
+                  <Typography>{fullName}</Typography>
+                </Button>
               </Tooltip>
             </MenuItem>
 

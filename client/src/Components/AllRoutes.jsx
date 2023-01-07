@@ -10,7 +10,7 @@ export const AllRoutes = () => {
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/login"} element={<LoginPage />} />
       <Route path={"/:page"} element={<LoginPage />} />
-      <Route path={"/ProfilePage/:userId"} element={<ProfilePage />} />
+      <Route path={"/profile/:userId"} element={<ProfilePage />} />
     </Routes>
   );
 };
