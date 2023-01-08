@@ -14,6 +14,7 @@ const appoinmentSchema = mongoose.Schema(
       min: 2,
       max: 50,
     },
+    timeRage: String,
     location: String,
     description: String,
     AppoinmentList: {
