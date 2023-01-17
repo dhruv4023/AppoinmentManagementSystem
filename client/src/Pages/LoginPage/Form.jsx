@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "Components/FlexBetween";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import FlexEvenly from "Components/FlexEvenly";
-import { login } from "./LoginRegisterChangePass";
+import { getUserNames, login } from "./LoginRegisterChangePass";
 const Form = () => {
   // const RegisterSchema = yup.object().shape({
   //   firstName: yup.string(), //.required("required"),
@@ -24,13 +24,17 @@ const Form = () => {
   //   password: yup.string().required("required"),
   // });
   const initialValuesRegister = {
+    username: "",
     firstName: "",
     lastName: "",
     email: "",
+    about: "",
     password: "",
-    location: "",
-    occupation: "",
     picPath: "",
+    state: "Gujarat",
+    district: "",
+    city: "",
+    pincode: "",
   };
   const initialValuesLogin = {
     email: "",
@@ -55,16 +59,24 @@ const Form = () => {
     setValues(tmp);
   };
   // console.log(values)
+  const [userNames, setUserNames] = useState();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) await login(values, dispatch, setLogin, navigate);
     if (isRegister) {
-      navigate("/verifyemail", { state: values });
+      if (userNames.includes(values.username))
+        alert("Plz Select Unique Username");
+      else navigate("/verifyemail", { state: values });
     }
   };
   const resetForm = () => {
     setValues(!isLogin ? initialValuesLogin : initialValuesRegister);
   };
+
+  useEffect(() => {
+    // isRegister &&
+    getUserNames(setUserNames);
+  }, []);
   return (
     <form onSubmit={handleFormSubmit}>
       {isRegister && (
@@ -88,12 +100,14 @@ const Form = () => {
       <FlexEvenly flexDirection="column" margin={"0 .5rem 0 .5rem"}>
         <TextField
           required
-          label="Email"
+          type={isRegister ? "email" : "text"}
+          label={isLogin ? "Email or Username" : "Email"}
           onChange={(e) => onChangehandle(e, "email")}
           value={values.email}
           name="email"
           sx={{ margin: "0.5rem", width: "100%" }}
         />
+
         <TextField
           required
           label="Password"
@@ -107,16 +121,20 @@ const Form = () => {
           <>
             <TextField
               required
-              label="Location"
-              onChange={(e) => onChangehandle(e, "location")}
-              name="location"
+              label="Username"
+              error={userNames.includes(values.username)}
+              onChange={(e) => onChangehandle(e, "username")}
+              value={values.username}
+              name="username"
+              helperText={"Enter Unique Username"}
               sx={{ margin: "0.5rem", width: "100%" }}
-            />
+            />{" "}
             <TextField
               required
-              label="Occupation"
-              onChange={(e) => onChangehandle(e, "occupation")}
-              name="occupation"
+              label="About"
+              onChange={(e) => onChangehandle(e, "about")}
+              name="about"
+              value={values.about}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
             <Box
@@ -158,6 +176,48 @@ const Form = () => {
           </>
         )}
       </FlexEvenly>
+
+      {isRegister && (
+        <>
+          <FlexEvenly>
+            <TextField
+              required
+              label="State"
+              onChange={(e) => onChangehandle(e, "state")}
+              name="state"
+              value={values.state}
+              disabled={true}
+              sx={{ margin: "0.5rem", width: "100%" }}
+            />
+            <TextField
+              required
+              label="District"
+              onChange={(e) => onChangehandle(e, "district")}
+              name="district"
+              value={values.district}
+              sx={{ margin: "0.5rem", width: "100%" }}
+            />
+          </FlexEvenly>
+          <FlexEvenly>
+            <TextField
+              required
+              label="City"
+              onChange={(e) => onChangehandle(e, "city")}
+              name="city"
+              value={values.city}
+              sx={{ margin: "0.5rem", width: "100%" }}
+            />
+            <TextField
+              required
+              label="Pincode"
+              onChange={(e) => onChangehandle(e, "pincode")}
+              name="pincode"
+              value={values.pincode}
+              sx={{ margin: "0.5rem", width: "100%" }}
+            />
+          </FlexEvenly>
+        </>
+      )}
       <Box>
         <Button
           fullWidth
@@ -190,11 +250,10 @@ const Form = () => {
             ? "Don't have an account? Sign Up here."
             : "Already have an account? Login here."}
         </Typography>
-        {
-          isLogin &&
+        {isLogin && (
           <Typography
             onClick={() => {
-              navigate("/changepass", { state: { page: "enteremail" } })
+              navigate("/changepass", { state: { page: "enteremail" } });
             }}
             sx={{
               textDecoration: "underline",
@@ -207,7 +266,7 @@ const Form = () => {
           >
             Forgot Password ?
           </Typography>
-        }
+        )}
       </Box>
     </form>
   );

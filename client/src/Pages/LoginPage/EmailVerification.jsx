@@ -23,7 +23,7 @@ const EmailVerification = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(otp, sentOtp);
-    if (String(otp) === String(sentOtp)) {
+    if (String(otp).trim() === String(sentOtp)) {
       if (values?.page === "changepass") {
         navigate("/changepass", { state: { email: values.email, page: "makenewpass" } })
       } else {

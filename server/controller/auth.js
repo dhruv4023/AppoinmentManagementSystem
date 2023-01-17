@@ -9,12 +9,16 @@ export const registerControl = async (req, res) => {
     const {
       firstName,
       lastName,
+      username,
       email,
       password,
       picturePath,
       friends,
-      location,
-      occupation,
+      about,
+      state,
+      district,
+      city,
+      pincode,
     } = req.body;
 
     const user = await User.findOne({ email: email });
@@ -27,14 +31,18 @@ export const registerControl = async (req, res) => {
     const newUser = new User({
       firstName: firstName,
       lastName: lastName,
+      username: username,
       email: email,
+      about: about,
       password: passwordHash,
       picPath: picturePath,
       friends: friends,
-      location: location,
-      occupation: occupation,
-      viewedProfile: Math.random() * 1000,
-      impressions: Math.random() * 1000,
+      location: {
+        state: state,
+        district: district,
+        city: city,
+        pincode: pincode,
+      },
     });
     const picPath = renameAndMove(
       "user/" + newUser.firstName + newUser._id,
@@ -54,7 +62,10 @@ export const loginControl = async (req, res) => {
   // console.log(req.body);
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({
+      $or: [{ email: email }, { username: email }],
+    });
+    // console.log(user);
     if (!user)
       return res
         .status(400)
@@ -92,5 +103,15 @@ export const changePassControl = async (req, res) => {
     res.status(200).json({ msg: "Password Changed successfully !" });
   } catch (error) {
     res.status(500).json({ msg: "failed to Change password" });
+  }
+};
+
+export const getUserNames = async (req, res) => {
+  try {
+    const useNames = await User.distinct("username");
+    console.log(useNames)
+    res.status(200).json(useNames);
+  } catch (error) {
+    res.status(404).json("Service not available");
   }
 };

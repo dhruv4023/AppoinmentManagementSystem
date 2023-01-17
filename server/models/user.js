@@ -14,6 +14,13 @@ const userSchema = mongoose.Schema(
       min: 2,
       max: 50,
     },
+    username: {
+      type: String,
+      require: true,
+      min: 2,
+      max: 50,
+    },
+    about: { type: String },
     email: {
       type: String,
       require: true,
@@ -30,9 +37,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "",
     },
-    location: String,
-    occupation: String,
-    impressions: Number,
+    location: {
+      state: { type: String },
+      district: { type: String },
+      city: { type: String },
+      pincode: { type: String },
+    },
+    impressions: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

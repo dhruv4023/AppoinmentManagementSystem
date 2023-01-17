@@ -1,7 +1,7 @@
 import fs from "fs";
 export const renameAndMove = (userDir, oldPath) => {
   if (!fs.existsSync("public/"+userDir)) fs.mkdirSync("public/"+userDir);
-  console.log((userDir))
+  // console.log((userDir))
   const newPath =
     userDir +
     "/" +
@@ -10,7 +10,7 @@ export const renameAndMove = (userDir, oldPath) => {
     "_" +
     String(oldPath).replace(" ", "_");
   fs.renameSync("public/assets/" + oldPath, "public/"+newPath);
-  console.log(newPath)
+  // console.log(newPath)
   return newPath;
 };
 export const deleteFile = (filePath) => {
