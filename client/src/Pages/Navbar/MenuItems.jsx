@@ -72,7 +72,7 @@ const MenuItems = () => {
           >
             <MenuItem value={fullName}>
               <Tooltip title={fullName}>
-                <Button onClick={() => navigate(`/profile/${user?._id}`)} >
+                <Button onClick={() => navigate(`/profile/${user?.username}`)} >
                   <Typography>{fullName}</Typography>
                 </Button>
               </Tooltip>

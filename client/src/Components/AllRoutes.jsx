@@ -13,7 +13,7 @@ export const AllRoutes = () => {
       <Route path={"/about"} element={<AboutUs />} />
       <Route path={"/contact"} element={<ContactUsPage />} />
       <Route path={"/:page"} element={<LoginPage />} />
-      <Route path={"/profile/:userId"} element={<ProfilePage />}
+      <Route path={"/profile/:UID"} element={<ProfilePage />}
        />
     </Routes>
   );

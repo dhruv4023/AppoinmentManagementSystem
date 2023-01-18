@@ -1,10 +1,9 @@
-
-export const getUser = async (setUser, userId, token) => {
+export const getUser = async (setUser, UID, token) => {
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/user/get/${userId}`,
+    `${process.env.REACT_APP_SERVER}/user/get/${UID}`,
     {
       method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { "Content-Type": "application/json" },
     }
   );
   const data = await res.json();
@@ -61,7 +60,7 @@ export const getUser = async (setUser, userId, token) => {
 //   dispatch(setPosts({ posts: data }));
 // };
 
-// export 
+// export
 // const patchLike = async (loggedInUserId,token,dispatch,postId) => {
 //   const response = await fetch(
 //     `${process.env.REACT_APP_SERVER}/posts/${postId}/like`,

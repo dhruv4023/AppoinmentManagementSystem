@@ -109,7 +109,7 @@ export const changePassControl = async (req, res) => {
 export const getUserNames = async (req, res) => {
   try {
     const useNames = await User.distinct("username");
-    console.log(useNames)
+    // console.log(useNames)
     res.status(200).json(useNames);
   } catch (error) {
     res.status(404).json("Service not available");

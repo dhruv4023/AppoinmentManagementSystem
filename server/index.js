@@ -60,5 +60,9 @@ mongoose
 // // fs.mkdirSync('./xy')
 
 // import User from "./models/user.js";
-// console.log();
+// console.log(
+//   await User.findOne({
+//     $or: [{ _id: null }, { username:"pqr123" }],
+//   })
+// );
 // fs.rmSync('./xy/p1.jpeg')

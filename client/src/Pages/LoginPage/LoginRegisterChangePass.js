@@ -39,7 +39,7 @@ export const login = async (values, dispatch, setLogin, navigate) => {
 };
 // console.log(process.env.REACT_APP_SERVER);
 export const changePass = async (values) => {
-  console.log(values);
+  // console.log(values);
   const changePassResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/changepass`,
     {

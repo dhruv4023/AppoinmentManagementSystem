@@ -73,10 +73,12 @@ const Form = () => {
     setValues(!isLogin ? initialValuesLogin : initialValuesRegister);
   };
 
+  const [getUserNamesOnce, setGetUserNamesOnce] = useState(false);
   useEffect(() => {
-    // isRegister &&
-    getUserNames(setUserNames);
-  }, []);
+    // console.log("hello");
+    isRegister && getUserNames(setUserNames);
+  }, [getUserNamesOnce]);
+  // console.log(userNames)
   return (
     <form onSubmit={handleFormSubmit}>
       {isRegister && (
@@ -107,7 +109,6 @@ const Form = () => {
           name="email"
           sx={{ margin: "0.5rem", width: "100%" }}
         />
-
         <TextField
           required
           label="Password"
@@ -122,7 +123,7 @@ const Form = () => {
             <TextField
               required
               label="Username"
-              error={userNames.includes(values.username)}
+              error={userNames?.includes(values.username)}
               onChange={(e) => onChangehandle(e, "username")}
               value={values.username}
               name="username"
@@ -235,6 +236,7 @@ const Form = () => {
         <Typography
           onClick={() => {
             setPageType(isLogin ? "Register" : "Login");
+            setGetUserNamesOnce(true);
             resetForm();
           }}
           sx={{

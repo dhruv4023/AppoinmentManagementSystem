@@ -73,6 +73,10 @@ const EmailVerification = () => {
       setSendOtpBtnVal("again send in " + i);
     }, 1000);
   };
+  // useEffect(() => {
+  //   sendOtpBtn();
+  // }, [])
+  
   return (
     <>
       Email OTP Verification
