@@ -1,13 +1,11 @@
 export const getUser = async (setUser, UID, token) => {
-  const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/user/get/${UID}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const res = await fetch(`${process.env.REACT_APP_SERVER}/user/get/${UID}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   const data = await res.json();
   setUser(data);
+  return data;
 };
 
 // export const handlePost = async (

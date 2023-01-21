@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const appoinmentSchema = mongoose.Schema(
   {
-    userId: {
+    username: {
       type: String,
       require: true,
       min: 2,
@@ -14,7 +14,7 @@ const appoinmentSchema = mongoose.Schema(
       min: 2,
       max: 50,
     },
-    timeRage: String,
+    timeRange: String,
     location: {
       state: { type: String },
       district: { type: String },

@@ -1,0 +1,45 @@
+import { setServiceData } from "state";
+export const sendServiceData = async (data) => {
+  const { token, values, dispatch } = data;
+  // console.log(values);
+  const res = await fetch(`${process.env.REACT_APP_SERVER}/appointment/post`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  });
+  const servData = await res.json();
+  if (!servData.mess) {
+    dispatch(
+      setServiceData({
+        serviceData: servData,
+      })
+    );
+  } else {
+    alert(servData.mess);
+  }
+};
+export const getAllServices = async (token, dispatch, username) => {
+  const res = await fetch(
+    `${process.env.REACT_APP_SERVER}/appointment/get/${username}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const servData = await res.json();
+  // console.log(servData)
+  if (!servData.mess) {
+    dispatch(
+      setServiceData({
+        serviceData: servData,
+      })
+    );
+  } else {
+    alert(servData.mess);
+  }
+};

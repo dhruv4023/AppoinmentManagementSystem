@@ -10,9 +10,9 @@ export const AllRoutes = () => {
     <Routes>
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/login"} element={<LoginPage />} />
+      <Route path={"/:page"} element={<LoginPage />} />
       <Route path={"/about"} element={<AboutUs />} />
       <Route path={"/contact"} element={<ContactUsPage />} />
-      <Route path={"/:page"} element={<LoginPage />} />
       <Route path={"/profile/:UID"} element={<ProfilePage />}
        />
     </Routes>

@@ -9,16 +9,11 @@ body,
   font-family: "Rubik", sans-serif;
 }
 
-.x{
-  color: #E6FBFF
-  #CCF7FE
-  #99EEFD
-  #66E6FC
-  #33DDFB
-  #00D5FA
-  #00A0BC
-  #006B7D
-  #00353F
-  #001519;
-  
+.x {
+  color: #e6fbff #ccf7fe #99eefd #66e6fc #33ddfb #00d5fa #00a0bc #006b7d #00353f
+    #001519;
+}
+::-webkit-scrollbar {
+  position: absolute;
+  width: 1px;
 }

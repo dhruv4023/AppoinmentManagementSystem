@@ -9,15 +9,11 @@ import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import UserImg from "Components/UserImg";
 import WidgetWrapper from "Components/WidgetWrapper";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 const UserWidgets = ({ user }) => {
   const theme = useTheme();
-  // console.log(palette)
-  // console.log(picturePath);
-  // const navigate = useNavigate();
-  const token = useSelector((s) => s.token);
   const dark = theme.palette.neutral.dark;
   const medium = theme.palette.neutral.medium;
   const main = theme.palette.neutral.main;

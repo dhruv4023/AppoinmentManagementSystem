@@ -24,6 +24,11 @@ const HomePage = () => {
         <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
         <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
         <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
+        <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
+        <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
+        <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
+        <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
+        <Box height={200} width={200} m={"0.2rem"} sx={{ "border": "1px solid red" }}>        </Box>
       </FlexEvenly>
     </>
   )
