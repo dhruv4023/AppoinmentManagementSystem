@@ -8,7 +8,7 @@ import FlexBetween from "Components/FlexBetween";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import FlexEvenly from "Components/FlexEvenly";
 import { getUserNames, login } from "./LoginRegisterChangePass";
-const Form = () => {
+const Form = ({ pgType, editProfile, user }) => {
   // const RegisterSchema = yup.object().shape({
   //   firstName: yup.string(), //.required("required"),
   //   lastName: yup.string(), //.required("required"),
@@ -31,10 +31,7 @@ const Form = () => {
     about: "",
     password: "",
     picPath: "",
-    state: "Gujarat",
-    district: "",
-    city: "",
-    pincode: "",
+    location: { state: "Gujarat", district: "", city: "", pincode: "" },
   };
   const initialValuesLogin = {
     email: "",
@@ -42,24 +39,26 @@ const Form = () => {
   };
   const { palette } = useTheme();
 
-  const [pageType, setPageType] = useState("Login");
+  const [pageType, setPageType] = useState(pgType);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
 
   const [values, setValues] = useState(
-    isLogin ? initialValuesLogin : initialValuesRegister
+    isLogin ? initialValuesLogin : editProfile ? user : initialValuesRegister
   );
   const onChangehandle = (e, name) => {
     let tmpData = e.target === undefined ? e : e.target.value;
     let tmp = {};
+    console.log(name, e.target.value);
     for (let value in values)
       tmp[value] = value === name ? tmpData : values[value];
+    console.log(tmp,values["location.state"]);
     setValues(tmp);
   };
   // console.log(values)
-  const [userNames, setUserNames] = useState();
+  const [userNames, setUserNames] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) await login(values, dispatch, setLogin, navigate);
@@ -75,12 +74,11 @@ const Form = () => {
 
   const [getUserNamesOnce, setGetUserNamesOnce] = useState(false);
   useEffect(() => {
-    // console.log("hello");
-    isRegister && getUserNames(setUserNames);
+    isRegister && getUserNames(setUserNames, user);
   }, [getUserNamesOnce]);
-  // console.log(userNames)
+  console.log(values);
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
       {isRegister && (
         <FlexEvenly>
           <TextField
@@ -88,6 +86,7 @@ const Form = () => {
             label="First Name"
             onChange={(e) => onChangehandle(e, "firstName")}
             name="firstName"
+            value={values.firstName}
             sx={{ margin: "0.5rem", width: "100%" }}
           />
           <TextField
@@ -95,6 +94,7 @@ const Form = () => {
             label="Last Name"
             onChange={(e) => onChangehandle(e, "lastName")}
             name="lastName"
+            value={values.lastName}
             sx={{ margin: "0.5rem", width: "100%" }}
           />
         </FlexEvenly>
@@ -109,15 +109,17 @@ const Form = () => {
           name="email"
           sx={{ margin: "0.5rem", width: "100%" }}
         />
-        <TextField
-          required
-          label="Password"
-          type="password"
-          onChange={(e) => onChangehandle(e, "password")}
-          value={values.password}
-          name="password"
-          sx={{ margin: "0.5rem", width: "100%" }}
-        />
+        {!editProfile && (
+          <TextField
+            required
+            label="Password"
+            type="password"
+            onChange={(e) => onChangehandle(e, "password")}
+            value={values.password}
+            name="password"
+            sx={{ margin: "0.5rem", width: "100%" }}
+          />
+        )}
         {isRegister && (
           <>
             <TextField
@@ -184,18 +186,18 @@ const Form = () => {
             <TextField
               required
               label="State"
-              onChange={(e) => onChangehandle(e, "state")}
+              onChange={(e) => onChangehandle(e, "location.state")}
               name="state"
-              value={values.state}
+              value={values.location.state}
               disabled={true}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
             <TextField
               required
               label="District"
-              onChange={(e) => onChangehandle(e, "district")}
+              onChange={(e) => onChangehandle(e, "location.district")}
               name="district"
-              value={values.district}
+              value={values.location.district}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
           </FlexEvenly>
@@ -203,18 +205,18 @@ const Form = () => {
             <TextField
               required
               label="City"
-              onChange={(e) => onChangehandle(e, "city")}
+              onChange={(e) => onChangehandle(e, "location.city")}
               name="city"
-              value={values.city}
+              value={values.location.city}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
             <TextField
               required
               label="Pincode"
-              onChange={(e) => onChangehandle(e, "pincode")}
+              onChange={(e) => onChangehandle(e, "location.pincode")}
               name="pincode"
-              value={values.pincode}
-              sx={{ margin: "0.5rem", width: "100%" }}
+              value={values.location.pincode}
+              sx={{ width: "100%" }}
             />
           </FlexEvenly>
         </>
@@ -231,27 +233,29 @@ const Form = () => {
             "&:hover": { color: palette.primary.main },
           }}
         >
-          {isLogin ? "LOGIN" : "REGISTER"}
+          {isLogin ? "LOGIN" : editProfile ? "Save Changes" : "REGISTER"}
         </Button>
-        <Typography
-          onClick={() => {
-            setPageType(isLogin ? "Register" : "Login");
-            setGetUserNamesOnce(true);
-            resetForm();
-          }}
-          sx={{
-            textDecoration: "underline",
-            color: palette.primary.main,
-            "&:hover": {
-              cursor: "pointer",
-              color: palette.primary.light,
-            },
-          }}
-        >
-          {isLogin
-            ? "Don't have an account? Sign Up here."
-            : "Already have an account? Login here."}
-        </Typography>
+        {!editProfile && (
+          <Typography
+            onClick={() => {
+              setPageType(isLogin ? "Register" : "Login");
+              setGetUserNamesOnce(true);
+              resetForm();
+            }}
+            sx={{
+              textDecoration: "underline",
+              color: palette.primary.main,
+              "&:hover": {
+                cursor: "pointer",
+                color: palette.primary.light,
+              },
+            }}
+          >
+            {isLogin
+              ? "Don't have an account? Sign Up here."
+              : "Already have an account? Login here."}
+          </Typography>
+        )}{" "}
         {isLogin && (
           <Typography
             onClick={() => {

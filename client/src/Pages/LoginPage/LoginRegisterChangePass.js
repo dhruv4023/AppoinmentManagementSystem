@@ -52,11 +52,11 @@ export const changePass = async (values) => {
   alert(savedUser.msg);
 };
 
-export const getUserNames = async (setUserNames) => {
+export const getUserNames = async (setUserNames, user) => {
   const res = await fetch(`${process.env.REACT_APP_SERVER}/auth/usernames`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
   const data = await res.json();
-  setUserNames(data);
+  setUserNames(user ? data.filter((f) => f !== user.username) : data);
 };

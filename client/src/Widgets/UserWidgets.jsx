@@ -4,15 +4,14 @@ import {
   EditOutlined,
   LocationOnOutlined,
 } from "@mui/icons-material";
-import { Divider, Typography } from "@mui/material";
+import { Divider, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import UserImg from "Components/UserImg";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
-import { useSelector } from "react-redux";
 
-const UserWidgets = ({ user }) => {
+const UserWidgets = ({ user, admin,setEditProf }) => {
   const theme = useTheme();
   const dark = theme.palette.neutral.dark;
   const medium = theme.palette.neutral.medium;
@@ -50,8 +49,13 @@ const UserWidgets = ({ user }) => {
           </Typography>
           <Typography color={medium}>@{username}</Typography>
         </Box>
+        {admin && (
+          <IconButton onClick={() => setEditProf(true)}>
+            <EditOutlined />
+          </IconButton>
+        )}
       </FlexBetween>
-      <Box margin={"0 1rem"} display={"flex"} alignItems="center" >
+      <Box margin={"0 1rem"} display={"flex"} alignItems="center">
         <Typography color={medium}>{email}</Typography>
       </Box>
       <Divider />
@@ -85,7 +89,7 @@ const UserWidgets = ({ user }) => {
       </Box>
       <Divider />
       <Box>
-        <Typography fontSize={"1rem"} color={main} fontWeight="500" mb="1rem">
+        <Typography fontSize={"1rem"} color={main} fontWeight="500" my="0.7rem">
           Social Profiles
         </Typography>
         <FlexBetween gap={"1rem"} mb="0.5rem">
@@ -100,21 +104,6 @@ const UserWidgets = ({ user }) => {
               </Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined />
-        </FlexBetween>
-        <FlexBetween gap={"1rem"} mb="0.5rem">
-          <FlexBetween gap={"1rem"}>
-            <img src="../assets/linkedin.png" alt="twitter" />
-            <Box>
-              <Typography color={main} fontWeight={"500"}>
-                LinkedIn
-              </Typography>
-              <Typography color={medium} fontWeight={"500"}>
-                Social Network
-              </Typography>
-            </Box>
-          </FlexBetween>
-          <EditOutlined />
         </FlexBetween>
       </Box>
     </WidgetWrapper>

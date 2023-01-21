@@ -52,7 +52,7 @@ const MenuItems = () => {
       <Message sx={{ fontSize: "25px" }} />
       <Notifications sx={{ fontSize: "25px" }} />
       <Help sx={{ fontSize: "25px" }} />
-      {user ?
+      {user ? (
         <FormControl variant="standard" value={fullName}>
           <Select
             value={fullName}
@@ -72,22 +72,35 @@ const MenuItems = () => {
           >
             <MenuItem value={fullName}>
               <Tooltip title={fullName}>
-                <Button onClick={() => navigate(`/profile/${user?.username}`)} >
+                <Button onClick={() => navigate(`/profile/${user?.username}`)}>
                   <Typography>{fullName}</Typography>
                 </Button>
               </Tooltip>
             </MenuItem>
 
-            <MenuItem onClick={() => dispatch(setLogout())}>Log out</MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(setLogout());
+                navigate("/");
+              }}
+            >
+              Log out
+            </MenuItem>
           </Select>
         </FormControl>
-        : <>
-          <IconButton onClick={() => { navigate('/login') }}>
+      ) : (
+        <>
+          <IconButton
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
             <Tooltip title="login">
-              <LoginRounded sx={{ "cursor": "pointer" }} />
+              <LoginRounded sx={{ cursor: "pointer" }} />
             </Tooltip>
           </IconButton>
-        </>}
+        </>
+      )}
     </>
   );
 };

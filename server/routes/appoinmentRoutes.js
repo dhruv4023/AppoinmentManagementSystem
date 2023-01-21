@@ -14,7 +14,7 @@ const routes = express.Router();
 
 routes.post("/post", verifyToken, createService);
 
-routes.get("/get/:username", verifyToken, getAdminServices);
+routes.get("/get/:username", getAdminServices);
 // routes.get("/get/:UserId/posts", verifyToken, getUserPosts);
 // routes.patch("/:id/like", verifyToken, likePost);
 

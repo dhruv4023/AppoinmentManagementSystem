@@ -1,7 +1,6 @@
 import { useTheme } from "@emotion/react";
 import {
   Description,
-  Edit,
   EditOutlined,
   LocationOnOutlined,
   Timelapse,
@@ -10,19 +9,27 @@ import {
 import { Divider, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
-import FlexEvenly from "Components/FlexEvenly";
 import WidgetWrapper from "Components/WidgetWrapper";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllServices } from "./WidgetAdminServiceFun";
 
-const DisplayServicesWidget = ({ services, CrudServData, setCrudServData }) => {
-  // console.log(services.category)
+const DisplayServicesWidget = ({ user, CrudServData, setCrudServData }) => {
+  const dispatch = useDispatch();
+  // console.log(user)
+  useEffect(() => {
+    const username = user?.username;
+    getAllServices(dispatch, username);
+  }, [user,dispatch]);
+
+  const { serviceData } = useSelector((s) => s.services);
   const theme = useTheme();
-  const dark = theme.palette.neutral.dark;
   const medium = theme.palette.neutral.medium;
   const main = theme.palette.neutral.main;
+  // console.log(serviceData);
   return (
     <>
-      {services?.map((m) => {
+      {serviceData?.map((m) => {
         return (
           <WidgetWrapper key={m?._id} m={"0.5rem 0 0  0"}>
             <FlexBetween flexDirection={"column"}>
@@ -30,17 +37,19 @@ const DisplayServicesWidget = ({ services, CrudServData, setCrudServData }) => {
                 <Typography flexGrow={1} color={"primary"} variant="h3">
                   {m?.category}
                 </Typography>
-                <IconButton
-                  disabled={CrudServData.openForm}
-                  onClick={() => {
-                    setCrudServData({
-                      openForm: true,
-                      data: m,
-                    });
-                  }}
-                >
-                  <EditOutlined />
-                </IconButton>
+                {CrudServData && (
+                  <IconButton
+                    disabled={CrudServData.openForm}
+                    onClick={() => {
+                      setCrudServData({
+                        openForm: true,
+                        data: m,
+                      });
+                    }}
+                  >
+                    <EditOutlined />
+                  </IconButton>
+                )}
               </FlexBetween>
               <FlexBetween width={"100%"}>
                 <FlexBetween flexDirection={"column"} width={"50%"}>

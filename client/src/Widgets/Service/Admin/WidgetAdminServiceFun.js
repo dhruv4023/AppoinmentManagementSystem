@@ -21,13 +21,13 @@ export const sendServiceData = async (data) => {
     alert(servData.mess);
   }
 };
-export const getAllServices = async (token, dispatch, username) => {
+export const getAllServices = async (dispatch, username) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/get/${username}`,
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     }
   );

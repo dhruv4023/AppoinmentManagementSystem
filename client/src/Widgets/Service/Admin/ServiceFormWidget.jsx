@@ -11,7 +11,7 @@ import FlexBetween from "Components/FlexBetween";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendServiceData } from "./ServiceSubmit";
+import { sendServiceData } from "./WidgetAdminServiceFun";
 
 // const initialValues = {
 //   category: "",
@@ -30,10 +30,10 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
   const token = useSelector((s) => s.token);
   const { palette } = useTheme();
   const onChangehandle = (e, name) => {
-    let tmpData = e.target === undefined ? e : e.target.value;
+    // let tmpData = e.target === undefined ? e : e.target.value;
     let tmp = {};
     for (let value in values)
-      tmp[value] = value === name ? tmpData : values[value];
+      tmp[value] = value === name ? e.target.value : values[value];
     setValues(tmp);
   };
   const handleSubmit = (e) => {

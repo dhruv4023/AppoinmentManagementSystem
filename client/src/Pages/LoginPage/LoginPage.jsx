@@ -29,7 +29,7 @@ export const LoginPage = () => {
       >
         {page === "verifyemail" && <EmailVerification />}
         {page === "changepass" && <ChangePass />}
-        {!page && <Form />}
+        {!page && <Form  pgType={"Login"}/>}
       </Box>
     </Box>
   );

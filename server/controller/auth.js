@@ -15,10 +15,7 @@ export const registerControl = async (req, res) => {
       picturePath,
       friends,
       about,
-      state,
-      district,
-      city,
-      pincode,
+      location,
     } = req.body;
 
     const user = await User.findOne({ email: email });
@@ -37,12 +34,7 @@ export const registerControl = async (req, res) => {
       password: passwordHash,
       picPath: picturePath,
       friends: friends,
-      location: {
-        state: state,
-        district: district,
-        city: city,
-        pincode: pincode,
-      },
+      location: location,
     });
     const picPath = renameAndMove(
       "user/" + newUser.firstName + newUser._id,

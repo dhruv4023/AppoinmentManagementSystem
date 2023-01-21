@@ -3,7 +3,8 @@ import { Box } from "@mui/system";
 import { Navbar } from "Pages/Navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import EditProfileWidget from "Widgets/EditProfileWidget";
 import ServiceWidgets from "Widgets/Service/Admin/ServiceWidgets";
 import ServiceUserSide from "Widgets/Service/User/ServiceUserSide";
 import UserWidgets from "Widgets/UserWidgets";
@@ -17,9 +18,11 @@ export const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   useEffect(() => {
     getUser(setUser, UID, token);
-  }, []);
+  }, [UID, token]);
 
-  // console.log(user, admin);
+  // console.log(admin?._id === user?._id, user, admin);
+  const [editProf, setEditProf] = useState(false);
+  // console.log(editProf)
   return (
     <>
       <Box>
@@ -32,18 +35,30 @@ export const ProfilePage = () => {
           justifyContent="center"
         >
           <Box flexBasis={isNonMobileScreens ? "30%" : undefined}>
-            <UserWidgets UID={UID} user={admin ? admin : user} />
+            <UserWidgets
+              setEditProf={setEditProf}
+              user={admin?.username === UID ? admin : user}
+              admin={admin?.username === UID}
+            />
             <Box m="1rem 0" />
           </Box>
           <Box
             flexBasis={isNonMobileScreens ? "60%" : undefined}
             mt={isNonMobileScreens ? undefined : "2rem"}
           >
-            {admin?._id === user?._id ? (
-              <ServiceWidgets user={admin} />
+            {editProf ? (
+              <>
+                <EditProfileWidget setEditProf={setEditProf} user={admin} />
+              </>
             ) : (
               <>
-                <ServiceUserSide user={user} />
+                {admin?._id === user?._id && user ? (
+                  <>
+                    <ServiceWidgets user={admin} />
+                  </>
+                ) : (
+                  <>{user && <ServiceUserSide user={user} />}</>
+                )}
               </>
             )}
           </Box>
