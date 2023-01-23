@@ -24,3 +24,40 @@ const App = () => {
 };
 
 export default App;
+
+// import React, { useState } from "react";
+
+// const App = () => {
+//   const inis = {
+//     x: "",
+//     y: {
+//       a: "",
+//       b: "",
+//     },
+//   };
+//   const [first, setFirst] = useState(inis);
+//   const changeHanlde = (e, name) => {
+//     const cpy = first;
+//     changeValObj(cpy,name)
+//     console.log("hello");
+//     setFirst(cpy);
+//   };
+//   const changeValObj = (old,ky) => {
+//     Object.keys(old).forEach((e) => {
+//       if (typeof old[e] === "object") changeValObj(old[e],ky);
+//       else {
+//         if (e === ky) old[e] += 5;
+//         console.log(e,ky,typeof old[e]);
+//       }
+//     });
+//   };
+//   return (
+//     <div>
+//       <input onChange={(e) => changeHanlde(e, "x")} />
+//       <input onChange={(e) => changeHanlde(e, "a")} />
+//       <input onChange={(e) => changeHanlde(e, "b")} />
+//     </div>
+//   );
+// };
+
+// export default App;

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
 import WidgetWrapper from "Components/WidgetWrapper";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendServiceData } from "./WidgetAdminServiceFun";
 
@@ -43,6 +43,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     }
     // setValues(CrudServData.data);
   };
+  console.log(values);
   return (
     <WidgetWrapper>
       <FlexBetween>
@@ -94,18 +95,18 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <TextField
               required
               label="State"
-              onChange={(e) => onChangehandle(e, "location.state")}
+              onChange={(e) => onChangehandle(e, "state")}
               name="state"
-              value={values.location.state}
+              value={values.state}
               disabled={true}
               sx={{ width: "100%" }}
             />
             <TextField
               required
               label="District"
-              onChange={(e) => onChangehandle(e, "location.district")}
+              onChange={(e) => onChangehandle(e, "district")}
               name="district"
-              value={values.location.district}
+              value={values.district}
               sx={{ width: "100%" }}
             />
           </FlexBetween>
@@ -113,17 +114,17 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <TextField
               required
               label="City"
-              onChange={(e) => onChangehandle(e, "location.city")}
+              onChange={(e) => onChangehandle(e, "city")}
               name="city"
-              value={values.location.city}
+              value={values.city}
               sx={{ width: "100%" }}
             />
             <TextField
               required
               label="Pincode"
-              onChange={(e) => onChangehandle(e, "location.pincode")}
+              onChange={(e) => onChangehandle(e, "pincode")}
               name="pincode"
-              value={values.location.pincode}
+              value={values.pincode}
               sx={{ width: "100%" }}
             />
           </FlexBetween>

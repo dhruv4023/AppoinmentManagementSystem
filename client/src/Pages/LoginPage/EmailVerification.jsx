@@ -5,9 +5,12 @@ import FlexEvenly from "Components/FlexEvenly";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { register } from "./LoginRegisterChangePass";
+import { useDispatch } from "react-redux";
 const EmailVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const values = location.state;
   const { palette } = useTheme();
   useEffect(() => {
@@ -25,9 +28,11 @@ const EmailVerification = () => {
     // console.log(otp, sentOtp);
     if (String(otp).trim() === String(sentOtp)) {
       if (values?.page === "changepass") {
-        navigate("/changepass", { state: { email: values.email, page: "makenewpass" } })
+        navigate("/changepass", {
+          state: { email: values.email, page: "makenewpass" },
+        });
       } else {
-        register(values)
+        register(values, dispatch, navigate)
           ? alert("Registered Successfully")
           : alert("Registration Failed");
         navigate("/login", { state: null });
@@ -76,7 +81,7 @@ const EmailVerification = () => {
   // useEffect(() => {
   //   sendOtpBtn();
   // }, [])
-  
+
   return (
     <>
       Email OTP Verification
@@ -103,8 +108,7 @@ const EmailVerification = () => {
             Verify
           </Button>
         </form>
-        <Button
-          disabled={disableBtn} onClick={() => sendOtpBtn()}>
+        <Button disabled={disableBtn} onClick={() => sendOtpBtn()}>
           {sendOtpBtnVal}
         </Button>
       </FlexEvenly>

@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema(
       min: 2,
       max: 50,
     },
-    username: { type: String },
+    about: { type: String },
     email: {
       type: String,
       require: true,

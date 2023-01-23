@@ -65,3 +65,33 @@ mongoose
 //   })
 // );
 // fs.rmSync('./xy/p1.jpeg')
+
+// var old = {
+//   a: 1,
+//   b: {
+//     c: {
+//       e: 2,
+//     },
+//     d: 3,
+//   },
+//   f: 5,
+// };
+// const changeValObj=(old,kyVal)=>{
+//   let spl=kyVal.split('.')
+//   let ky=spl.pop()
+//   let fn="old"
+//   spl.forEach(e => {
+//     fn+=[e]
+//   });
+//   console.log(fn)
+// }
+// function updateUserData(old, keys, value) {
+//   var obj = old[keys[0]];
+//   for (var i = 1; i < keys.length - 1; i++) obj = obj[keys[i]];
+//   obj[keys[i]] = value;
+// }
+// updateUserData(old, ["b", "c", "e"], 9);
+// console.log(old);
+
+// await User.findByIdAndUpdate(newUser._id, { picPath: picPath });
+     

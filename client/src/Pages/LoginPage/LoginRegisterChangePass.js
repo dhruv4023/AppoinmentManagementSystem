@@ -1,9 +1,10 @@
+import { setLogin } from "state";
+
 export const register = async (values) => {
   const formData = new FormData();
   for (let value in values) {
     formData.append(value, values[value]);
   }
-  formData.append("picturePath", values.picPath.name);
   const savedUserResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/register`,
     {
@@ -37,7 +38,7 @@ export const login = async (values, dispatch, setLogin, navigate) => {
     alert(loggedIn.mess);
   }
 };
-// console.log(process.env.REACT_APP_SERVER);
+
 export const changePass = async (values) => {
   // console.log(values);
   const changePassResponse = await fetch(
@@ -52,11 +53,38 @@ export const changePass = async (values) => {
   alert(savedUser.msg);
 };
 
-export const getUserNames = async (setUserNames, user) => {
+// export const getUserNames = async (setUserNames, user) => {
+export const getUserNames = async (setUserNames) => {
   const res = await fetch(`${process.env.REACT_APP_SERVER}/auth/usernames`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
   const data = await res.json();
-  setUserNames(user ? data.filter((f) => f !== user.username) : data);
+  setUserNames(data);
+  // setUserNames(user ? data.filter((f) => f !== user.username) : data);
+};
+
+export const updateProfile = async (values, dispatch, token, navigate) => {
+  const formData = new FormData();
+  for (let value in values) {
+    formData.append(value, values[value]);
+  }
+  console.log(token, values);
+  const savedUserResponse = await fetch(
+    `${process.env.REACT_APP_SERVER}/auth/update/${values._id}`,
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    }
+  );
+  const savedUser = await savedUserResponse.json();
+  dispatch(
+    setLogin({
+      user: savedUser.user,
+      token: token,
+    })
+  );
+  navigate(`/profile/${savedUser.user.username}`);
+  return savedUser.email;
 };

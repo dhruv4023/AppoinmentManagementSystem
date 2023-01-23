@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Dropzone from "react-dropzone";
 import FlexBetween from "Components/FlexBetween";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import FlexEvenly from "Components/FlexEvenly";
-import { getUserNames, login } from "./LoginRegisterChangePass";
+import {
+  getUserNames,
+  login,
+  register,
+  updateProfile,
+} from "./LoginRegisterChangePass";
+import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 const Form = ({ pgType, editProfile, user }) => {
-  // const RegisterSchema = yup.object().shape({
-  //   firstName: yup.string(), //.required("required"),
-  //   lastName: yup.string(), //.required("required"),
-  //   email: yup.string().email("Invalid Email").required("required"),
-  //   password: yup.string().required("required"),
-  //   location: yup.string(), //.required("required"),
-  //   occupation: yup.string(), //.required("required"),
-  //   picPath: yup.string(), //.required("required"),
-  // });
-
-  // const LoginSchema = yup.object().shape({
-  //   email: yup.string().email("Invalid Email").required("required"),
-  //   password: yup.string().required("required"),
-  // });
   const initialValuesRegister = {
     username: "",
     firstName: "",
@@ -31,7 +30,10 @@ const Form = ({ pgType, editProfile, user }) => {
     about: "",
     password: "",
     picPath: "",
-    location: { state: "Gujarat", district: "", city: "", pincode: "" },
+    state: "Gujarat",
+    district: "",
+    city: "",
+    pincode: "",
   };
   const initialValuesLogin = {
     email: "",
@@ -49,23 +51,31 @@ const Form = ({ pgType, editProfile, user }) => {
     isLogin ? initialValuesLogin : editProfile ? user : initialValuesRegister
   );
   const onChangehandle = (e, name) => {
-    let tmpData = e.target === undefined ? e : e.target.value;
+    let tmpData = e.target.value;
     let tmp = {};
-    console.log(name, e.target.value);
     for (let value in values)
       tmp[value] = value === name ? tmpData : values[value];
-    console.log(tmp,values["location.state"]);
     setValues(tmp);
   };
-  // console.log(values)
+  const imgChangeHandl = (fl, name) => {
+    let tmp = values;
+    tmp[name] = fl;
+    setValues(tmp);
+  };
+  const token = useSelector((s) => s.token);
+  // console.log(token)
+  // console.log(values);
   const [userNames, setUserNames] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) await login(values, dispatch, setLogin, navigate);
-    if (isRegister) {
-      if (userNames.includes(values.username))
-        alert("Plz Select Unique Username");
-      else navigate("/verifyemail", { state: values });
+    else if (isRegister && !editProfile) {
+      register(values);
+      // if (userNames.includes(values.username))
+      //   alert("Plz Select Unique Username");
+      // else navigate("/verifyemail", { state: values });
+    } else if (editProfile) {
+      updateProfile(values, dispatch, token, navigate);
     }
   };
   const resetForm = () => {
@@ -76,7 +86,7 @@ const Form = ({ pgType, editProfile, user }) => {
   useEffect(() => {
     isRegister && getUserNames(setUserNames, user);
   }, [getUserNamesOnce]);
-  console.log(values);
+  const [addPic, setAddPic] = useState(false);
   return (
     <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
       {isRegister && (
@@ -123,9 +133,10 @@ const Form = ({ pgType, editProfile, user }) => {
         {isRegister && (
           <>
             <TextField
+              disabled={editProfile} 
               required
               label="Username"
-              error={userNames?.includes(values.username)}
+              error={userNames?.includes(values.username) && !editProfile}
               onChange={(e) => onChangehandle(e, "username")}
               value={values.username}
               name="username"
@@ -140,42 +151,59 @@ const Form = ({ pgType, editProfile, user }) => {
               value={values.about}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
-            <Box
-              border={`2px solid ${palette.neutral.medium}`}
-              borderRadius="5px"
-              width={"100%"}
-              p="1rem"
-              margin={"0.5rem"}
-            >
-              <Dropzone
-                acceptedFiles=".jpg,.jpeg,.png"
-                multiple={false}
-                onDrop={(acceptedFiles) => {
-                  onChangehandle(acceptedFiles[0], "picPath");
+            <FlexBetween width={"100%"}>
+              <IconButton
+                onClick={() => {
+                  setAddPic(!addPic);
+                  imgChangeHandl("", "picPath");
                 }}
               >
-                {({ getRootProps, getInputProps }) => (
-                  <Box
-                    {...getRootProps()}
-                    border={`1px dashed ${palette.primary.main}`}
-                    textAlign="center"
-                    sx={{ "&:hover": { cursor: "pointer" } }}
-                  >
-                    <input {...getInputProps()} />
-                    {values?.picPath === "" ? (
-                      <p>Add Picture Here</p>
-                    ) : (
-                      <FlexBetween>
-                        <Typography padding={"0.5rem "}>
-                          {values.picPath.name}
-                        </Typography>
-                        <EditOutlinedIcon />
-                      </FlexBetween>
-                    )}
-                  </Box>
-                )}
-              </Dropzone>
-            </Box>
+                {addPic ? <CheckBox /> : <CheckBoxOutlineBlank />}
+              </IconButton>
+              <Typography flexGrow={"1"}>
+                {addPic
+                  ? "click to off Picture Option"
+                  : "click to on Picture Option"}
+              </Typography>
+            </FlexBetween>
+            {addPic && (
+              <Box
+                border={`2px solid ${palette.neutral.medium}`}
+                borderRadius="5px"
+                width={"100%"}
+                p="1rem"
+                margin={"0.5rem"}
+              >
+                <Dropzone
+                  acceptedFiles=".jpg,.jpeg,.png"
+                  multiple={false}
+                  onDrop={(acceptedFiles) => {
+                    imgChangeHandl(acceptedFiles[0], "picPath");
+                  }}
+                >
+                  {({ getRootProps, getInputProps }) => (
+                    <Box
+                      {...getRootProps()}
+                      border={`1px dashed ${palette.primary.main}`}
+                      textAlign="center"
+                      sx={{ "&:hover": { cursor: "pointer" } }}
+                    >
+                      <input {...getInputProps()} />
+                      {values?.picPath === "" ? (
+                        <p>Add Picture Here</p>
+                      ) : (
+                        <FlexBetween>
+                          <Typography padding={"0.5rem "}>
+                            {values.picPath.name}
+                          </Typography>
+                          <EditOutlinedIcon />
+                        </FlexBetween>
+                      )}
+                    </Box>
+                  )}
+                </Dropzone>
+              </Box>
+            )}
           </>
         )}
       </FlexEvenly>
@@ -186,18 +214,18 @@ const Form = ({ pgType, editProfile, user }) => {
             <TextField
               required
               label="State"
-              onChange={(e) => onChangehandle(e, "location.state")}
+              onChange={(e) => onChangehandle(e, "state")}
               name="state"
-              value={values.location.state}
+              value={values.state}
               disabled={true}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
             <TextField
               required
               label="District"
-              onChange={(e) => onChangehandle(e, "location.district")}
+              onChange={(e) => onChangehandle(e, "district")}
               name="district"
-              value={values.location.district}
+              value={values.district}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
           </FlexEvenly>
@@ -205,17 +233,17 @@ const Form = ({ pgType, editProfile, user }) => {
             <TextField
               required
               label="City"
-              onChange={(e) => onChangehandle(e, "location.city")}
+              onChange={(e) => onChangehandle(e, "city")}
               name="city"
-              value={values.location.city}
+              value={values.city}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
             <TextField
               required
               label="Pincode"
-              onChange={(e) => onChangehandle(e, "location.pincode")}
+              onChange={(e) => onChangehandle(e, "pincode")}
               name="pincode"
-              value={values.location.pincode}
+              value={values.pincode}
               sx={{ width: "100%" }}
             />
           </FlexEvenly>

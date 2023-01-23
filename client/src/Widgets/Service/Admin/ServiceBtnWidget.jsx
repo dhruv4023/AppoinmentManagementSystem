@@ -13,12 +13,10 @@ const ServiceBtnWidget = ({ setCrudServData, CrudServData, user }) => {
     timeRange: "",
     description: "",
     username: user.username,
-    location: {
-      state: user.location.state,
-      district: user.location.district,
-      city: user.location.city,
-      pincode: user.location.pincode,
-    },
+    state: user.location.state,
+    district: user.location.district,
+    city: user.location.city,
+    pincode: user.location.pincode,
   };
   return (
     <WidgetWrapper m={"0 0 .5rem 0"}>

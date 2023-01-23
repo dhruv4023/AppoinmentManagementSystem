@@ -3,8 +3,23 @@ import User from "../models/user.js";
 import mongoose from "mongoose";
 export const createService = async (req, res) => {
   try {
-    const { _id, username, category, timeRange, location, description } =
-      req.body;
+    const {
+      _id,
+      username,
+      category,
+      timeRange,
+      state,
+      district,
+      city,
+      pincode,
+      description,
+    } = req.body;
+    const location = {
+      state: state,
+      district: district,
+      city: city,
+      pincode: pincode,
+    };
     // console.log(req.body)
     // console.log(mongoose.isValidObjectId(_id))
     if (mongoose.isValidObjectId(_id)) {
@@ -14,7 +29,7 @@ export const createService = async (req, res) => {
       const arr = appointmentdt.filter(
         (f) =>
           (f._id.equals(_id) && f.category === category) ||
-          (f.category !== category)
+          f.category !== category
       );
       if (arr.length !== appointmentdt.length) {
         return res.status(400).json({

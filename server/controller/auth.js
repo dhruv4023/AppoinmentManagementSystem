@@ -5,6 +5,7 @@ import { deleteFile, renameAndMove } from "../helper/fileDirOperations.js";
 /*REGISTER USER*/
 export const registerControl = async (req, res) => {
   // console.log();
+  const _file = req.file;
   try {
     const {
       firstName,
@@ -12,15 +13,22 @@ export const registerControl = async (req, res) => {
       username,
       email,
       password,
-      picturePath,
       friends,
       about,
-      location,
+      state,
+      district,
+      city,
+      pincode,
     } = req.body;
-
+    const location = {
+      state,
+      district,
+      city,
+      pincode,
+    };
     const user = await User.findOne({ email: email });
     if (user) {
-      deleteFile("public/assets/" + req.body.picturePath);
+      _file && deleteFile(_file.path);
       return res.status(400).json("user already exist !");
     }
     const salt = await bcrypt.genSalt();
@@ -32,21 +40,22 @@ export const registerControl = async (req, res) => {
       email: email,
       about: about,
       password: passwordHash,
-      picPath: picturePath,
       friends: friends,
       location: location,
     });
-    const picPath = renameAndMove(
-      "user/" + newUser.firstName + newUser._id,
-      picturePath
-    );
     const savedUser = await newUser.save();
-    await User.findByIdAndUpdate(newUser._id, {
-      $set: { picPath: picPath },
-    });
+    if (_file) {
+      const picPath = renameAndMove(
+        "user/" +  newUser._id,
+        _file.originalname
+      );
+      await User.findByIdAndUpdate(newUser._id, {
+        $set: { picPath: picPath },
+      });
+    }
     res.status(200).json(savedUser);
   } catch (error) {
-    deleteFile("public/assets/" + req.body.picturePath);
+    _file && deleteFile(_file.path);
     res.status(500).json("something went wrong");
   }
 };
@@ -105,5 +114,67 @@ export const getUserNames = async (req, res) => {
     res.status(200).json(useNames);
   } catch (error) {
     res.status(404).json("Service not available");
+  }
+};
+
+export const updateRegisteredData = async (req, res) => {
+  // console.log();
+  const _file = req.file;
+  try {
+    const { id: _id } = req.params;
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      friends,
+      about,
+      state,
+      district,
+      city,
+      pincode,
+    } = req.body;
+    const location = {
+      state,
+      district,
+      city,
+      pincode,
+    };
+    console.log(req.file);
+    const user = await User.findById(_id);
+    if (user.email !== email && (await User.findOne({ email: email }))) {
+      _file && deleteFile(_file.path);
+      return res.status(400).json("user already exist !");
+    }
+    await User.findByIdAndUpdate(_id, {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        about: about,
+        friends: friends,
+        location: location,
+      },
+    });
+    if (_file) {
+      try {
+        deleteFile("public/"+user.picPath);
+      } catch (error) {
+      }
+      // console.log(user.picPath)
+      const picPath = renameAndMove(
+        "user/" +  _id,
+        _file.originalname
+      );
+      await User.findByIdAndUpdate(_id, {
+        $set: { picPath: picPath },
+      });
+    }
+    const userDt=await User.findById(_id)
+    res.status(200).json({user:userDt});
+  } catch (error) {
+    _file && deleteFile(_file.path);
+    res.status(500).json("something went wrong");
   }
 };

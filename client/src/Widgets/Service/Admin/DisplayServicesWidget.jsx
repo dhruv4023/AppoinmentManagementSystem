@@ -6,27 +6,42 @@ import {
   Timelapse,
   WorkOutline,
 } from "@mui/icons-material";
-import { Divider, IconButton, Typography } from "@mui/material";
+import { Button, Divider, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { getAllServices } from "./WidgetAdminServiceFun";
 
 const DisplayServicesWidget = ({ user, CrudServData, setCrudServData }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log(user)
   useEffect(() => {
     const username = user?.username;
     getAllServices(dispatch, username);
-  }, [user,dispatch]);
+  }, [user, dispatch]);
 
   const { serviceData } = useSelector((s) => s.services);
   const theme = useTheme();
   const medium = theme.palette.neutral.medium;
   const main = theme.palette.neutral.main;
-  // console.log(serviceData);
+
+  const edtDt = (m) => {
+    return {
+      _id: m._id,
+      category: m.category,
+      description: m.description,
+      timeRange: m.timeRange,
+      username: m.username,
+      state: m.location.state,
+      district: m.location.district,
+      city: m.location.city,
+      pincode: m.location.pincode,
+    };
+  };
   return (
     <>
       {serviceData?.map((m) => {
@@ -34,16 +49,19 @@ const DisplayServicesWidget = ({ user, CrudServData, setCrudServData }) => {
           <WidgetWrapper key={m?._id} m={"0.5rem 0 0  0"}>
             <FlexBetween flexDirection={"column"}>
               <FlexBetween width={"100%"}>
-                <Typography flexGrow={1} color={"primary"} variant="h3">
-                  {m?.category}
-                </Typography>
+                <Button onClick={()=> navigate(`/service/${m.username}/${m.category}`)}>
+                  
+                  <Typography flexGrow={1} color={"primary"} variant="h3">
+                    {m?.category}
+                  </Typography>
+                </Button>
                 {CrudServData && (
                   <IconButton
                     disabled={CrudServData.openForm}
                     onClick={() => {
                       setCrudServData({
                         openForm: true,
-                        data: m,
+                        data: edtDt(m),
                       });
                     }}
                   >

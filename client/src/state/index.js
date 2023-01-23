@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
   mode: "light",
   user: null,
@@ -21,7 +20,7 @@ export const authState = createSlice({
     setLogout: (state) => {
       state.user = null;
       state.token = null;
-      state.services=[]
+      state.services = [];
     },
     setServiceData: (state, action) => {
       state.services = action.payload;
@@ -29,6 +28,10 @@ export const authState = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setServiceData } =
-  authState.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setServiceData,
+} = authState.actions;
 export default authState.reducer;
