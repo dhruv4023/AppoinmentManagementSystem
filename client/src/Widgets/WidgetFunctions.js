@@ -1,4 +1,4 @@
-export const getUser = async (setUser, UID, token) => {
+export const getUser = async (setUser, UID) => {
   const res = await fetch(`${process.env.REACT_APP_SERVER}/user/get/${UID}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },

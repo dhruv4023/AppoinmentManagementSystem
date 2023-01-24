@@ -10,19 +10,18 @@ import { Button, Divider, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import WidgetWrapper from "Components/WidgetWrapper";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getAllServices } from "./WidgetAdminServiceFun";
+import React from "react";
+import {  useSelector } from "react-redux";
+import {  useNavigate } from "react-router-dom";
 
 const DisplayServicesWidget = ({ user, CrudServData, setCrudServData }) => {
-  const dispatch = useDispatch();
+ 
   const navigate = useNavigate();
   // console.log(user)
-  useEffect(() => {
-    const username = user?.username;
-    getAllServices(dispatch, username);
-  }, [user, dispatch]);
+  // useEffect(() => {
+  //   const username = user?.username;
+  //   getAllServices(dispatch, username);
+  // }, [user, dispatch]);
 
   const { serviceData } = useSelector((s) => s.services);
   const theme = useTheme();
@@ -49,8 +48,7 @@ const DisplayServicesWidget = ({ user, CrudServData, setCrudServData }) => {
           <WidgetWrapper key={m?._id} m={"0.5rem 0 0  0"}>
             <FlexBetween flexDirection={"column"}>
               <FlexBetween width={"100%"}>
-                <Button onClick={()=> navigate(`/service/${m.username}/${m.category}`)}>
-                  
+                <Button onClick={()=> navigate(`/service/${m.username}/${m.category}`)}>                   
                   <Typography flexGrow={1} color={"primary"} variant="h3">
                     {m?.category}
                   </Typography>

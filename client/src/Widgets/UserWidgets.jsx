@@ -41,7 +41,7 @@ const UserWidgets = ({ user, admin,setEditProf }) => {
             sx={{
               "&:hover": {
                 cursor: "pointer",
-                color: theme.palette.primary.light,
+                // color: theme.palette.primary.light,
               },
             }}
           >

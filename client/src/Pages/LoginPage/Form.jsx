@@ -84,7 +84,7 @@ const Form = ({ pgType, editProfile, user }) => {
 
   const [getUserNamesOnce, setGetUserNamesOnce] = useState(false);
   useEffect(() => {
-    isRegister && getUserNames(setUserNames, user);
+    !editProfile && isRegister && getUserNames(setUserNames);
   }, [getUserNamesOnce]);
   const [addPic, setAddPic] = useState(false);
   return (
