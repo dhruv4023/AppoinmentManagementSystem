@@ -21,6 +21,7 @@ export const sendServiceData = async (data) => {
     alert(servData.mess);
   }
 };
+
 export const getAllServices = async (dispatch, username) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/get/${username}`,

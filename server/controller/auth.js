@@ -140,7 +140,7 @@ export const updateRegisteredData = async (req, res) => {
       city,
       pincode,
     };
-    console.log(req.file);
+    // console.log(req.file);
     const user = await User.findById(_id);
     if (user.email !== email && (await User.findOne({ email: email }))) {
       _file && deleteFile(_file.path);

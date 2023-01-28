@@ -1,6 +1,6 @@
 import AboutUs from "Pages/AboutUs/AboutUs";
 import ContactUsPage from "Pages/ContactUs/ContactUsPage";
-import DashBoardAndUserView from "Pages/DashBoardAndUserView/DashBoardAndUserView";
+import DashBoardAndUserView from "Pages/DashBoardAndBooking/DashBoardAndBooking";
 import HomePage from "Pages/HomePage/HomePage";
 import { LoginPage } from "Pages/LoginPage/LoginPage";
 import { ProfilePage } from "Pages/ProfilePage/ProfilePage";

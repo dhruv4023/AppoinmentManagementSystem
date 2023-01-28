@@ -14,7 +14,13 @@ const appoinmentSchema = mongoose.Schema(
       min: 2,
       max: 50,
     },
-    timeRange: String,
+    serviceName: {
+      type: String,
+      max: 30,
+    },
+    serviceTime: { Start: String, End: String },
+    breakTime: { Start: String, End: String },
+    appoinmentTime: String,
     location: {
       state: { type: String },
       district: { type: String },
@@ -22,13 +28,16 @@ const appoinmentSchema = mongoose.Schema(
       pincode: { type: String },
     },
     description: String,
-    AppoinmentList: {
-      name: { type: String },
-      email: { type: String },
-      contactNumber: { type: String },
-      dateAndTime: { type: String },
-      message: { type: String },
-    },
+    AppoinmentList: [
+      {
+        name: { type: String },
+        email: { type: String },
+        contactNumber: { type: String },
+        dateTime: { type: String },
+        message: { type: String },
+        bookedOn: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true }
 );

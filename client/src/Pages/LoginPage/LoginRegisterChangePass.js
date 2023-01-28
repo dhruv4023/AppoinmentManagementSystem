@@ -69,7 +69,7 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
   for (let value in values) {
     formData.append(value, values[value]);
   }
-  console.log(token, values);
+  // console.log(token, values);
   const savedUserResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/update/${values._id}`,
     {
@@ -86,5 +86,4 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
     })
   );
   navigate(`/profile/${savedUser.user.username}`);
-  return savedUser.email;
 };

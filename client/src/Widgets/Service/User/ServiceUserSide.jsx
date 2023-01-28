@@ -1,5 +1,5 @@
 import React from "react";
-import DisplayServicesWidget from "../Admin/DisplayServicesWidget";
+import DisplayServicesWidget from "../Admin/DisplayService/DisplayServices";
 
 const ServiceUserSide = ({ user }) => {
   // const dispatch = useDispatch();

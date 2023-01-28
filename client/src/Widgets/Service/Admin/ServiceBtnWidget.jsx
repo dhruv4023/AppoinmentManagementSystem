@@ -1,16 +1,17 @@
-import {
-  AddOutlined,
-  CreateOutlined,
-  PlusOneOutlined,
-} from "@mui/icons-material";
-import { Button, IconButton, Typography } from "@mui/material";
+import { AddOutlined } from "@mui/icons-material";
+import { Button, Typography } from "@mui/material";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
 
 const ServiceBtnWidget = ({ setCrudServData, CrudServData, user }) => {
   const initialServiceData = {
     category: "",
-    timeRange: "",
+    serviceName: "",
+    serviceStartTime:"",
+    serviceEndTime:"",
+    breakStartTime:"",
+    breakEndTime:"",
+    appoinmentTime: "",
     description: "",
     username: user.username,
     state: user.location.state,

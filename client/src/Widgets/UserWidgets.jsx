@@ -3,6 +3,7 @@ import {
   AbcOutlined,
   EditOutlined,
   LocationOnOutlined,
+  Twitter,
 } from "@mui/icons-material";
 import { Divider, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -11,7 +12,7 @@ import UserImg from "Components/UserImg";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
 
-const UserWidgets = ({ user, admin,setEditProf }) => {
+const UserWidgets = ({ user, admin, setEditProf }) => {
   const theme = useTheme();
   const dark = theme.palette.neutral.dark;
   const medium = theme.palette.neutral.medium;
@@ -94,7 +95,7 @@ const UserWidgets = ({ user, admin,setEditProf }) => {
         </Typography>
         <FlexBetween gap={"1rem"} mb="0.5rem">
           <FlexBetween gap={"1rem"}>
-            <img src="../assets/twitter.png" alt="twitter" />
+            <Twitter />
             <Box>
               <Typography color={main} fontWeight={"500"}>
                 Twitter

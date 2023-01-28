@@ -1,18 +1,23 @@
 import Appoinment from "../models/appoinment.js";
-import User from "../models/user.js";
 import mongoose from "mongoose";
+import fixData from "./../public/FixData.json" assert { type: "json" };
 export const createService = async (req, res) => {
   try {
     const {
       _id,
       username,
       category,
-      timeRange,
+      appoinmentTime,
+      serviceStartTime,
+      serviceEndTime,
+      breakStartTime,
+      breakEndTime,
       state,
       district,
       city,
       pincode,
       description,
+      serviceName,
     } = req.body;
     const location = {
       state: state,
@@ -20,6 +25,15 @@ export const createService = async (req, res) => {
       city: city,
       pincode: pincode,
     };
+    const serviceTime = {
+      Start: serviceStartTime,
+      End: serviceEndTime,
+    };
+    const breakTime = {
+      Start: breakStartTime,
+      End: breakEndTime,
+    };
+
     // console.log(req.body)
     // console.log(mongoose.isValidObjectId(_id))
     if (mongoose.isValidObjectId(_id)) {
@@ -37,10 +51,13 @@ export const createService = async (req, res) => {
         });
       }
       await Appoinment.findByIdAndUpdate(_id, {
-        category: category,
-        timeRange: timeRange,
-        location: location,
-        description: description,
+        category,
+        serviceTime,
+        breakTime,
+        appoinmentTime,
+        location,
+        description,
+        serviceName,
       });
       const servData = await Appoinment.find({ username });
       res.status(200).json(servData);
@@ -60,16 +77,18 @@ export const createService = async (req, res) => {
       const newService = new Appoinment({
         username: username,
         category: category,
-        timeRange: timeRange,
+        serviceTime: serviceTime,
+        breakTime: breakTime,
+        appoinmentTime: appoinmentTime,
         location: location,
         description: description,
+        serviceName: serviceName,
         AppoinmentList: [],
       });
       // console.log(newService);
 
       await newService.save();
-      const servData = await Appoinment.find({ username });
-      res.status(200).json(servData);
+      returnServData({ username }, res);
     }
   } catch (error) {
     // console.log(error)
@@ -79,9 +98,37 @@ export const createService = async (req, res) => {
 
 export const getAdminServices = async (req, res) => {
   try {
-    const servData = await Appoinment.find(req.params);
+    returnServData(req.params, res);
+  } catch (error) {
+    res.status(409).json({ mess: "error" });
+  }
+};
+
+export const getServicesOnBookingPage = async (req, res) => {
+  // console.log(req.params);
+  try {
+    const servData = await Appoinment.findOne(req.params);
+    // console.log(servData);
     res.status(200).json(servData);
   } catch (error) {
     res.status(409).json({ mess: "error" });
   }
+};
+
+const returnServData = async (
+  searchKey,
+  res,
+  limit = fixData.category.length
+) => {
+  const servData = await Appoinment.find(searchKey, {
+    username: 1,
+    category: 1,
+    serviceTime: 1,
+    breakTime: 1,
+    appoinmentTime: 1,
+    location: 1,
+    description: 1,
+    serviceName: 1,
+  }).limit(limit);
+  res.status(200).json(servData);
 };

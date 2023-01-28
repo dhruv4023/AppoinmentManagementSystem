@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import DisplayServicesWidget from "./DisplayServicesWidget";
+import DisplayServicesWidget from "./DisplayService/DisplayServices";
 import ServiceBtnWidget from "./ServiceBtnWidget";
 import ServiceFormWidget from "./ServiceFormWidget";
 

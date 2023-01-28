@@ -4,8 +4,8 @@ import emailjs from "@emailjs/browser";
 import FlexEvenly from "Components/FlexEvenly";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { register } from "./LoginRegisterChangePass";
-import { useDispatch } from "react-redux";
+import { register, updateProfile } from "./LoginRegisterChangePass";
+import { useDispatch, useSelector } from "react-redux";
 const EmailVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const EmailVerification = () => {
   //   console.log(sentOTP);
   // };
   // console.log(values)
+  const token = useSelector((s) => s.token);
   const [otp, setOtp] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,11 +32,13 @@ const EmailVerification = () => {
         navigate("/changepass", {
           state: { email: values.email, page: "makenewpass" },
         });
-      } else {
+      } else if (!values._id) {
         register(values, dispatch, navigate)
           ? alert("Registered Successfully")
           : alert("Registration Failed");
         navigate("/login", { state: null });
+      } else {
+        updateProfile(values, dispatch, token, navigate);
       }
     } else {
       alert("Invalid OTP");

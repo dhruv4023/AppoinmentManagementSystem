@@ -51,10 +51,8 @@ const Form = ({ pgType, editProfile, user }) => {
     isLogin ? initialValuesLogin : editProfile ? user : initialValuesRegister
   );
   const onChangehandle = (e, name) => {
-    let tmpData = e.target.value;
-    let tmp = {};
-    for (let value in values)
-      tmp[value] = value === name ? tmpData : values[value];
+    let tmp = { ...values };
+    tmp[name] = e.target.value;
     setValues(tmp);
   };
   const imgChangeHandl = (fl, name) => {
@@ -69,14 +67,16 @@ const Form = ({ pgType, editProfile, user }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) await login(values, dispatch, setLogin, navigate);
-    else if (isRegister && !editProfile) {
-      register(values);
-      // if (userNames.includes(values.username))
-      //   alert("Plz Select Unique Username");
-      // else navigate("/verifyemail", { state: values });
-    } else if (editProfile) {
+    else if (userNames.includes(values.username))
+      alert("Plz Select Unique Username");
+    else if (editProfile && values.email === user.email) {
       updateProfile(values, dispatch, token, navigate);
-    }
+    } else navigate("/verifyemail", { state: values });
+    // else if (isRegister && !editProfile) {
+    //   register(values);
+    // } else if (editProfile) {
+    //   updateProfile(values, dispatch, token, navigate);
+    // }
   };
   const resetForm = () => {
     setValues(!isLogin ? initialValuesLogin : initialValuesRegister);
@@ -133,7 +133,7 @@ const Form = ({ pgType, editProfile, user }) => {
         {isRegister && (
           <>
             <TextField
-              disabled={editProfile} 
+              disabled={editProfile}
               required
               label="Username"
               error={userNames?.includes(values.username) && !editProfile}

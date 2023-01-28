@@ -1,11 +1,11 @@
-import WidgetWrapper from 'Components/WidgetWrapper'
+import { Box } from '@mui/material'
 import React from 'react'
 
 const DashBoardWidget = () => {
   return (
-    <WidgetWrapper>
+    <Box>
         DashBoardWidget
-    </WidgetWrapper>
+    </Box>
   )
 }
 

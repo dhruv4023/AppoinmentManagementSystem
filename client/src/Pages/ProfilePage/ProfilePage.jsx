@@ -59,26 +59,3 @@ export const ProfilePage = () => {
     </>
   );
 };
-{
-  /* <Box>
-<Navbar />
-<Box
-  width="100%"
-  padding="2rem 6%"
-  display={isNonMobileScreens ? "flex" : "block"}
-  gap="2rem"
-  justifyContent="center"
->
-  <Box flexBasis={isNonMobileScreens ? "30%" : undefined}>
-    
-    <Box m="1rem 0" />
-  </Box>
-  <Box
-    flexBasis={isNonMobileScreens ? "60%" : undefined}
-    mt={isNonMobileScreens ? undefined : "2rem"}
-  >
-   
-  </Box>
-</Box>
-</Box> */
-}

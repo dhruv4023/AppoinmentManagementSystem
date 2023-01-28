@@ -1,4 +1,4 @@
-import { CloseRounded, EditOutlined } from "@mui/icons-material";
+import { CloseRounded } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
 import WidgetWrapper from "Components/WidgetWrapper";
@@ -7,19 +7,19 @@ import React from "react";
 
 const EditProfileWidget = ({ user, setEditProf }) => {
   const userData = {
-    _id: "63c6b0de943e04026d1e7888",
-    about: "hiii",
-    email: "abc@m.c",
-    firstName: "abc",
-    lastName: "aa",
-    state: "Gujarat",
-    district: "a",
-    city: "b",
-    pincode: "147852",
+    _id: user._id,
+    about: user.about,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    state: user.location.state,
+    district: user.location.district,
+    city: user.location.city,
+    pincode: user.location.pincode,
     picPath: "",
-    username: "abc123",
+    username: user.username,
   };
-  // console.log(user);
+  console.log(user);
   return (
     <WidgetWrapper>
       <IconButton
