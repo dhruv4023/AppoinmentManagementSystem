@@ -42,4 +42,4 @@ const appoinmentSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("appoinments", appoinmentSchema);
+export default mongoose.model("appointments", appoinmentSchema);

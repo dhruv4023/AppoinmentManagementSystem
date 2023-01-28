@@ -1,4 +1,4 @@
-import Appoinment from "../models/appoinment.js";
+import Appoinment from "../models/appointment.js";
 import mongoose from "mongoose";
 import fixData from "./../public/FixData.json" assert { type: "json" };
 export const createService = async (req, res) => {
