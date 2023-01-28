@@ -20,7 +20,7 @@ const QRWidget = ({ link }) => {
       <QRCode
         size={256}
         style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-        value={link}
+        value={`${process.env.REACT_APP_QR_SRC_LINK}/${link}`}
         viewBox={`0 0 256 256`}
       />
     </WidgetWrapper>

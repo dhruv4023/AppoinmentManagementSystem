@@ -21,11 +21,16 @@ const DashBoardAndUserView = () => {
     getServDataDashBordAndBook(UID, SID, setServData);
     getUser(setUser, UID);
   }, [UID, SID, setServData]);
-  // console.log("servData");
+  console.log(SID,UID);
   return (
     <WidgetsOnPage
       navbar={<Navbar />}
-      leftComponent={ <><UserWidgets user={user} /><QRWidget link={"xyz"}/></>}
+      leftComponent={
+        <>
+          <UserWidgets user={user} />
+          <QRWidget link={`/service/${UID}/${SID}`} />
+        </>
+      }
       rightComponent={
         <>
           {servData && <DisplayServiceWidget servData={servData} />}
