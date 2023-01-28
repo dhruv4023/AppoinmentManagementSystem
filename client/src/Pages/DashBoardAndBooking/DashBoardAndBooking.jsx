@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BookAppointMentWidget from "Widgets/BookAppointment/BookAppointMentWidget";
 import DashBoardWidget from "Widgets/DashBoard/DashBoardWidget";
+import QRWidget from "Widgets/QRWidget";
 import DisplayServiceWidget from "Widgets/Service/Admin/DisplayService/DisplayServiceWidget";
 import UserWidgets from "Widgets/UserWidgets";
 import { getUser } from "Widgets/WidgetFunctions";
@@ -24,7 +25,7 @@ const DashBoardAndUserView = () => {
   return (
     <WidgetsOnPage
       navbar={<Navbar />}
-      leftComponent={<UserWidgets user={user} />}
+      leftComponent={ <><UserWidgets user={user} /><QRWidget link={"xyz"}/></>}
       rightComponent={
         <>
           {servData && <DisplayServiceWidget servData={servData} />}

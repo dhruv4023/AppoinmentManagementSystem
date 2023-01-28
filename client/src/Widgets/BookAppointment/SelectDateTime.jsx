@@ -9,9 +9,9 @@ import moment from "moment/moment";
 import { getBookedDtTm } from "./BookAppoinmentFun";
 // import Calender from "./Calender";
 
-const timeArray = (x, startTime, endTime) => {
-  const st = startTime.split(":");
-  const et = endTime.split(":");
+const timeArray = (x, startTim, endTim) => {
+  const st = startTim.split(":");
+  const et = endTim.split(":");
   var startTime = moment().utc().set({ hour: st[0], minute: st[1] });
   var endTime = moment().utc().set({ hour: et[0], minute: et[1] });
   var timeStops = [];
@@ -66,13 +66,14 @@ const SelectDateTime = ({ dateAndTime, setDateAndTime, servData }) => {
   console.log();
   return (
     <FlexBetween gap={"0.5rem"}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider  dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           displayStaticWrapperAs="desktop"
           openTo="day"
           minDate={minDate}
           maxDate={maxDate}
           value={date}
+          
           onChange={(newValue) => {
             setDate(newValue["$d"]);
           }}
