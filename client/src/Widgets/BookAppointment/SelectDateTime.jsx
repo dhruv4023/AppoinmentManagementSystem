@@ -63,9 +63,9 @@ const SelectDateTime = ({ dateAndTime, setDateAndTime, servData }) => {
         servData?.serviceTime?.End
       ),
     ].filter((f) => !bkd?.includes(f));
-  console.log();
+  // console.log();
   return (
-    <FlexBetween gap={"0.5rem"}>
+    <FlexBetween gap={"0.5rem"} flexWrap={"wrap"}>
       <LocalizationProvider  dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           displayStaticWrapperAs="desktop"
