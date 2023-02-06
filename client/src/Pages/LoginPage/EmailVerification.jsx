@@ -46,22 +46,22 @@ const EmailVerification = () => {
   };
   const sendOtpMail = (otpnum, to_mail) => {
     setSentOtp(otpnum);
-    console.log(otpnum, to_mail);
-    // emailjs
-    //   .send(
-    //     process.env.REACT_APP_MAIL_VERIFY_SERVICE_ID,
-    //     process.env.REACT_APP_MAIL_VERIFY_TEMPLATE_ID,
-    //     {
-    //       name: "dhruv",
-    //       otp: otpnum,
-    //       email: to_mail,
-    //     },
-    //     process.env.REACT_APP_MAIL_VERIFY_PUBLIC_ID
-    //   )
-    //   .catch((e) => {
-    //     // console.log(e);
-    //     alert("Somethings wents wrong Plz Try again later !");
-    //   });
+    // console.log(otpnum, to_mail);
+    emailjs
+      .send(
+        process.env.REACT_APP_MAIL_VERIFY_SERVICE_ID,
+        process.env.REACT_APP_MAIL_VERIFY_TEMPLATE_ID,
+        {
+          name: "dhruv",
+          otp: otpnum,
+          email: to_mail,
+        },
+        process.env.REACT_APP_MAIL_VERIFY_PUBLIC_ID
+      )
+      .catch((e) => {
+        // console.log(e);
+        alert("Somethings wents wrong Plz Try again later !");
+      });
   };
   const [sendOtpBtnVal, setSendOtpBtnVal] = useState("Click here to Send OTP");
   const [disableBtn, setdisableBtn] = useState(false);

@@ -1,11 +1,30 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Navbar } from "Pages/Navbar/Navbar";
 import React from "react";
 
-const WidgetsOnPage = ({ navbar, leftComponent, rightComponent }) => {
+const WidgetsOnPage = ({ title, leftComponent, rightComponent }) => {
+  const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   return (
     <Box>
-      {navbar}
+      <Navbar />
+      {title && (
+        <Box
+          width={"100%"}
+          p={"1rem 6%"}
+          textAlign="center"
+          backgroundColor={theme.palette.background}
+        >
+          <Typography
+            fontWeight={"bold"}
+            fontSize={"1.5rem"}
+            color={theme.palette.neutral.main}
+          >
+            {title}
+          </Typography>
+        </Box>
+      )}
       <Box
         width="100%"
         padding="2rem 6%"

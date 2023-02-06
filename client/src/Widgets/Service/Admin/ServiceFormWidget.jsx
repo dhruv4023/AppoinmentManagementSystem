@@ -11,7 +11,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { maxHeight, style } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import FlexEvenly from "Components/FlexEvenly";
 import WidgetWrapper from "Components/WidgetWrapper";
@@ -132,8 +131,6 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
                 onChange={(e) => onChangehandle(e, "serviceStartTime")}
                 value={values.serviceStartTime}
                 label={"Service Start Time"}
-                // MenuProps={?{style:{maxHeight:"1rem"}}}
-                // MenuProps={}
               >
                 {serviceTime()?.map((m) => (
                   <MenuItem value={m} key={m}>
@@ -201,7 +198,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               value={values.appoinmentTime}
               label={"Appointment Duration"}
             >
-              {["15","60","30","45","90","120"]?.map((m) => (
+              {["15", "60", "30", "45", "90", "120"]?.map((m) => (
                 <MenuItem value={m} key={m}>
                   {m} min
                 </MenuItem>

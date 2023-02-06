@@ -11,9 +11,11 @@ import FlexBetween from "Components/FlexBetween";
 import UserImg from "Components/UserImg";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserWidgets = ({ user, admin, setEditProf }) => {
   const theme = useTheme();
+  const navigate= useNavigate();
   const dark = theme.palette.neutral.dark;
   const medium = theme.palette.neutral.medium;
   const main = theme.palette.neutral.main;
@@ -35,19 +37,21 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
       <FlexBetween gap={"1rem"} pb="1.1rem">
         <UserImg image={picPath} />
         <Box flexGrow={"1"}>
-          <Typography
-            variant="h4"
-            color={dark}
-            fontWeight={500}
-            sx={{
-              "&:hover": {
-                cursor: "pointer",
-                // color: theme.palette.primary.light,
-              },
-            }}
-          >
-            {firstName} {lastName}
-          </Typography>
+          <IconButton onClick={()=>navigate(`/profile/${username}`)}>
+            <Typography
+              variant="h4"
+              color={dark}
+              fontWeight={500}
+              sx={{
+                "&:hover": {
+                  cursor: "pointer",
+                  color: theme.palette.primary.main,
+                },
+              }}
+            >
+              {firstName} {lastName}
+            </Typography>
+          </IconButton>
           <Typography color={medium}>@{username}</Typography>
         </Box>
         {admin && (

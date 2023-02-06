@@ -1,10 +1,10 @@
-export const getUser = async (setUser, UID) => {
+export const getUser = async (setUser, UID, navigate) => {
   const res = await fetch(`${process.env.REACT_APP_SERVER}/user/get/${UID}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
   const data = await res.json();
-  setUser(data);
+  data ? setUser(data) : navigate("/404", { state: "Profile Not Found" });
   return data;
 };
 

@@ -1,8 +1,7 @@
 import WidgetsOnPage from "Components/WidgetsOnPage";
-import { Navbar } from "Pages/Navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import EditProfileWidget from "Widgets/EditProfileWidget";
 import ServiceWidgets from "Widgets/Service/Admin/ServiceWidgets";
 import { getAllServices } from "Widgets/Service/Admin/WidgetAdminServiceFun";
@@ -11,12 +10,13 @@ import UserWidgets from "Widgets/UserWidgets";
 import { getUser } from "Widgets/WidgetFunctions";
 
 export const ProfilePage = () => {
+  const navigate = useNavigate();
   const { UID } = useParams();
   const [user, setUser] = useState(null);
   const admin = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    getUser(setUser, UID);
+    getUser(setUser, UID,navigate);
   }, [UID]);
 
   useEffect(() => {
@@ -30,7 +30,6 @@ export const ProfilePage = () => {
   return (
     <>
       <WidgetsOnPage
-        navbar={<Navbar />}
         leftComponent={
           <UserWidgets
             setEditProf={setEditProf}

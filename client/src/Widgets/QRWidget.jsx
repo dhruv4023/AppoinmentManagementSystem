@@ -7,7 +7,7 @@ import QRCode from "react-qr-code";
 const QRWidget = ({ link }) => {
   return (
     <WidgetWrapper mt={"1rem"}>
-       <Typography
+      <Typography
         component={"span"}
         gap={"0.5rem"}
         width={"100%"}

@@ -6,7 +6,7 @@ export const saveAppointment = async (req, res) => {
     const { name, email, contactNumber, message, date, time } = req.body;
     console.log(req.body);
     let dy = new Date();
-    dy.setDate(dy.getDate() - 7);
+    dy.setDate(dy.getDate() - 1);
     const data = await Appoinment.findById(_id);
 
     if (
@@ -16,7 +16,7 @@ export const saveAppointment = async (req, res) => {
     )
       return res
         .status(400)
-        .json({ msg: "You have already booked Appoinment in last 7 days" });
+        .json({ msg: "You have already booked Appoinment in last 24 hours" });
     //  console.log
     await Appoinment.findByIdAndUpdate(_id, {
       $push: {
@@ -64,7 +64,7 @@ const s = async () => {
     if (!bkTms[e.split("|")[0]]) bkTms[e.split("|")[0]] = [];
     bkTms[e.split("|")[0]].push(e.split("|")[1]);
   });
-  console.log(timeArr)
+  console.log(timeArr);
   // res.status(400).json({ data: bkTms });
 };
 
