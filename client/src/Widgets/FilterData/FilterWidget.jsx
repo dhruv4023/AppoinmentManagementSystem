@@ -55,7 +55,7 @@ const FilterWidget = ({ setFilteredData }) => {
           <SelectAutoComplete
             label={"Select City"}
             setInputVal={setInputVal}
-            options={City.getCitiesOfState("IN", "GJ").map((m) => m.name)}
+            options={City.getCitiesOfState("IN", "GJ").map((m) => m.name).filter(f=>!f.includes(","))}
           />
           <TextField
             label="Pincode"

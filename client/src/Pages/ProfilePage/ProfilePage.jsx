@@ -16,7 +16,7 @@ export const ProfilePage = () => {
   const admin = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    getUser(setUser, UID,navigate);
+    getUser(setUser, UID, navigate);
   }, [UID]);
 
   useEffect(() => {
@@ -49,8 +49,10 @@ export const ProfilePage = () => {
                   <ServiceWidgets user={admin} />
                 </>
               ) : (
-                <>{user && <ServiceUserSide user={user} />}</>
-              )}
+                <>{
+                  <ServiceUserSide user={user} />
+                }</>
+                )}
             </>
           )
         }
