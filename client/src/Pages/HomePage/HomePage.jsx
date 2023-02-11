@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useTheme } from "@emotion/react";
 import WidgetsOnPage from "Components/WidgetsOnPage";
-import FilterWidget from "Widgets/FilterWidget";
+import React, { useState } from "react";
 import DisplayFilterData from "Widgets/FilterData/DisplayFilterData";
+import FilterWidget from "Widgets/FilterData/FilterWidget";
 const HomePage = () => {
   const [filteredData, setFilteredData] = useState("");
   return (
