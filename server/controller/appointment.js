@@ -12,19 +12,11 @@ export const createService = async (req, res) => {
       serviceEndTime,
       breakStartTime,
       breakEndTime,
-      state,
-      district,
-      city,
-      pincode,
+      location,
       description,
       serviceName,
     } = req.body;
-    const location = {
-      state: state,
-      district: district,
-      city: city,
-      pincode: pincode,
-    };
+
     const serviceTime = {
       Start: serviceStartTime,
       End: serviceEndTime,
@@ -131,4 +123,47 @@ const returnServData = async (
     serviceName: 1,
   }).limit(limit);
   res.status(200).json(servData);
+};
+
+export const getFilteredData = async (req, res) => {
+  try {
+    const { Category, SelectCity, pincode } = req.body;
+    // console.log(req.body);
+    returnServData(
+      {
+        category: Category,
+        "location.city": SelectCity,
+        "location.pincode": pincode,
+      },
+      res,100
+    );
+    // const filteredData = await Appoinment.find({
+    //   category: Category,
+    //   // location: {
+    //   "location.city": SelectCity,
+    //   "location.pincode": pincode,
+    //   // },
+    // },{
+    //   username: 1,
+    //   category: 1,
+    //   serviceTime: 1,
+    //   breakTime: 1,
+    //   appoinmentTime: 1,
+    //   location: 1,
+    //   description: 1,
+    //   serviceName: 1,
+    // });
+
+    // console.log("x", filteredData);
+    // if (mongoose.isValidObjectId(UID)) {
+    //   // console.log(user);
+    //   res.status(200).json(user);
+    // } else {
+    //   const user = await User.findOne({ username: UID });
+    //   // console.log(user);
+    // }
+    // res.status(200).json("");
+  } catch (error) {
+    res.status(404).json("null");
+  }
 };

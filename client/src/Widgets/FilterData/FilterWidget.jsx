@@ -1,20 +1,23 @@
 import { useTheme } from "@emotion/react";
-import {
-  Box,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
 import { SelectAutoComplete } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 import { City } from "country-state-city";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { getFilteredData } from "Widgets/WidgetFunctions";
 
-const FilterWidget = () => {
+const initialValues = {
+  Category: "",
+  SelectCity: "",
+  pincode: "",
+};
+const FilterWidget = ({ setFilteredData }) => {
   const theme = useTheme();
   const categories = useSelector((s) => s.categories);
-console.log(categories)
-  const [values, setValues] = useState({});
+  // console.log(categories);
+  const [values, setValues] = useState(initialValues);
 
   const setInputVal = (val, name) => {
     let tmp = { ...values };
@@ -25,6 +28,9 @@ console.log(categories)
   // console.log(Country.getCountryByCode("IN"));
   // console.log(State.getStatesOfCountry("IN"));
   // console.log();
+  const doFilter = () => {
+    getFilteredData(setFilteredData, values);
+  };
   return (
     <WidgetWrapper>
       <Box
@@ -51,6 +57,27 @@ console.log(categories)
             setInputVal={setInputVal}
             options={City.getCitiesOfState("IN", "GJ").map((m) => m.name)}
           />
+          <TextField
+            label="Pincode"
+            onChange={(e) => setInputVal(e.target.value, "pincode")}
+            name="pincode"
+            value={values.pincode}
+            sx={{ width: "100%" }}
+          />
+          <Button
+            fullWidth
+            type="submit"
+            onClick={doFilter}
+            sx={{
+              m: "2rem 0",
+              p: "1rem",
+              backgroundColor: theme.palette.primary.main,
+              color: theme.palette.background.alt,
+              "&:hover": { color: theme.palette.primary.main },
+            }}
+          >
+            Do Filter
+          </Button>
         </FlexBetween>
       </Box>
     </WidgetWrapper>

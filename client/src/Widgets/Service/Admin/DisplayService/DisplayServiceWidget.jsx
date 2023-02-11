@@ -32,10 +32,7 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
       breakEndTime: m?.breakTime?.End,
       appoinmentTime: m.appoinmentTime,
       username: m.username,
-      state: m.location.state,
-      district: m.location.district,
-      city: m.location.city,
-      pincode: m.location.pincode,
+      location: m.location,
     };
   };
   return (
@@ -77,8 +74,8 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
             icon1={<Timeline fontSize="large" sx={{ color: main }} />}
             cel2={
               servData.location.city +
-              " " +
-              servData.location.district +
+              // " " +
+              // servData.location.district +
               " " +
               servData.location.state +
               ", " +

@@ -17,9 +17,12 @@ import FlexEvenly from "Components/FlexEvenly";
 import {
   getUserNames,
   login,
-  register,
+  // register,
   updateProfile,
 } from "./LoginRegisterChangePass";
+import {
+  SelectLocation,
+} from "../../Components/MyComponents";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 const Form = ({ pgType, editProfile, user }) => {
   const initialValuesRegister = {
@@ -30,10 +33,12 @@ const Form = ({ pgType, editProfile, user }) => {
     about: "",
     password: "",
     picPath: "",
-    state: "Gujarat",
-    district: "",
-    city: "",
-    pincode: "",
+    location: {
+      state: "Gujarat",
+      district: "",
+      city: "",
+      pincode: "",
+    },
   };
   const initialValuesLogin = {
     email: "",
@@ -50,9 +55,11 @@ const Form = ({ pgType, editProfile, user }) => {
   const [values, setValues] = useState(
     isLogin ? initialValuesLogin : editProfile ? user : initialValuesRegister
   );
-  const onChangehandle = (e, name) => {
+  const onChangehandle = (val, name) => {
+    // e.preventDefault();
+    console.log(name,val);
     let tmp = { ...values };
-    tmp[name] = e.target.value;
+    tmp[name] = val;
     setValues(tmp);
   };
   const imgChangeHandl = (fl, name) => {
@@ -61,8 +68,8 @@ const Form = ({ pgType, editProfile, user }) => {
     setValues(tmp);
   };
   const token = useSelector((s) => s.token);
-  // console.log(token)
-  // console.log(values);
+  // console.log(token);
+  console.log(values);
   const [userNames, setUserNames] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -94,7 +101,7 @@ const Form = ({ pgType, editProfile, user }) => {
           <TextField
             required
             label="First Name"
-            onChange={(e) => onChangehandle(e, "firstName")}
+            onChange={(e) => onChangehandle(e.target.value, "firstName")}
             name="firstName"
             value={values.firstName}
             sx={{ margin: "0.5rem", width: "100%" }}
@@ -102,7 +109,7 @@ const Form = ({ pgType, editProfile, user }) => {
           <TextField
             required
             label="Last Name"
-            onChange={(e) => onChangehandle(e, "lastName")}
+            onChange={(e) => onChangehandle(e.target.value, "lastName")}
             name="lastName"
             value={values.lastName}
             sx={{ margin: "0.5rem", width: "100%" }}
@@ -114,7 +121,7 @@ const Form = ({ pgType, editProfile, user }) => {
           required
           type={isRegister ? "email" : "text"}
           label={isLogin ? "Email or Username" : "Email"}
-          onChange={(e) => onChangehandle(e, "email")}
+          onChange={(e) => onChangehandle(e.target.value, "email")}
           value={values.email}
           name="email"
           sx={{ margin: "0.5rem", width: "100%" }}
@@ -124,7 +131,7 @@ const Form = ({ pgType, editProfile, user }) => {
             required
             label="Password"
             type="password"
-            onChange={(e) => onChangehandle(e, "password")}
+            onChange={(e) => onChangehandle(e.target.value, "password")}
             value={values.password}
             name="password"
             sx={{ margin: "0.5rem", width: "100%" }}
@@ -137,7 +144,7 @@ const Form = ({ pgType, editProfile, user }) => {
               required
               label="Username"
               error={userNames?.includes(values.username) && !editProfile}
-              onChange={(e) => onChangehandle(e, "username")}
+              onChange={(e) => onChangehandle(e.target.value, "username")}
               value={values.username}
               name="username"
               helperText={"Enter Unique Username"}
@@ -146,7 +153,7 @@ const Form = ({ pgType, editProfile, user }) => {
             <TextField
               required
               label="About"
-              onChange={(e) => onChangehandle(e, "about")}
+              onChange={(e) => onChangehandle(e.target.value, "about")}
               name="about"
               value={values.about}
               sx={{ margin: "0.5rem", width: "100%" }}
@@ -210,11 +217,15 @@ const Form = ({ pgType, editProfile, user }) => {
 
       {isRegister && (
         <>
-          <FlexEvenly>
+          <SelectLocation
+            location={values?.location}
+            inputValues={onChangehandle}
+          />
+          {/* <FlexEvenly>
             <TextField
               required
               label="State"
-              onChange={(e) => onChangehandle(e, "state")}
+              onChange={(e) => onChangehandle(e.target.value, "state")}
               name="state"
               value={values.state}
               disabled={true}
@@ -223,30 +234,40 @@ const Form = ({ pgType, editProfile, user }) => {
             <TextField
               required
               label="District"
-              onChange={(e) => onChangehandle(e, "district")}
+              onChange={(e) => onChangehandle(e.target.value, "district")}
               name="district"
               value={values.district}
               sx={{ margin: "0.5rem", width: "100%" }}
             />
           </FlexEvenly>
           <FlexEvenly>
-            <TextField
+            <Box sx={{ margin: "0.5rem", width: "100%" }}>
+              <SelectAutoComplete
+                label={"city"}
+                value={values.city}
+                setInputVal={onChangehandle}
+                options={City.getCitiesOfState("IN", "GJ")
+                  .map((m) => m.name)
+                  .filter((f) => !f.includes(","))}
+              />
+            </Box>
+             <TextField
               required
               label="City"
-              onChange={(e) => onChangehandle(e, "city")}
+              onChange={(e) => onChangehandle(e,e.target.value, "city")}
               name="city"
               value={values.city}
               sx={{ margin: "0.5rem", width: "100%" }}
-            />
+            /> 
             <TextField
               required
               label="Pincode"
-              onChange={(e) => onChangehandle(e, "pincode")}
+              onChange={(e) => onChangehandle(e.target.value, "pincode")}
               name="pincode"
               value={values.pincode}
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", margin: "0.5rem" }}
             />
-          </FlexEvenly>
+          </FlexEvenly> */}
         </>
       )}
       <Box>

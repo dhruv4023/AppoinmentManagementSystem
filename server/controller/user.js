@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.js";
+import Appointment from "../models/appointment.js";
 export const getUsers = async (req, res) => {
   try {
     const { UID } = req.params;

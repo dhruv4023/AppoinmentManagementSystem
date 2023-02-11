@@ -7,18 +7,16 @@ const ServiceBtnWidget = ({ setCrudServData, CrudServData, user }) => {
   const initialServiceData = {
     category: "",
     serviceName: "",
-    serviceStartTime:"",
-    serviceEndTime:"",
-    breakStartTime:"",
-    breakEndTime:"",
+    serviceStartTime: "",
+    serviceEndTime: "",
+    breakStartTime: "",
+    breakEndTime: "",
     appoinmentTime: "",
     description: "",
     username: user.username,
-    state: user.location.state,
-    district: user.location.district,
-    city: user.location.city,
-    pincode: user.location.pincode,
+    location: user.location,
   };
+  console.log(initialServiceData)
   return (
     <WidgetWrapper m={"0 0 .5rem 0"}>
       <Button

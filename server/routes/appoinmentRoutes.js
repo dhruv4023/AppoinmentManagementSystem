@@ -4,7 +4,9 @@ import {
   getAdminServices,
   createService,
   getServicesOnBookingPage,
+  getFilteredData,
 } from "../controller/appointment.js";
+
 import {
   saveAppointment,
   getBookedTime,
@@ -23,5 +25,7 @@ routes.post("/post/:id", saveAppointment);
 routes.get("/getbookedtime/:id", getBookedTime);
 routes.get("/getbookeddata/:id/:id2", getBookedData);
 routes.get("/getallbookeddata/:id", getAllBookedData);
+
+routes.post("/getfiltereddata", getFilteredData);
 
 export default routes;

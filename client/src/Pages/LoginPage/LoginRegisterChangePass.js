@@ -66,10 +66,7 @@ export const getUserNames = async (setUserNames) => {
 
 export const updateProfile = async (values, dispatch, token, navigate) => {
   const formData = new FormData();
-  for (let value in values) {
-    formData.append(value, values[value]);
-  }
-  // console.log(token, values);
+  appendData(formData, values);
   const savedUserResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/update/${values._id}`,
     {
@@ -87,3 +84,16 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
   );
   navigate(`/profile/${savedUser.user.username}`);
 };
+
+function appendData(formData, object, parentKey) {
+  for (const key in object) {
+    if (object.hasOwnProperty(key)) {
+      const currentKey = parentKey ? `${parentKey}[${key}]` : key;
+      if (typeof object[key] === "object" && !(object[key] instanceof File)) {
+        appendData(formData, object[key], currentKey);
+      } else {
+        formData.append(currentKey, object[key]);
+      }
+    }
+  }
+}

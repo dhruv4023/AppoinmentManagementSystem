@@ -12,10 +12,7 @@ const EditProfileWidget = ({ user, setEditProf }) => {
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
-    state: user.location.state,
-    district: user.location.district,
-    city: user.location.city,
-    pincode: user.location.pincode,
+    location: user.location,
     picPath: "",
     username: user.username,
   };

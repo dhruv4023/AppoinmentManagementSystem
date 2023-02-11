@@ -15,17 +15,8 @@ export const registerControl = async (req, res) => {
       password,
       friends,
       about,
-      state,
-      district,
-      city,
-      pincode,
+      location,
     } = req.body;
-    const location = {
-      state,
-      district,
-      city,
-      pincode,
-    };
     const user = await User.findOne({ email: email });
     if (user) {
       _file && deleteFile(_file.path);
@@ -45,10 +36,7 @@ export const registerControl = async (req, res) => {
     });
     const savedUser = await newUser.save();
     if (_file) {
-      const picPath = renameAndMove(
-        "user/" +  newUser._id,
-        _file.originalname
-      );
+      const picPath = renameAndMove("user/" + newUser._id, _file.originalname);
       await User.findByIdAndUpdate(newUser._id, {
         $set: { picPath: picPath },
       });
@@ -129,18 +117,9 @@ export const updateRegisteredData = async (req, res) => {
       email,
       friends,
       about,
-      state,
-      district,
-      city,
-      pincode,
+      location
     } = req.body;
-    const location = {
-      state,
-      district,
-      city,
-      pincode,
-    };
-    // console.log(req.file);
+    console.log(req.body);
     const user = await User.findById(_id);
     if (user.email !== email && (await User.findOne({ email: email }))) {
       _file && deleteFile(_file.path);
@@ -159,20 +138,16 @@ export const updateRegisteredData = async (req, res) => {
     });
     if (_file) {
       try {
-        deleteFile("public/"+user.picPath);
-      } catch (error) {
-      }
+        deleteFile("public/" + user.picPath);
+      } catch (error) {}
       // console.log(user.picPath)
-      const picPath = renameAndMove(
-        "user/" +  _id,
-        _file.originalname
-      );
+      const picPath = renameAndMove("user/" + _id, _file.originalname);
       await User.findByIdAndUpdate(_id, {
         $set: { picPath: picPath },
       });
     }
-    const userDt=await User.findById(_id)
-    res.status(200).json({user:userDt});
+    const userDt = await User.findById(_id);
+    res.status(200).json({ user: userDt });
   } catch (error) {
     _file && deleteFile(_file.path);
     res.status(500).json("something went wrong");

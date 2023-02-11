@@ -8,6 +8,18 @@ export const getUser = async (setUser, UID, navigate) => {
   return data;
 };
 
+export const getFilteredData = async (setFilteredData, values) => {
+  const res = await fetch(`${process.env.REACT_APP_SERVER}/appointment/getfiltereddata/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+  const data = await res.json();
+  setFilteredData(data)
+};
+
+
+
 // export const handlePost = async (
 //   _id,
 //   post,

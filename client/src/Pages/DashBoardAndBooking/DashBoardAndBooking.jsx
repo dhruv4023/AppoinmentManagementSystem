@@ -20,7 +20,7 @@ const DashBoardAndUserView = () => {
     getServDataDashBordAndBook(UID, SID, setServData);
     getUser(setUser, UID);
   }, [UID, SID, setServData]);
-  console.log(SID, UID);
+  // console.log(SID, UID);
   return (
     <WidgetsOnPage
       leftComponent={
@@ -34,7 +34,7 @@ const DashBoardAndUserView = () => {
           {servData && <DisplayServiceWidget servData={servData} />}
           <WidgetWrapper mt={"0.8rem"}>
             {" "}
-            {admin ? (
+            {admin?._id === user?._id ? (
               <>
                 <DashBoardWidget />
               </>

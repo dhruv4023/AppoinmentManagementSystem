@@ -1,5 +1,6 @@
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import DisplayServicesWidget from "./DisplayService/DisplayServices";
 import ServiceBtnWidget from "./ServiceBtnWidget";
 import ServiceFormWidget from "./ServiceFormWidget";
@@ -8,6 +9,9 @@ const ServiceWidgets = ({ user }) => {
   const [CrudServData, setCrudServData] = useState({
     openForm: false,
   });
+
+  const { serviceData } = useSelector((s) => s.services);
+
   return (
     <Box>
       <ServiceBtnWidget
@@ -23,6 +27,7 @@ const ServiceWidgets = ({ user }) => {
         />
       )}
       <DisplayServicesWidget
+        serviceData={serviceData}
         CrudServData={CrudServData}
         user={user}
         setCrudServData={setCrudServData}

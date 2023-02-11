@@ -69,8 +69,8 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
           <LocationOnOutlined fontSize="large" sx={{ color: main }} />
           <Typography color={medium}>
             {location.city +
-              " " +
-              location.district +
+              // " " +
+              // location.district +
               " " +
               location.state +
               ", " +

@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
 import FlexEvenly from "Components/FlexEvenly";
+import { SelectLocation } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 import moment from "moment";
 import React, { useState } from "react";
@@ -57,10 +58,11 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
   const { palette } = useTheme();
   const categories = useSelector((s) => s.categories);
 
-  const onChangehandle = (e, name) => {
-    e.preventDefault()
+  const onChangehandle = (val, name) => {
+    // e.preventDefault();
+    console.log(name,val);
     let tmp = { ...values };
-    tmp[name] = e.target.value;
+    tmp[name] = val;
     setValues(tmp);
   };
   console.log(values);
@@ -103,7 +105,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <InputLabel id="category">Category</InputLabel>
             <Select
               required
-              onChange={(e) => onChangehandle(e, "category")}
+              onChange={(e) => onChangehandle(e.target.value, "category")}
               value={values.category}
               labelId={"category"}
               label={"category"}
@@ -118,7 +120,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
           <TextField
             required
             sx={{ margin: "0.5rem .5rem", width: "100%" }}
-            onChange={(e) => onChangehandle(e, "serviceName")}
+            onChange={(e) => onChangehandle(e.target.value, "serviceName")}
             value={values.serviceName}
             label={"Service Name"}
           />
@@ -128,7 +130,9 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               <Select
                 required
                 sx={{ marginRight: "0.3rem" }}
-                onChange={(e) => onChangehandle(e, "serviceStartTime")}
+                onChange={(e) =>
+                  onChangehandle(e.target.value, "serviceStartTime")
+                }
                 value={values.serviceStartTime}
                 label={"Service Start Time"}
               >
@@ -144,7 +148,9 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               <Select
                 required
                 sx={{ marginLeft: "0.3rem" }}
-                onChange={(e) => onChangehandle(e, "serviceEndTime")}
+                onChange={(e) =>
+                  onChangehandle(e.target.value, "serviceEndTime")
+                }
                 value={values.serviceEndTime}
                 label={"Service End Time"}
               >
@@ -162,7 +168,9 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               <Select
                 required
                 sx={{ marginRight: "0.3rem" }}
-                onChange={(e) => onChangehandle(e, "breakStartTime")}
+                onChange={(e) =>
+                  onChangehandle(e.target.value, "breakStartTime")
+                }
                 value={values.breakStartTime}
                 label={"Break Start Time"}
               >
@@ -178,7 +186,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               <Select
                 required
                 sx={{ marginLeft: "0.3rem" }}
-                onChange={(e) => onChangehandle(e, "breakEndTime")}
+                onChange={(e) => onChangehandle(e.target.value, "breakEndTime")}
                 value={values.breakEndTime}
                 label={"Break End Time"}
               >
@@ -194,7 +202,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <InputLabel id="category">Appointment Duration</InputLabel>
             <Select
               required
-              onChange={(e) => onChangehandle(e, "appoinmentTime")}
+              onChange={(e) => onChangehandle(e.target.value, "appoinmentTime")}
               value={values.appoinmentTime}
               label={"Appointment Duration"}
             >
@@ -210,13 +218,20 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             sx={{ margin: "0.5rem", width: "100%" }}
             label={"Description"}
             value={values.description}
-            onChange={(e) => onChangehandle(e, "description")}
+            onChange={(e) => onChangehandle(e.target.value, "description")}
           />
           <FlexBetween gap={"1rem"} width={"100%"} margin={"0.5rem"}>
+            <SelectLocation
+              location={values?.location}
+              inputValues={onChangehandle}
+            />
+          </FlexBetween>
+
+          {/* <FlexBetween gap={"1rem"} width={"100%"} margin={"0.5rem"}>
             <TextField
               required
               label="State"
-              onChange={(e) => onChangehandle(e, "state")}
+              onChange={(e) => onChangehandle(e.target.value, "state")}
               name="state"
               value={values.state}
               disabled={true}
@@ -225,7 +240,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <TextField
               required
               label="District"
-              onChange={(e) => onChangehandle(e, "district")}
+              onChange={(e) => onChangehandle(e.target.value, "district")}
               name="district"
               value={values.district}
               sx={{ width: "100%" }}
@@ -235,7 +250,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <TextField
               required
               label="City"
-              onChange={(e) => onChangehandle(e, "city")}
+              onChange={(e) => onChangehandle(e.target.value, "city")}
               name="city"
               value={values.city}
               sx={{ width: "100%" }}
@@ -243,12 +258,12 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             <TextField
               required
               label="Pincode"
-              onChange={(e) => onChangehandle(e, "pincode")}
+              onChange={(e) => onChangehandle(e.target.value, "pincode")}
               name="pincode"
               value={values.pincode}
               sx={{ width: "100%" }}
             />
-          </FlexBetween>
+          </FlexBetween> */}
           <Button
             fullWidth
             type="submit"
