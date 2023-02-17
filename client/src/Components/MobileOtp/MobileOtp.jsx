@@ -7,11 +7,14 @@ import React, { useEffect, useState } from "react";
 const VerifyMobilePan = ({ mobileNo, setVerified }) => {
   const theme = useTheme();
   const [otp, setOtp] = useState(0);
-  const [sendotpAgain, setSendotpAgain] = useState(true);
-  useEffect(() => {
-    sendOtp(mobileNo); // to sent otp
-  }, [sendotpAgain]);
-
+  const [sendotpAgain, setSendotpAgain] = useState(false);
+  // useEffect(() => {
+  //   sendOtp(mobileNo); // to sent otp
+  // }, [sendotpAgain]);
+  // if (sendotpAgain) {
+  // setSendotpAgain(false);
+  // sendOtp(mobileNo);
+  // }
   const handleOtpVerify = (e) => {
     e.preventDefault();
     verifyOtp(otp, setVerified);
@@ -42,15 +45,16 @@ const VerifyMobilePan = ({ mobileNo, setVerified }) => {
         >
           Verify
         </Button>
-        {/* <Button
+        <Button
+          disabled={sendotpAgain}
           onClick={() => {
-            setCapchaRender(!capchaRender);
-            setSendotpAgain(false);
+            // setCapchaRender(!capchaRender);
+            setSendotpAgain(true);
             sendOtp(mobileNo);
           }}
         >
           Sent Otp
-        </Button> */}
+        </Button>
       </FlexEvenly>
     </>
   );

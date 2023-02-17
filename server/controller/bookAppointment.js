@@ -6,7 +6,7 @@ export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
     const { contactNumber } = req.body;
     // console.log(contactNumber);
     let dy = new Date();
-    dy.setDate(dy.getDate() - 1);
+    // dy.setDate(dy.getDate() - 1);
     const data = await Appoinment.findById(_id);
     if (
       data.AppoinmentList.filter(
