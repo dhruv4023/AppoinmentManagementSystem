@@ -119,7 +119,7 @@ export const updateRegisteredData = async (req, res) => {
       about,
       location
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const user = await User.findById(_id);
     if (user.email !== email && (await User.findOne({ email: email }))) {
       _file && deleteFile(_file.path);

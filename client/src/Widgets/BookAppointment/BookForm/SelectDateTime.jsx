@@ -6,7 +6,7 @@ import { StaticDatePicker } from "@mui/x-date-pickers";
 import { Button, Divider, useTheme } from "@mui/material";
 import FlexEvenly from "Components/FlexEvenly";
 import moment from "moment/moment";
-import { getBookedDtTm } from "./BookAppoinmentFun";
+import { getBookedDtTm } from "../BookAppoinmentFun";
 // import Calender from "./Calender";
 
 const timeArray = (x, startTim, endTim) => {
@@ -25,7 +25,7 @@ const timeArray = (x, startTim, endTim) => {
   }
   return timeStops;
 };
-const SelectDateTime = ({ dateAndTime, setDateAndTime, servData }) => {
+const SelectDateTime = ({ setDateAndTime, servData }) => {
   const theme = useTheme();
   const mnDate = new Date();
   mnDate.setDate(mnDate.getDate() + 1);
@@ -43,6 +43,7 @@ const SelectDateTime = ({ dateAndTime, setDateAndTime, servData }) => {
   useEffect(() => {
     getBookedDtTm(setBookedDtTm, servData?._id);
   }, [servData]);
+  // console.log(servData);
   const bkd =
     bookedDtTm &&
     bookedDtTm[
@@ -66,14 +67,13 @@ const SelectDateTime = ({ dateAndTime, setDateAndTime, servData }) => {
   // console.log();
   return (
     <FlexBetween gap={"0.5rem"} flexWrap={"wrap"}>
-      <LocalizationProvider  dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           displayStaticWrapperAs="desktop"
           openTo="day"
           minDate={minDate}
           maxDate={maxDate}
           value={date}
-          
           onChange={(newValue) => {
             setDate(newValue["$d"]);
           }}

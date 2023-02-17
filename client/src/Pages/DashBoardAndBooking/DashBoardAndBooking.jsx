@@ -26,7 +26,12 @@ const DashBoardAndUserView = () => {
       leftComponent={
         <>
           <UserWidgets user={user} />
-          {UID && <QRWidget link={`/service/${UID}/${SID}`} />}
+          {UID && (
+            <QRWidget
+              description={"Scan QR To Open Book Appointment Form"}
+              link={`/service/${UID}/${SID}`}
+            />
+          )}
         </>
       }
       rightComponent={
@@ -39,9 +44,7 @@ const DashBoardAndUserView = () => {
                 <DashBoardWidget />
               </>
             ) : (
-              <>
-                <BookAppointMentWidget servData={servData} />
-              </>
+              <>{servData && <BookAppointMentWidget servData={servData} />}</>
             )}
           </WidgetWrapper>
         </>

@@ -57,7 +57,7 @@ const Form = ({ pgType, editProfile, user }) => {
   );
   const onChangehandle = (val, name) => {
     // e.preventDefault();
-    console.log(name,val);
+    // console.log(name,val);
     let tmp = { ...values };
     tmp[name] = val;
     setValues(tmp);
@@ -69,7 +69,7 @@ const Form = ({ pgType, editProfile, user }) => {
   };
   const token = useSelector((s) => s.token);
   // console.log(token);
-  console.log(values);
+  // console.log(values);
   const [userNames, setUserNames] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();

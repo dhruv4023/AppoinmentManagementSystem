@@ -1,17 +1,23 @@
 import { useTheme } from "@emotion/react";
 import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
-import React from "react";
-import { saveAppointmentData } from "./BookAppoinmentFun";
+import React, { useState } from "react";
+import { checkWhetherAppointmentAlredyBooked } from "../BookAppoinmentFun";
 
-const Confirmation = ({ Details, servData }) => {
+const Confirmation = ({ details, servData, setAppointmentData }) => {
   const theme = useTheme();
   const submitFom = () => {
-    saveAppointmentData({ Details: Details, id: servData._id });
+    checkWhetherAppointmentAlredyBooked({
+      contactNumber: details.contactNumber,
+      AID: servData._id,
+    }).then((alredyBooked) => {
+      !alredyBooked &&
+        setAppointmentData({ details: details, AID: servData._id });
+    });
   };
   return (
     <>
-      {Object.keys(Details).map((m) => {
+      {Object.keys(details).map((m) => {
         return (
           <FlexBetween key={m}>
             {" "}
@@ -31,7 +37,7 @@ const Confirmation = ({ Details, servData }) => {
               fontWeight="500"
               my="0.7rem"
             >
-              : {Details[m]}
+              : {details[m]}
             </Typography>
           </FlexBetween>
         );

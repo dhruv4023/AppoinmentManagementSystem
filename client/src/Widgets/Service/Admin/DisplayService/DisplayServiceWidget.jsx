@@ -25,7 +25,6 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
       category: m.category,
       serviceName: m.serviceName,
       description: m.description,
-      // timeRange: m.timeRange,
       serviceStartTime: m?.serviceTime?.Start,
       serviceEndTime: m?.serviceTime?.End,
       breakStartTime: m?.breakTime?.Start,

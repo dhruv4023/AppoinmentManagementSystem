@@ -6,13 +6,14 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { getCategoriesArray } from "state/globalFunctions";
+import MobileOtp from "Components/MobileOtp/MobileOtp";
 
 const App = () => {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   // const isAuth = Boolean(useSelector((state) => state.token));
   // console.log("mode,theme,isAuth")
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     getCategoriesArray(dispatch);
   }, [dispatch]);
@@ -30,7 +31,7 @@ const App = () => {
 
 export default App;
 
-
+{/* <MobileOtp /> */}
 // import React, { useState } from 'react'
 
 // const App = () => {

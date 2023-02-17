@@ -33,7 +33,7 @@ export const login = async (values, dispatch, setLogin, navigate) => {
         token: loggedIn.token,
       })
     );
-    navigate("/");
+    navigate(`/profile/${loggedIn.user.username}`);
   } else {
     alert(loggedIn.mess);
   }

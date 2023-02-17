@@ -1,6 +1,7 @@
 import Appoinment from "../models/appointment.js";
 import mongoose from "mongoose";
 import fixData from "./../public/FixData.json" assert { type: "json" };
+import appointment from "../models/appointment.js";
 export const createService = async (req, res) => {
   try {
     const {
@@ -135,35 +136,11 @@ export const getFilteredData = async (req, res) => {
         "location.city": SelectCity,
         "location.pincode": pincode,
       },
-      res,100
+      res,
+      100
     );
-    // const filteredData = await Appoinment.find({
-    //   category: Category,
-    //   // location: {
-    //   "location.city": SelectCity,
-    //   "location.pincode": pincode,
-    //   // },
-    // },{
-    //   username: 1,
-    //   category: 1,
-    //   serviceTime: 1,
-    //   breakTime: 1,
-    //   appoinmentTime: 1,
-    //   location: 1,
-    //   description: 1,
-    //   serviceName: 1,
-    // });
-
-    // console.log("x", filteredData);
-    // if (mongoose.isValidObjectId(UID)) {
-    //   // console.log(user);
-    //   res.status(200).json(user);
-    // } else {
-    //   const user = await User.findOne({ username: UID });
-    //   // console.log(user);
-    // }
-    // res.status(200).json("");
   } catch (error) {
     res.status(404).json("null");
   }
 };
+

@@ -50,7 +50,7 @@ const Calender = () => {
   //   console.log(mxDate, mnDate);
   const mm = mnDate.getMonth();
   //   console.log(mm);
-  console.log(calendar());
+  // console.log(calendar());
 
   return (
     <FlexBetween width={"50%"} border={"1px solid red"}>

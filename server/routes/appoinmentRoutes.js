@@ -10,8 +10,9 @@ import {
 import {
   saveAppointment,
   getBookedTime,
-  getBookedData,
+  getSingleBookedData,
   getAllBookedData,
+  checkWhetherAppointmentAlredyBooked,
 } from "../controller/bookAppointment.js";
 import { verifyToken } from "../middleware/auth.js";
 const routes = express.Router();
@@ -23,9 +24,10 @@ routes.get("/get/:username/:category", getServicesOnBookingPage);
 
 routes.post("/post/:id", saveAppointment);
 routes.get("/getbookedtime/:id", getBookedTime);
-routes.get("/getbookeddata/:id/:id2", getBookedData);
+routes.get("/getbookeddata/:AID/:UAID", getSingleBookedData);
 routes.get("/getallbookeddata/:id", getAllBookedData);
 
 routes.post("/getfiltereddata", getFilteredData);
+routes.post("/checkWhetherAppointmentAlredyBooked/:id", checkWhetherAppointmentAlredyBooked);
 
 export default routes;

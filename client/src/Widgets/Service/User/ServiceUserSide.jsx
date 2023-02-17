@@ -10,7 +10,7 @@ const ServiceUserSide = ({ user }) => {
     const username = user?.username;
     getAllServices(dispatch, username);
   }, []);
-  console.log(user);
+  // console.log(user);
   return <>{<DisplayServicesWidget serviceData={serviceData} />}</>;
 };
 

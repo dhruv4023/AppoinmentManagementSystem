@@ -6,7 +6,7 @@ import DisplayServices from "Widgets/Service/Admin/DisplayService/DisplayService
 
 const DisplayFilterData = ({ filteredData }) => {
   const theme = useTheme();
-  console.log(filteredData);
+  // console.log(filteredData);
   return (
     <>
       <WidgetWrapper>

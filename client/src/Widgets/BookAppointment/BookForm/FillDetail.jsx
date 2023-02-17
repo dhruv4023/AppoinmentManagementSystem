@@ -1,9 +1,7 @@
 import { Button, TextField, useTheme } from "@mui/material";
-import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import FlexEvenly from "Components/FlexEvenly";
 import React, { useState } from "react";
-import { a11yProps } from "./TabsPanel";
 
 const FillDetail = ({ dateAndTime, setDetails, setTabNo, details }) => {
   const { palette } = useTheme();

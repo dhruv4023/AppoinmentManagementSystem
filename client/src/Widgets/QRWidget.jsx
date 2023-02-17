@@ -4,7 +4,8 @@ import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
 import QRCode from "react-qr-code";
 
-const QRWidget = ({ link }) => {
+const QRWidget = ({ sz = 256, link, description }) => {
+  // console.log(link)
   return (
     <WidgetWrapper mt={"1rem"}>
       <Typography
@@ -15,11 +16,11 @@ const QRWidget = ({ link }) => {
         variant="h5"
       >
         <QrCode2Outlined />
-        Scan QR To Open Book Appointment Form
+        {description}
       </Typography>
       <QRCode
-        size={256}
-        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+        size={sz}
+        style={{  maxWidth: "100%", width: "100%" }}
         value={`${process.env.REACT_APP_QR_SRC_LINK}/${link}`}
         viewBox={`0 0 256 256`}
       />

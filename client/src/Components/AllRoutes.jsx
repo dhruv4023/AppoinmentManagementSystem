@@ -4,6 +4,7 @@ import DashBoardAndUserView from "Pages/DashBoardAndBooking/DashBoardAndBooking"
 import HomePage from "Pages/HomePage/HomePage";
 import { LoginPage } from "Pages/LoginPage/LoginPage";
 import PageNotFound from "Pages/PageNotFound";
+import PrintAndVerifyAppointment from "Pages/PrintAndVerifyAppointment/PrintAndVerifyAppointment";
 import { ProfilePage } from "Pages/ProfilePage/ProfilePage";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
@@ -17,6 +18,8 @@ export const AllRoutes = () => {
       <Route path={"/contact"} element={<ContactUsPage />} />
       <Route path={"/contact"} element={<ContactUsPage />} />
       <Route path={"/profile/:UID"} element={<ProfilePage />} />
+      <Route path={"/printappointment"} element={<PrintAndVerifyAppointment/>} />
+      <Route path={"/printappointment/:AID/:AUID"} element={<PrintAndVerifyAppointment/>} />
       <Route path={"/service/:UID/:SID"} element={<DashBoardAndUserView />} />
       <Route path={"/404"} element={<PageNotFound />} />
     </Routes>

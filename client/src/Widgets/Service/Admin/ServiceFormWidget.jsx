@@ -60,12 +60,12 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
 
   const onChangehandle = (val, name) => {
     // e.preventDefault();
-    console.log(name,val);
+    // console.log(name,val);
     let tmp = { ...values };
     tmp[name] = val;
     setValues(tmp);
   };
-  console.log(values);
+  // console.log(values);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (values.category) {
