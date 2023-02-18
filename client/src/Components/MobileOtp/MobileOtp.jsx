@@ -49,7 +49,7 @@ const VerifyMobilePan = ({ mobileNo, setVerified }) => {
           disabled={sendotpAgain}
           onClick={() => {
             // setCapchaRender(!capchaRender);
-            setSendotpAgain(true);
+            setSendotpAgain(true); 
             sendOtp(mobileNo);
           }}
         >
