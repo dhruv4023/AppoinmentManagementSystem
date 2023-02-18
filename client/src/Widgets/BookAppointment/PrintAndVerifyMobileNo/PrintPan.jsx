@@ -4,13 +4,13 @@ import FlexBetween from "Components/FlexBetween";
 import React from "react";
 import QRWidget from "Widgets/QRWidget";
 
-const PrintPan = ({ details, AUID }) => {
+const PrintPan = ({ details, AID }) => {
   const theme = useTheme();
   return (
     <>
       <QRWidget
         description={"Scan QR To Open Your Appointment Data"}
-        link={`/printreceipt/${details.AID}/${AUID}`}
+        link={`/printreceipt/${details.SID}/${AID}`}
       />
       {Object.keys(details.details).map((m) => {
         return (

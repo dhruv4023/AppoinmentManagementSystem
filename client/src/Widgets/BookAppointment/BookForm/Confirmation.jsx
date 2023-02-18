@@ -9,10 +9,10 @@ const Confirmation = ({ details, servData, setAppointmentData }) => {
   const submitFom = () => {
     checkWhetherAppointmentAlredyBooked({
       contactNumber: details.contactNumber,
-      AID: servData._id,
+      SID: servData.SID,
     }).then((alredyBooked) => {
       !alredyBooked &&
-        setAppointmentData({ details: details, AID: servData._id });
+        setAppointmentData({ details: details, SID: servData.SID });
     });
   };
   return (

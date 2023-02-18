@@ -1,13 +1,13 @@
-import Appoinment from "../models/appointment.js";
+import Services from "../models/Services.js";
 
 export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
   try {
-    const { id: _id } = req.params;
+    const { SID } = req.params;
     const { contactNumber } = req.body;
     // console.log(contactNumber);
     let dy = new Date();
     // dy.setDate(dy.getDate() - 1);
-    const data = await Appoinment.findById(_id);
+    const data = await Services.findOne({ SID: SID });
     if (
       data.AppoinmentList.filter(
         (f) => f.contactNumber === contactNumber && f.bookedOn > dy
@@ -27,19 +27,22 @@ export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
 
 export const saveAppointment = async (req, res) => {
   try {
-    const { id: _id } = req.params;
+    const { SID } = req.params;
     const { name, email, contactNumber, message, date, time } = req.body;
-    const data = await Appoinment.findByIdAndUpdate(_id, {
-      $push: {
-        AppoinmentList: {
-          name: name,
-          email: email,
-          contactNumber: contactNumber,
-          dateTime: date + "|" + time,
-          message: message,
+    const data = await Services.findOneAndUpdate(
+      { SID: SID },
+      {
+        $push: {
+          AppoinmentList: {
+            name: name,
+            email: email,
+            contactNumber: contactNumber,
+            dateTime: date + "|" + time,
+            message: message,
+          },
         },
-      },
-    });
+      }
+    );
     res.status(200).json({
       msg: "You have booked an Appoinment for " + date,
       id: data._id,
@@ -60,7 +63,7 @@ const s = async () => {
   let date = new Date();
   const dt =
     date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-  const data = await Appoinment.findOne({ _id: "63d3f56981444ca3aa0aeed1" });
+  const data = await Services.findOne({ _id: "63d3f56981444ca3aa0aeed1" });
   // console.log(data)
   const timeArr = data.AppoinmentList.filter((f) =>
     compareDDMMYYYY(f.dateTime.split("|")[0], dt)
@@ -79,11 +82,13 @@ const s = async () => {
 export const getBookedTime = async (req, res) => {
   try {
     // console.log(req.params);
-    const { id: _id } = req.params;
+    const { SID } = req.params;
+
     let date = new Date();
     const dt =
       date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-    const data = await Appoinment.findOne({ _id: _id });
+
+    const data = await Services.findOne({ SID });
     // console.log(data)
     const timeArr = data.AppoinmentList.filter((f) =>
       compareDDMMYYYY(f.dateTime.split("|")[0], dt)
@@ -100,10 +105,10 @@ export const getBookedTime = async (req, res) => {
 };
 export const getSingleBookedData = async (req, res) => {
   try {
-    const { AID, UAID } = req.params;
-    const data = await Appoinment.findOne(
-      { _id: AID },
-      { AppoinmentList: { $elemMatch: { _id: UAID } } }
+    const { SID, AID } = req.params;
+    const data = await Services.findOne(
+      { _id: SID },
+      { AppoinmentList: { $elemMatch: { _id: AID } } }
     );
     console.log(data);
     res.status(200).json({ data: data.AppoinmentList[0] });
@@ -113,7 +118,7 @@ export const getSingleBookedData = async (req, res) => {
 };
 export const getAllBookedData = async (req, res) => {
   try {
-    const data = await Appoinment.findOne({ _id: _id });
+    const data = await Services.findOne({ _id: _id });
     res.status(200).json({ data: data.AppoinmentList });
   } catch (error) {
     res.status(409).json("Sever Error");

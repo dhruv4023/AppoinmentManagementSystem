@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
-const appoinmentSchema = mongoose.Schema(
+const serviceSchema = mongoose.Schema(
   {
+    SID: {
+      type: String,
+      require: true,
+      min: 2,
+      max: 50,
+      unique: true,
+    },
     username: {
       type: String,
       require: true,
@@ -42,4 +49,4 @@ const appoinmentSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("appointments", appoinmentSchema);
+export default mongoose.model("Services", serviceSchema);

@@ -79,7 +79,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     <WidgetWrapper>
       <FlexBetween>
         <Typography color={"primary"} variant="h3" textAlign={"center"}>
-          {CrudServData.data._id ? (
+          {CrudServData.data.SID ? (
             <>Update Service Data</>
           ) : (
             <>Create New Service</>
@@ -275,7 +275,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               "&:hover": { color: palette.primary.main },
             }}
           >
-            {CrudServData.data._id ? <>Update Data</> : <>Create Service</>}
+            {CrudServData.data.SID ? <>Update Data</> : <>Create Service</>}
           </Button>
         </FlexBetween>
       </form>

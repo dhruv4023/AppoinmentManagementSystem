@@ -41,7 +41,7 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
   const [time, setTime] = useState("");
   const [bookedDtTm, setBookedDtTm] = useState();
   useEffect(() => {
-    getBookedDtTm(setBookedDtTm, servData?._id);
+    getBookedDtTm(setBookedDtTm, servData?.SID);
   }, [servData]);
   // console.log(servData);
   const bkd =

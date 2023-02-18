@@ -2,7 +2,7 @@ import { setServiceData } from "state";
 export const sendServiceData = async (data) => {
   const { token, values, dispatch } = data;
   // console.log(values);
-  const res = await fetch(`${process.env.REACT_APP_SERVER}/appointment/post`, {
+  const res = await fetch(`${process.env.REACT_APP_SERVER}/service/post`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const sendServiceData = async (data) => {
 
 export const getAllServices = async (dispatch, username) => {
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/appointment/get/${username}`,
+    `${process.env.REACT_APP_SERVER}/service/get/${username}`,
     {
       method: "GET",
       headers: {

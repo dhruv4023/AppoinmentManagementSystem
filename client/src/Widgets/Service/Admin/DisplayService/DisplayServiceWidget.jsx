@@ -3,8 +3,6 @@ import {
   Description,
   EditOutlined,
   LocationOnOutlined,
-  LockClockOutlined,
-  Timelapse,
   TimelapseRounded,
   Timeline,
   WorkOutline,
@@ -21,7 +19,7 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
   const main = theme.palette.neutral.main;
   const edtDt = (m) => {
     return {
-      _id: m._id,
+      SID: m.SID,
       category: m.category,
       serviceName: m.serviceName,
       description: m.description,
@@ -35,7 +33,7 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
     };
   };
   return (
-    <WidgetWrapper key={servData?._id} m={"0.5rem 0 0  0"}>
+    <WidgetWrapper key={servData?.SID} m={"0.5rem 0 0  0"}>
       <FlexBetween flexDirection={"column"}>
         <FlexBetween width={"100%"}>
           <Button
@@ -73,8 +71,6 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
             icon1={<Timeline fontSize="large" sx={{ color: main }} />}
             cel2={
               servData.location.city +
-              // " " +
-              // servData.location.district +
               " " +
               servData.location.state +
               ", " +

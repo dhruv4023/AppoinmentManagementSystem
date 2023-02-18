@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import MobileOtp from "Components/MobileOtp/MobileOtp";
 import { saveAppointmentData } from "../BookAppoinmentFun";
 
-const VerifyMobilePan = ({ setAUID, appointmentData, setTabNo }) => {
+const VerifyMobilePan = ({ setAID, appointmentData, setTabNo }) => {
   const [verified, setVerified] = useState(0);
   // const [capchaRender, setCapchaRender] = useState(true);
   // console.log(appointmentData?.details.contactNumber);
   useEffect(() => {
     verified === 1 &&
-      saveAppointmentData(appointmentData).then((AUID) => {
-        setAUID(AUID);
+      saveAppointmentData(appointmentData).then((AID) => {
+        setAID(AID);
       }) &&
       setTabNo(1);
     verified === -1 && alert("Wrong OTP");

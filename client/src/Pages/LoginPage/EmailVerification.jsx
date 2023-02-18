@@ -12,6 +12,7 @@ const EmailVerification = () => {
 
   const dispatch = useDispatch();
   const values = location.state;
+  // console.log(location)
   const { palette } = useTheme();
   useEffect(() => {
     !values && navigate("/", { state: null });

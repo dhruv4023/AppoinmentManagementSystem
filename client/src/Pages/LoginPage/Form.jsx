@@ -20,9 +20,7 @@ import {
   // register,
   updateProfile,
 } from "./LoginRegisterChangePass";
-import {
-  SelectLocation,
-} from "../../Components/MyComponents";
+import { SelectLocation } from "../../Components/MyComponents";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 const Form = ({ pgType, editProfile, user }) => {
   const initialValuesRegister = {
@@ -73,14 +71,14 @@ const Form = ({ pgType, editProfile, user }) => {
   const [userNames, setUserNames] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (editProfile) values["_id"] = true;
     if (isLogin) await login(values, dispatch, setLogin, navigate);
     else if (userNames.includes(values.username))
       alert("Plz Select Unique Username");
     else if (editProfile && values.email === user.email) {
       updateProfile(values, dispatch, token, navigate);
-    } 
-    else navigate("/verifyemail", { state: values });
-    // else if (isRegister && !editProfile) 
+    } else navigate("/verifyemail", { state: values });
+    // else if (isRegister && !editProfile)
     //   register(values);
     // } else if (editProfile) {
     //   updateProfile(values, dispatch, token, navigate);

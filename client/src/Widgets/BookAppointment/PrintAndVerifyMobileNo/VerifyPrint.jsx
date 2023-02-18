@@ -9,11 +9,11 @@ import VerifyMobilePan from "./VerifyMobilePan";
 const VerifyPrint = ({ appointmentData }) => {
   const theme = useTheme();
   const [tabNo, setTabNo] = useState(0);
-  const [AUID, setAUID] = useState();
-  const handleChange = (e, newValue) => {
-    e.preventDefault();
-    setTabNo(newValue);
-  };
+  const [AID, setAID] = useState();
+  // const handleChange = (e, newValue) => {
+  //   e.preventDefault();
+  //   setTabNo(newValue);
+  // };
   return (
     <FlexEvenly width={"100%"}>
       <Box sx={{ width: "100%" }}>
@@ -31,12 +31,12 @@ const VerifyPrint = ({ appointmentData }) => {
         <TabPanel value={tabNo} index={0} dir={theme.direction}>
           <VerifyMobilePan
             setTabNo={setTabNo}
-            setAUID={setAUID}
+            setAID={setAID}
             appointmentData={appointmentData}
           />
         </TabPanel>
         <TabPanel value={tabNo} index={1} dir={theme.direction}>
-          <PrintPan AUID={AUID} details={appointmentData} />
+          <PrintPan AID={AID} details={appointmentData} />
         </TabPanel>
       </Box>
     </FlexEvenly>

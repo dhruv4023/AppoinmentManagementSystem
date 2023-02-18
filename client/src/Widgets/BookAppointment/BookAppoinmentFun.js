@@ -1,7 +1,7 @@
-export const saveAppointmentData = async ({ details, AID }) => {
+export const saveAppointmentData = async ({ details, SID }) => {
   //   console.log(Details);
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/appointment/post/${AID}`,
+    `${process.env.REACT_APP_SERVER}/appointment/post/${SID}`,
     {
       method: "POST",
       headers: {
@@ -16,11 +16,11 @@ export const saveAppointmentData = async ({ details, AID }) => {
 };
 export const checkWhetherAppointmentAlredyBooked = async ({
   contactNumber,
-  AID,
+  SID,
 }) => {
   //   console.log(Details);
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/appointment/checkWhetherAppointmentAlredyBooked/${AID}`,
+    `${process.env.REACT_APP_SERVER}/appointment/checkWhetherAppointmentAlredyBooked/${SID}`,
     {
       method: "POST",
       headers: {

@@ -24,7 +24,6 @@ export const ProfilePage = () => {
     getAllServices(dispatch, username);
   }, [user, dispatch]);
 
-  // console.log(admin?._id === user?._id, user, admin);
   const [editProf, setEditProf] = useState(false);
   // console.log(admin?.username === user?.username && user)
   return (

@@ -11,7 +11,7 @@ const ServiceWidgets = ({ user }) => {
   });
 
   const { serviceData } = useSelector((s) => s.services);
-  console.log("user");
+  // console.log(serviceData);
   return (
     <Box>
       {user && (

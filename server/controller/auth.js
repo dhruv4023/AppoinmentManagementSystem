@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/user.js";
+import Users from "../models/Users.js";
 import { deleteFile, renameAndMove } from "../helper/fileDirOperations.js";
 /*REGISTER USER*/
 export const registerControl = async (req, res) => {
@@ -17,14 +17,14 @@ export const registerControl = async (req, res) => {
       about,
       location,
     } = req.body;
-    const user = await User.findOne({ email: email });
+    const user = await Users.findOne({ email: email });
     if (user) {
       _file && deleteFile(_file.path);
       return res.status(400).json("user already exist !");
     }
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-    const newUser = new User({
+    const newUser = new Users({
       firstName: firstName,
       lastName: lastName,
       username: username,
@@ -37,7 +37,7 @@ export const registerControl = async (req, res) => {
     const savedUser = await newUser.save();
     if (_file) {
       const picPath = renameAndMove("user/" + newUser._id, _file.originalname);
-      await User.findByIdAndUpdate(newUser._id, {
+      await Users.findByIdAndUpdate(newUser._id, {
         $set: { picPath: picPath },
       });
     }
@@ -51,7 +51,7 @@ export const loginControl = async (req, res) => {
   // console.log(req.body);
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({
+    const user = await Users.findOne({
       $or: [{ email: email }, { username: email }],
     });
     // console.log(user);
@@ -78,7 +78,7 @@ export const changePassControl = async (req, res) => {
   // console.log(req.body);
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    const user = await Users.findOne({ email: email });
     if (!user)
       return res
         .status(400)
@@ -86,7 +86,7 @@ export const changePassControl = async (req, res) => {
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-    await User.findByIdAndUpdate(user._id, {
+    await Users.findByIdAndUpdate(user._id, {
       $set: { password: passwordHash },
     });
     res.status(200).json({ msg: "Password Changed successfully !" });
@@ -97,7 +97,7 @@ export const changePassControl = async (req, res) => {
 
 export const getUserNames = async (req, res) => {
   try {
-    const useNames = await User.distinct("username");
+    const useNames = await Users.distinct("username");
     // console.log(useNames)
     res.status(200).json(useNames);
   } catch (error) {
@@ -113,33 +113,38 @@ export const updateRegisteredData = async (req, res) => {
     const { firstName, lastName, username, email, friends, about, location } =
       req.body;
     console.log(req.body);
-    const user = await User.findOne({ username: _id });
-    if (user.email !== email && (await User.findOne({ email: email }))) {
+    const user = await Users.findOne({ username: _id });
+    if (user.email !== email && (await Users.findOne({ email: email }))) {
       _file && deleteFile(_file.path);
-      return res.status(400).json("user already exist !");
+      return res.status(400).json("Email Already Used !");
     }
-    await User.findOneAndUpdate({username:_id}, {
-      $set: {
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        email: email,
-        about: about,
-        friends: friends,
-        location: location,
-      },
-    });
+    await Users.findOneAndUpdate(
+      { username: _id },
+      {
+        $set: {
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          email: email,
+          about: about,
+          friends: friends,
+          location: location,
+        },
+      }
+    );
     if (_file) {
       try {
         deleteFile("public/" + user.picPath);
       } catch (error) {}
-      // console.log(user.picPath)
       const picPath = renameAndMove("user/" + _id, _file.originalname);
-      await User.findByIdAndUpdate(_id, {
-        $set: { picPath: picPath },
-      });
+      await Users.findOneAndUpdate(
+        { username: _id },
+        {
+          $set: { picPath: picPath },
+        }
+      );
     }
-    const userDt = await User.findOne({ username: _id });
+    const userDt = await Users.findOne({ username: _id });
     // console.log(userDt)
     res.status(200).json({ user: userDt });
   } catch (error) {

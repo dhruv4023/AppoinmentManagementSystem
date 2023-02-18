@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import DisplayServiceWidget from "./DisplayServiceWidget";
 
 const DisplayServices = ({ serviceData, CrudServData, setCrudServData }) => {
@@ -8,7 +7,7 @@ const DisplayServices = ({ serviceData, CrudServData, setCrudServData }) => {
       {serviceData?.map((m) => {
         return (
           <DisplayServiceWidget
-            key={m?._id}
+            key={m?.SID}
             servData={m}
             CrudServData={CrudServData}
             setCrudServData={setCrudServData}
