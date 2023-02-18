@@ -16,7 +16,7 @@ const ServiceBtnWidget = ({ setCrudServData, CrudServData, user }) => {
     username: user.username,
     location: user.location,
   };
-  // console.log(initialServiceData)
+  // console.log(user)
   return (
     <WidgetWrapper m={"0 0 .5rem 0"}>
       <Button

@@ -7,7 +7,6 @@ import React from "react";
 
 const EditProfileWidget = ({ user, setEditProf }) => {
   const userData = {
-    _id: user._id,
     about: user.about,
     email: user.email,
     firstName: user.firstName,
@@ -16,7 +15,7 @@ const EditProfileWidget = ({ user, setEditProf }) => {
     picPath: "",
     username: user.username,
   };
-  console.log(user);
+  // console.log(user);
   return (
     <WidgetWrapper>
       <IconButton

@@ -78,8 +78,9 @@ const Form = ({ pgType, editProfile, user }) => {
       alert("Plz Select Unique Username");
     else if (editProfile && values.email === user.email) {
       updateProfile(values, dispatch, token, navigate);
-    } else navigate("/verifyemail", { state: values });
-    // else if (isRegister && !editProfile) {
+    } 
+    else navigate("/verifyemail", { state: values });
+    // else if (isRegister && !editProfile) 
     //   register(values);
     // } else if (editProfile) {
     //   updateProfile(values, dispatch, token, navigate);

@@ -26,7 +26,7 @@ export const ProfilePage = () => {
 
   // console.log(admin?._id === user?._id, user, admin);
   const [editProf, setEditProf] = useState(false);
-  // console.log(editProf)
+  // console.log(admin?.username === user?.username && user)
   return (
     <>
       <WidgetsOnPage
@@ -44,7 +44,7 @@ export const ProfilePage = () => {
             </>
           ) : (
             <>
-              {admin?._id === user?._id && user ? (
+              {admin?.username === user?.username && user ? (
                 <>
                   <ServiceWidgets user={admin} />
                 </>

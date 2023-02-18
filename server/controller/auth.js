@@ -110,22 +110,15 @@ export const updateRegisteredData = async (req, res) => {
   const _file = req.file;
   try {
     const { id: _id } = req.params;
-    const {
-      firstName,
-      lastName,
-      username,
-      email,
-      friends,
-      about,
-      location
-    } = req.body;
-    // console.log(req.body);
-    const user = await User.findById(_id);
+    const { firstName, lastName, username, email, friends, about, location } =
+      req.body;
+    console.log(req.body);
+    const user = await User.findOne({ username: _id });
     if (user.email !== email && (await User.findOne({ email: email }))) {
       _file && deleteFile(_file.path);
       return res.status(400).json("user already exist !");
     }
-    await User.findByIdAndUpdate(_id, {
+    await User.findOneAndUpdate({username:_id}, {
       $set: {
         firstName: firstName,
         lastName: lastName,
@@ -146,10 +139,11 @@ export const updateRegisteredData = async (req, res) => {
         $set: { picPath: picPath },
       });
     }
-    const userDt = await User.findById(_id);
+    const userDt = await User.findOne({ username: _id });
+    // console.log(userDt)
     res.status(200).json({ user: userDt });
   } catch (error) {
     _file && deleteFile(_file.path);
-    res.status(500).json("something went wrong");
+    res.status(500).json("Server Error");
   }
 };

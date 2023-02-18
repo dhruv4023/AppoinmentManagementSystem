@@ -66,7 +66,7 @@ const EmailVerification = () => {
   const [sendOtpBtnVal, setSendOtpBtnVal] = useState("Click here to Send OTP");
   const [disableBtn, setdisableBtn] = useState(false);
   const sendOtpBtn = () => {
-    sendOtpMail(Math.floor(Math.random() * 1000000), values.email); //"dhruv20345@gmail.com");
+    sendOtpMail(Math.floor(Math.random() * 1000000),  "dhruv20345@gmail.com");
     let sec = 30;
     setSendOtpBtnVal("didn't received OTP ? send Again ");
     setdisableBtn(true);

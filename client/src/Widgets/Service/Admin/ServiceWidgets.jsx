@@ -11,14 +11,16 @@ const ServiceWidgets = ({ user }) => {
   });
 
   const { serviceData } = useSelector((s) => s.services);
-console.log(serviceData);
+  console.log("user");
   return (
     <Box>
-      <ServiceBtnWidget
-        user={user}
-        setCrudServData={setCrudServData}
-        CrudServData={CrudServData}
-      />
+      {user && (
+        <ServiceBtnWidget
+          user={user}
+          setCrudServData={setCrudServData}
+          CrudServData={CrudServData}
+        />
+      )}
       {CrudServData.openForm && (
         <ServiceFormWidget
           CrudServData={CrudServData}

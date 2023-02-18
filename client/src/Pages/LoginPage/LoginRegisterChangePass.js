@@ -2,9 +2,7 @@ import { setLogin } from "state";
 
 export const register = async (values) => {
   const formData = new FormData();
-  for (let value in values) {
-    formData.append(value, values[value]);
-  }
+  appendData(formData, values);
   const savedUserResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/register`,
     {
@@ -68,7 +66,7 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
   const formData = new FormData();
   appendData(formData, values);
   const savedUserResponse = await fetch(
-    `${process.env.REACT_APP_SERVER}/auth/update/${values._id}`,
+    `${process.env.REACT_APP_SERVER}/auth/update/${values.username}`,
     {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
@@ -76,13 +74,16 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
     }
   );
   const savedUser = await savedUserResponse.json();
-  dispatch(
-    setLogin({
-      user: savedUser.user,
-      token: token,
-    })
-  );
-  navigate(`/profile/${savedUser.user.username}`);
+  if (savedUser.user) {
+    dispatch(
+      setLogin({
+        user: savedUser.user,
+        token: token,
+      })
+    ) && navigate(`/profile/${savedUser.user.username}`);
+  } else {
+    alert(savedUser);
+  }
 };
 
 function appendData(formData, object, parentKey) {

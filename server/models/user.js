@@ -49,5 +49,10 @@ const userSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-
+userSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret._id;
+  }
+});
 export default mongoose.model("Users", userSchema);
