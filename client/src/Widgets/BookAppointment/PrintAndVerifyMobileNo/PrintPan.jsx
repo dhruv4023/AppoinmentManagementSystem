@@ -6,11 +6,12 @@ import QRWidget from "Widgets/QRWidget";
 
 const PrintPan = ({ details, AID }) => {
   const theme = useTheme();
+  details.details["AID"] = AID;
   return (
     <>
       <QRWidget
         description={"Scan QR To Open Your Appointment Data"}
-        link={`/printreceipt/${AID}`}
+        link={`printreceipt/${AID}`}
       />
       {Object.keys(details.details).map((m) => {
         return (

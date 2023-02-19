@@ -30,12 +30,14 @@ export const saveAppointment = async (req, res) => {
     const { SID } = req.params;
     const { name, email, contactNumber, message, date, time } = req.body;
     // console.log(req.body,SID);
+
+    const AID = SID + "_" + parseInt(new Date().getTime() / 1000);
     const data = await Services.findOneAndUpdate(
       { SID: SID },
       {
         $push: {
           appoinmentList: {
-            AID: SID + "_" + parseInt(new Date().getTime() / 1000),
+            AID: AID,
             name: name,
             email: email,
             contactNumber: contactNumber,
@@ -45,8 +47,7 @@ export const saveAppointment = async (req, res) => {
         },
       }
     );
-    const AID = data.appoinmentList[0].AID;
-    AID
+    data
       ? res.status(200).json({
           msg: "You have booked an Appoinment for " + date,
           id: AID,
@@ -60,33 +61,6 @@ export const saveAppointment = async (req, res) => {
   }
 };
 
-function compareDDMMYYYY(d1, d2) {
-  var parts = d1.split("-");
-  var d1 = Number(parts[2] + parts[1] + parts[0]);
-  parts = d2.split("-");
-  var d2 = Number(parts[2] + parts[1] + parts[0]);
-  return d1 > d2;
-}
-// const s = async () => {
-//   let date = new Date();
-//   const dt =
-//     date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-//   const data = await Services.findOne({ _id: "63d3f56981444ca3aa0aeed1" });
-//   // console.log(data)
-//   const timeArr = data.AppoinmentList.filter((f) =>
-//     compareDDMMYYYY(f.dateTime.split("|")[0], dt)
-//   ).map((m) => m.dateTime);
-//   // console.log(timeArr);
-//   let bkTms = {};
-//   timeArr.forEach((e) => {
-//     if (!bkTms[e.split("|")[0]]) bkTms[e.split("|")[0]] = [];
-//     bkTms[e.split("|")[0]].push(e.split("|")[1]);
-//   });
-//   // console.log(timeArr);
-//   // res.status(400).json({ data: bkTms });
-// };
-
-// s();
 export const getBookedTime = async (req, res) => {
   try {
     // console.log(req.params);
