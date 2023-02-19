@@ -14,6 +14,7 @@ const VerifyPrint = ({ appointmentData }) => {
   //   e.preventDefault();
   //   setTabNo(newValue);
   // };
+  // console.log(AID)
   return (
     <FlexEvenly width={"100%"}>
       <Box sx={{ width: "100%" }}>
@@ -24,7 +25,7 @@ const VerifyPrint = ({ appointmentData }) => {
             value={tabNo}
             aria-label="basic tabs example"
           >
-            <Tab  label="Verify Mobile No" {...a11yProps(0)} />
+            <Tab label="Verify Mobile No" {...a11yProps(0)} />
             <Tab label="print Receipt" {...a11yProps(1)} />
           </Tabs>
         </Box>
@@ -36,7 +37,7 @@ const VerifyPrint = ({ appointmentData }) => {
           />
         </TabPanel>
         <TabPanel value={tabNo} index={1} dir={theme.direction}>
-          <PrintPan AID={AID} details={appointmentData} />
+          {AID && <PrintPan AID={AID} details={appointmentData} />}
         </TabPanel>
       </Box>
     </FlexEvenly>

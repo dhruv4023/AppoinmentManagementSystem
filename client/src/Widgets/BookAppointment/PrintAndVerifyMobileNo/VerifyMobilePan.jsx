@@ -10,8 +10,8 @@ const VerifyMobilePan = ({ setAID, appointmentData, setTabNo }) => {
     verified === 1 &&
       saveAppointmentData(appointmentData).then((AID) => {
         setAID(AID);
-      }) &&
-      setTabNo(1);
+        AID && setTabNo(1);
+      });
     verified === -1 && alert("Wrong OTP");
   }, [verified]);
   return (

@@ -1,7 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
-import React, { useState } from "react";
+import React from "react";
 import { checkWhetherAppointmentAlredyBooked } from "../BookAppoinmentFun";
 
 const Confirmation = ({ details, servData, setAppointmentData }) => {
@@ -11,6 +11,7 @@ const Confirmation = ({ details, servData, setAppointmentData }) => {
       contactNumber: details.contactNumber,
       SID: servData.SID,
     }).then((alredyBooked) => {
+      // console.log(alredyBooked)
       !alredyBooked &&
         setAppointmentData({ details: details, SID: servData.SID });
     });

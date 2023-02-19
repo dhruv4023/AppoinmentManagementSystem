@@ -10,7 +10,7 @@ const PrintPan = ({ details, AID }) => {
     <>
       <QRWidget
         description={"Scan QR To Open Your Appointment Data"}
-        link={`/printreceipt/${details.SID}/${AID}`}
+        link={`/printreceipt/${AID}`}
       />
       {Object.keys(details.details).map((m) => {
         return (

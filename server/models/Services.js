@@ -35,8 +35,9 @@ const serviceSchema = mongoose.Schema(
       pincode: { type: String },
     },
     description: String,
-    AppoinmentList: [
+    appoinmentList: [
       {
+        AID: { type: String, unique: true },
         name: { type: String },
         email: { type: String },
         contactNumber: { type: String },

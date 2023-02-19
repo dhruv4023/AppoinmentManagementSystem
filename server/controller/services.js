@@ -99,7 +99,7 @@ export const getAdminServices = async (req, res) => {
 export const getServicesOnBookingPage = async (req, res) => {
   try {
     const servData = await Services.findOne(req.params);
-    console.log(servData);
+    // console.log(servData);
     res.status(200).json(servData);
   } catch (error) {
     res.status(409).json({ mess: "error" });

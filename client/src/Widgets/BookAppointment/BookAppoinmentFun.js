@@ -46,18 +46,3 @@ export const getBookedDtTm = async (setBookedDtTm, id) => {
   setBookedDtTm(data);
   // setUserNames(user ? data.filter((f) => f !== user.username) : data);
 };
-export const getSingleBookedData = async (
-  setUserAppointmentData,
-  AID,
-  UAID
-) => {
-  const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/appointment/getbookeddata/${AID}/${UAID}`,
-    {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-  const data = await res.json();
-  data && setUserAppointmentData(data);
-};

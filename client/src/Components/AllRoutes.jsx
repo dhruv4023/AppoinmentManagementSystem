@@ -19,7 +19,7 @@ export const AllRoutes = () => {
       <Route path={"/contact"} element={<ContactUsPage />} />
       <Route path={"/profile/:UID"} element={<ProfilePage />} />
       <Route path={"/printappointment"} element={<PrintAndVerifyAppointment/>} />
-      <Route path={"/printappointment/:AID/:AUID"} element={<PrintAndVerifyAppointment/>} />
+      <Route path={"/printappointment/:AID"} element={<PrintAndVerifyAppointment/>} />
       <Route path={"/service/:UID/:SID"} element={<DashBoardAndUserView />} />
       <Route path={"/404"} element={<PageNotFound />} />
     </Routes>
