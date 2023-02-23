@@ -2,9 +2,10 @@ import {
   Message,
   DarkMode,
   LightMode,
-  Notifications,
   Help,
   LoginRounded,
+  ContactSupport,
+  TaskAltRounded,
 } from "@mui/icons-material";
 import { setMode, setLogout } from "state";
 import {
@@ -49,9 +50,22 @@ const MenuItems = () => {
           </Tooltip>
         )}
       </IconButton>
-      <Message sx={{ fontSize: "25px" }} />
-      <Notifications sx={{ fontSize: "25px" }} />
-      <Help sx={{ fontSize: "25px" }} />
+      <IconButton onClick={() => navigate("/printreceipt")}>
+        <Tooltip title="Click To Open Check Appointment Book Status">
+          <TaskAltRounded sx={{ fontSize: "25px" }} />
+        </Tooltip>
+      </IconButton>
+      {/* <Notifications sx={{ fontSize: "25px" }} /> */}
+      <IconButton onClick={() => navigate("/help")}>
+        <Tooltip title="Click To Open Help Page">
+          <Help sx={{ fontSize: "25px" }} />
+        </Tooltip>
+      </IconButton>
+      <IconButton onClick={() => navigate("/contact")}>
+        <Tooltip title="Click To Open Contact Us Page">
+          <ContactSupport sx={{ fontSize: "25px" }} />
+        </Tooltip>
+      </IconButton>
       {user ? (
         <FormControl variant="standard" value={fullName}>
           <Select

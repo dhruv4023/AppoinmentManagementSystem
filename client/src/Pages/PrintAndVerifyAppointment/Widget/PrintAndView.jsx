@@ -51,7 +51,7 @@ const PrintAndView = ({ AIDNo, doRetrive }) => {
           })}
           <QRWidget
             description={"Scan QR To Open Your Appointment Data"}
-            link={`/printreceipt/${AIDNo}`}
+            link={`printreceipt/${AIDNo}`}
           />
           <Button
             type="submit"

@@ -13,7 +13,7 @@ const routes = express.Router();
 routes.post("/post/:SID", saveAppointment);
 routes.get("/getbookedtime/:SID", getBookedTime);
 routes.get("/getsinglebookeddata/:AID", getSingleBookedData);
-routes.get("/getallbookeddata/:id", getAllBookedData);
+routes.get("/getallbookeddata/:SID", getAllBookedData);
 
 routes.post(
   "/checkWhetherAppointmentAlredyBooked/:SID",

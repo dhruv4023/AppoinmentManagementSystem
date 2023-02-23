@@ -43,6 +43,7 @@ const serviceSchema = mongoose.Schema(
         contactNumber: { type: String },
         dateTime: { type: String },
         message: { type: String },
+        status: { type: Number, default: 0 },
         bookedOn: { type: Date, default: Date.now },
       },
     ],

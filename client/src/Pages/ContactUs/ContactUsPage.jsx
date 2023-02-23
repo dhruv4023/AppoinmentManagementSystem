@@ -1,9 +1,8 @@
-import React from 'react'
+import WidgetsOnPage from "Components/WidgetsOnPage";
+import React from "react";
 
 const ContactUsPage = () => {
-  return (
-    <div>ContactUsPage</div>
-  )
-}
+  return <WidgetsOnPage title={"Contact Us"} />;
+};
 
-export default ContactUsPage
+export default ContactUsPage;

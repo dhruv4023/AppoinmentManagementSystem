@@ -127,9 +127,10 @@ export const getSingleBookedData = async (req, res) => {
     res.status(409).json(null);
   }
 };
+
 export const getAllBookedData = async (req, res) => {
   try {
-    const data = await Services.findOne({ _id: _id });
+    const data = await Services.findOne(req.params);
     res.status(200).json({ data: data.AppoinmentList });
   } catch (error) {
     res.status(409).json("Sever Error");

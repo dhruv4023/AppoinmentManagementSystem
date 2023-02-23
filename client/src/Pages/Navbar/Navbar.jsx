@@ -15,12 +15,12 @@ import MenuItems from "./MenuItems";
 
 export const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
-  const isNonMobileScreens = useMediaQuery("(min-width: 800px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 600px)");
 
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
+  // const neutralLight = theme.palette.neutral.light;
   // const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
@@ -43,7 +43,7 @@ export const Navbar = () => {
         >
           AppointsApp
         </Typography>
-        {isNonMobileScreens && (
+        {/* {isNonMobileScreens && (
           <FlexBetween
             backgroundColor={neutralLight}
             borderRadius={"9px"}
@@ -59,7 +59,7 @@ export const Navbar = () => {
               </IconButton>
             </FlexBetween>
           </FlexBetween>
-        )}
+        )} */}
         {isNonMobileScreens ? (
           <>
             <FlexBetween gap={"1rem"}>
@@ -74,39 +74,56 @@ export const Navbar = () => {
           </IconButton>
         )}
         {!isNonMobileScreens && isMobileMenuToggled && (
-          <Box
-            position={"fixed"}
-            right="0"
-            // botom="0"
-            top="0"
-            // height="100%"
-            zIndex="10"
-            maxWidth="500px"
-            minWidth="30px"
-            backgroundColor={background}
-          >
-            <FlexBetween
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              gap="3rem"
+          <>
+            <Box
+              position={"fixed"}
+              right="0"
+              top="0"
+              zIndex="10"
+              maxWidth="500px"
+              minWidth="30px"
+              backgroundColor={background}
+              // border="1px solid red"
+              height={"50%"}
+              overflow={"auto"}
             >
-              <Box
-                display={"flex"}
-                zIndex={"11"}
-                justifyContent={"flex-end"}
-                p={"1rem"}
+              <FlexBetween
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                gap="3rem"
               >
-                <IconButton
-                  onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+                <Box
+                  display={"flex"}
+                  zIndex={"11"}
+                  justifyContent={"flex-end"}
+                  p={"1rem"}
                 >
-                  <Close />
-                </IconButton>
-              </Box>
-              <MenuItems />
-            </FlexBetween>
-          </Box>
+                  <IconButton
+                    onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+                  >
+                    <Close />
+                  </IconButton>
+                </Box>
+                <MenuItems />
+              </FlexBetween>
+              <IconButton
+                onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+              >
+                <Box
+                  sx={{
+                    position: "fixed",
+                    left: 0,
+                    zIndex: -1,
+                    bottom: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </IconButton>
+            </Box>
+          </>
         )}
       </FlexBetween>
     </>
