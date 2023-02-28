@@ -1,7 +1,7 @@
 import WidgetsOnPage from "Components/WidgetsOnPage";
 import React, { useState } from "react";
-import DisplayFilterData from "Widgets/FilterData/DisplayFilterData";
-import FilterWidget from "Widgets/FilterData/FilterWidget";
+import DisplayFilterData from "Pages/HomePage/Widgets/DisplayFilterData";
+import FilterWidget from "Pages/HomePage/Widgets/FilterWidget";
 const HomePage = () => {
   const [filteredData, setFilteredData] = useState("");
   return (

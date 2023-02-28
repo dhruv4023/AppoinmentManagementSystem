@@ -7,6 +7,7 @@ import { Button, Divider, useTheme } from "@mui/material";
 import FlexEvenly from "Components/FlexEvenly";
 import moment from "moment/moment";
 import { getBookedDtTm } from "../BookAppoinmentFun";
+import Loading from "Components/Loading";
 // import Calender from "./Calender";
 
 const timeArray = (x, startTim, endTim) => {
@@ -25,6 +26,7 @@ const timeArray = (x, startTim, endTim) => {
   }
   return timeStops;
 };
+
 const SelectDateTime = ({ setDateAndTime, servData }) => {
   const theme = useTheme();
   const mnDate = new Date();
@@ -43,28 +45,29 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
   useEffect(() => {
     getBookedDtTm(setBookedDtTm, servData?.SID);
   }, [servData]);
-  // console.log(servData);
-  const bkd =
-    bookedDtTm &&
-    bookedDtTm[
-      date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-    ];
-  const times =
-    servData &&
-    bookedDtTm &&
-    [
-      ...timeArray(
-        servData?.appoinmentTime,
-        servData?.serviceTime?.Start,
-        servData?.breakTime?.Start
-      ),
-      ...timeArray(
-        servData?.appoinmentTime,
-        servData?.breakTime?.End,
-        servData?.serviceTime?.End
-      ),
-    ].filter((f) => !bkd?.includes(f));
+  // console.log(bookedDtTm);
   // console.log();
+  // const bkd =
+  //   bookedDtTm &&
+  //   bookedDtTm[
+  //     date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+  //   ];
+  // const times =
+  //   servData &&
+  //     bookedDtTm &&
+  //     [
+  //       ...timeArray(
+  //         servData?.appoinmentTime,
+  //         servData?.serviceTime?.Start,
+  //         servData?.breakTime?.Start
+  //       ),
+  //       ...timeArray(
+  //         servData?.appoinmentTime,
+  //         servData?.breakTime?.End,
+  //         servData?.serviceTime?.End
+  //       ),
+  //     ].filter((f) => !bkd?.includes(f));
+  // console.log(times, servData);
   return (
     <FlexBetween gap={"0.5rem"} flexWrap={"wrap"}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -89,36 +92,44 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
         flexWrap={"wrap"}
         gap={"0.5rem"}
       >
-        {times?.map((m) => {
-          return (
-            <Button
-              key={m}
-              onClick={() => {
-                setTime(m);
-                setDateAndTime({
-                  date:
-                    date.getDate() +
-                    "-" +
-                    (date.getMonth() + 1) +
-                    "-" +
-                    date.getFullYear(),
-                  time: m,
-                });
-              }}
-              sx={{
-                color: time === m && theme.palette.secondary.dark,
-                backgroundColor:
-                  time === m
-                    ? theme.palette.primary.main
-                    : theme.palette.background.default,
-                borderRadius: "1rem",
-                padding: "0.8rem",
-              }}
-            >
-              {m}
-            </Button>
-          );
-        })}
+        {bookedDtTm ? (
+          <>
+            {bookedDtTm[date.toISOString().substring(0, 10)]?.map((m) => {
+              return (
+                <Button
+                  key={m}
+                  onClick={() => {
+                    setTime(m);
+                    setDateAndTime({
+                      date:
+                        date.getFullYear() +
+                        "-" +
+                        (date.getMonth() + 1) +
+                        "-" +
+                        date.getDate(),
+                      time: m,
+                    });
+                  }}
+                  sx={{
+                    color: time === m && theme.palette.secondary.dark,
+                    backgroundColor:
+                      time === m
+                        ? theme.palette.primary.main
+                        : theme.palette.background.default,
+                    borderRadius: "1rem",
+                    padding: "0.8rem",
+                  }}
+                >
+                  {m}
+                </Button>
+              );
+            })}{" "}
+          </>
+        ) : (
+          <>
+            <Loading />
+          </>
+        )}
       </FlexEvenly>
     </FlexBetween>
   );

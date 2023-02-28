@@ -1,6 +1,14 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { City } from "country-state-city";
 import React, { useEffect, useState } from "react";
+import FlexBetween from "./FlexBetween";
 import FlexEvenly from "./FlexEvenly";
 export const SelectAutoComplete = ({ setInputVal, options, label, value }) => {
   return (
@@ -104,6 +112,68 @@ export const SelectLocation = ({ location, inputValues }) => {
           sx={{ flexGrow: 1 }}
         />
       </FlexEvenly>
+    </>
+  );
+};
+
+export const MyTextField = ({ name, val, setInputVal }) => {
+  const nm = String(name);
+  return (
+    <TextField
+      key={name}
+      label={nm.charAt(0).toUpperCase() + nm.substring(1)}
+      onChange={(e) => setInputVal(e.target.value, name)}
+      name="Name"
+      required
+      value={val}
+      sx={{ width: "100%" }}
+    />
+  );
+};
+
+export const MyBtn = ({ onclickHandle, label = "x" }) => {
+  const theme = useTheme();
+  return (
+    <Button
+      fullWidth
+      type="submit"
+      onClick={onclickHandle}
+      sx={{
+        m: "1.2rem 0",
+        p: "1rem",
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.background.alt,
+        "&:hover": { color: theme.palette.primary.main },
+      }}
+    >
+      {label}
+    </Button>
+  );
+};
+export const DisplayDataComp = ({ ky, value }) => {
+  const theme = useTheme();
+  console.log(ky, value);
+  return (
+    <>
+      <FlexBetween my={"0.5rem"} flexWrap={"wrap"}>
+        <Typography
+          fontSize={"1rem"}
+          color={theme.palette.primary.alt}
+          fontWeight="500"
+          width={"10rem"}
+        >
+          {String(ky).toUpperCase()}
+        </Typography>
+        <Typography
+          width={"70%"}
+          flexGrow={"1"}
+          fontSize={"1rem"}
+          color={theme.palette.primary.dark}
+          fontWeight="500"
+        >
+          : {value}
+        </Typography>
+      </FlexBetween>
     </>
   );
 };

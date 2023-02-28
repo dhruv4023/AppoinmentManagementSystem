@@ -20,7 +20,7 @@ const DashBoardAndUserView = () => {
     getServDataDashBordAndBook(UID, SID, setServData);
     getUser(setUser, UID);
   }, [UID, SID, setServData]);
-  console.log(admin,UID , user?.username);
+  // console.log(admin, UID, user?.username);
   return (
     <WidgetsOnPage
       leftComponent={
@@ -36,17 +36,14 @@ const DashBoardAndUserView = () => {
       }
       rightComponent={
         <>
-          {servData && <DisplayServiceWidget servData={servData} />}
-          <WidgetWrapper mt={"0.8rem"}>
-            {" "}
-            {UID === admin?.username ? (
-              <>
-                <DashBoardWidget />
-              </>
-            ) : (
+          {servData && <DisplayServiceWidget servData={servData} />}{" "}
+          {UID === admin?.username ? (
+            <>{servData && <DashBoardWidget SID={servData.SID} />}</>
+          ) : (
+            <WidgetWrapper mt={"0.8rem"}>
               <>{servData && <BookAppointMentWidget servData={servData} />}</>
-            )}
-          </WidgetWrapper>
+            </WidgetWrapper>
+          )}
         </>
       }
     />

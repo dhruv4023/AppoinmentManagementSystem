@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Description,
+  DinnerDining,
   EditOutlined,
   LocationOnOutlined,
   TimelapseRounded,
@@ -17,6 +18,7 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const main = theme.palette.neutral.main;
+  // console.log(servData)
   const edtDt = (m) => {
     return {
       SID: m.SID,
@@ -70,11 +72,11 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
             cel1={servData?.appoinmentTime}
             icon1={<Timeline fontSize="large" sx={{ color: main }} />}
             cel2={
-              servData.location.city +
+              servData.location?.city +
               " " +
-              servData.location.state +
+              servData.location?.state +
               ", " +
-              servData.location.pincode
+              servData.location?.pincode
             }
             icon2={<LocationOnOutlined fontSize="large" sx={{ color: main }} />}
           />
@@ -84,7 +86,7 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
             }
             icon1={<TimelapseRounded fontSize="large" sx={{ color: main }} />}
             cel2={servData?.breakTime?.Start + " " + servData?.breakTime?.End}
-            icon2={<Description fontSize="large" sx={{ color: main }} />}
+            icon2={<DinnerDining fontSize="large" sx={{ color: main }} />}
           />
         </FlexBetween>
       </FlexBetween>

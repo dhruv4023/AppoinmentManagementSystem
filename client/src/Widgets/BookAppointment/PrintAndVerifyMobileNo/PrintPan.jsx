@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
+import { DisplayDataComp } from "Components/MyComponents";
 import React from "react";
 import QRWidget from "Widgets/QRWidget";
 
@@ -14,28 +15,7 @@ const PrintPan = ({ details, AID }) => {
         link={`printreceipt/${AID}`}
       />
       {Object.keys(details.details).map((m) => {
-        return (
-          <FlexBetween key={m}>
-            <Typography
-              fontSize={"1rem"}
-              color={theme.palette.primary.dark}
-              fontWeight="500"
-              my="0.7rem"
-              width={"30%"}
-            >
-              {String(m).toUpperCase()}
-            </Typography>
-            <Typography
-              flexGrow={"1"}
-              fontSize={"1rem"}
-              color={theme.palette.primary.dark}
-              fontWeight="500"
-              my="0.7rem"
-            >
-              : {details.details[m]}
-            </Typography>
-          </FlexBetween>
-        );
+        return <DisplayDataComp ky={m} value={details.details[m]} />;
       })}
       <Button
         type="submit"

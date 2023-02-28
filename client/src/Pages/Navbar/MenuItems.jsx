@@ -51,18 +51,18 @@ const MenuItems = () => {
         )}
       </IconButton>
       <IconButton onClick={() => navigate("/printreceipt")}>
-        <Tooltip title="Click To Open Check Appointment Book Status">
+        <Tooltip title="Check Appointment Book Status">
           <TaskAltRounded sx={{ fontSize: "25px" }} />
         </Tooltip>
       </IconButton>
       {/* <Notifications sx={{ fontSize: "25px" }} /> */}
       <IconButton onClick={() => navigate("/help")}>
-        <Tooltip title="Click To Open Help Page">
+        <Tooltip title="Need Help !">
           <Help sx={{ fontSize: "25px" }} />
         </Tooltip>
       </IconButton>
       <IconButton onClick={() => navigate("/contact")}>
-        <Tooltip title="Click To Open Contact Us Page">
+        <Tooltip title="Contact Support">
           <ContactSupport sx={{ fontSize: "25px" }} />
         </Tooltip>
       </IconButton>

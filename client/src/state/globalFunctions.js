@@ -6,3 +6,9 @@ export const getCategoriesArray = async (dispatch) => {
   ).json();
   dispatch(setCategories(x.category));
 };
+
+export const DDMMYYYY = (YYYYMMDD) => {
+  const a = YYYYMMDD.split("-");
+  return a[2] + "/" + a[1] + "/" + a[0];
+};
+

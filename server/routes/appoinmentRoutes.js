@@ -6,6 +6,7 @@ import {
   getSingleBookedData,
   getAllBookedData,
   checkWhetherAppointmentAlredyBooked,
+  changeAppointmentStatus
 } from "../controller/bookAppointment.js";
 
 const routes = express.Router();
@@ -13,7 +14,8 @@ const routes = express.Router();
 routes.post("/post/:SID", saveAppointment);
 routes.get("/getbookedtime/:SID", getBookedTime);
 routes.get("/getsinglebookeddata/:AID", getSingleBookedData);
-routes.get("/getallbookeddata/:SID", getAllBookedData);
+routes.post("/getallbookeddata/:SID/:date", getAllBookedData);
+routes.post("/changeAppointmentStatus/:AID", changeAppointmentStatus);
 
 routes.post(
   "/checkWhetherAppointmentAlredyBooked/:SID",

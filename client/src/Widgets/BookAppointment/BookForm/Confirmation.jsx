@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
+import { DisplayDataComp } from "Components/MyComponents";
 import React from "react";
 import { checkWhetherAppointmentAlredyBooked } from "../BookAppoinmentFun";
 
@@ -19,29 +20,7 @@ const Confirmation = ({ details, servData, setAppointmentData }) => {
   return (
     <>
       {Object.keys(details).map((m) => {
-        return (
-          <FlexBetween key={m}>
-            {" "}
-            <Typography
-              fontSize={"1rem"}
-              color={theme.palette.primary.dark}
-              fontWeight="500"
-              my="0.7rem"
-              width={"30%"}
-            >
-              {m}
-            </Typography>
-            <Typography
-              flexGrow={"1"}
-              fontSize={"1rem"}
-              color={theme.palette.primary.dark}
-              fontWeight="500"
-              my="0.7rem"
-            >
-              : {details[m]}
-            </Typography>
-          </FlexBetween>
-        );
+        return <DisplayDataComp ky={m} value={details[m]} />;
       })}
       <Button
         type="submit"

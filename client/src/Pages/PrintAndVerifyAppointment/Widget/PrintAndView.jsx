@@ -2,18 +2,27 @@ import { useTheme } from "@emotion/react";
 import { Bookmark } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
+import { DisplayDataComp } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
+import { DDMMYYYY } from "state/globalFunctions";
 import QRWidget from "Widgets/QRWidget";
 import { getSinglebookedData } from "./PrintAndVerifyAppointment";
 
 const PrintAndView = ({ AIDNo, doRetrive }) => {
   const theme = useTheme();
   const [apDt, setApDt] = useState();
+  const [dateTime, setdateTime] = useState();
   useEffect(() => {
-    AIDNo && getSinglebookedData(AIDNo).then((d) => setApDt(d.data));
+    AIDNo &&
+      getSinglebookedData(AIDNo).then((d) => {
+        setdateTime(d.data.dateTime);
+        delete d.data.status;
+        delete d.data.dateTime;
+        delete d.data._id;
+        setApDt(d.data);
+      });
   }, [doRetrive]);
-  console.log(apDt, AIDNo);
   return (
     <WidgetWrapper>
       <Typography
@@ -22,33 +31,15 @@ const PrintAndView = ({ AIDNo, doRetrive }) => {
         fontWeight="500"
         width={"100%"}
       >
-       <Bookmark/>  Your Appointment Receipt
+        <Bookmark /> Your Appointment Receipt
       </Typography>
       {apDt && (
         <>
           {Object.keys(apDt).map((m) => {
-            return (
-              <FlexBetween my={"0.5rem"} key={m} flexWrap={"wrap"}>
-                <Typography
-                  fontSize={"1rem"}
-                  color={theme.palette.primary.alt}
-                  fontWeight="500"
-                  width={"10rem"}
-                >
-                  {String(m).toUpperCase()}
-                </Typography>
-                <Typography
-                  width={"70%"}
-                  flexGrow={"1"}
-                  fontSize={"1rem"}
-                  color={theme.palette.primary.dark}
-                  fontWeight="500"
-                >
-                  : {apDt[m]}
-                </Typography>
-              </FlexBetween>
-            );
+            return <DisplayDataComp ky={m} value={apDt[m]} />;
           })}
+          <DisplayDataComp ky={"TIME"} value={dateTime.time} />
+          <DisplayDataComp ky={"DATE"} value={DDMMYYYY(dateTime.date)} />
           <QRWidget
             description={"Scan QR To Open Your Appointment Data"}
             link={`printreceipt/${AIDNo}`}

@@ -16,6 +16,7 @@ const BookForm = ({ servData, setAppointmentData }) => {
     e.preventDefault();
     setTabNo(newValue);
   };
+
   const [dateAndTime, setDateAndTime] = useState();
   const [details, setDetails] = useState();
   return (

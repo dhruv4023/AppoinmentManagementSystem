@@ -34,14 +34,18 @@ const serviceSchema = mongoose.Schema(
       city: { type: String },
       pincode: { type: String },
     },
+    chartData: {},
     description: String,
-    appoinmentList: [
+    appointmentList: [
       {
         AID: { type: String, unique: true },
         name: { type: String },
         email: { type: String },
         contactNumber: { type: String },
-        dateTime: { type: String },
+        dateTime: {
+          date: { type: String },
+          time: { type: String },
+        },
         message: { type: String },
         status: { type: Number, default: 0 },
         bookedOn: { type: Date, default: Date.now },
