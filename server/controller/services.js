@@ -76,13 +76,16 @@ export const createService = async (req, res) => {
         location: location,
         description: description,
         serviceName: serviceName,
-        chartData:[],
+        chartData: [],
         appointmentList: [],
       });
-      console.log(newService);
-      const dt = await newService.save();
-      console.log(dt);
-      // returnServData({ username }, res);
+      // console.log(mongoose.connection.readyState)
+      // console.log(newService);
+      await newService.save((error, data) => {
+        // console.log(data, error);
+      });
+      // console.log(dt);
+      returnServData({ username }, res);
     }
   } catch (error) {
     // console.log(error)

@@ -35,30 +35,30 @@ const serviceSchema = mongoose.Schema(
       city: { type: String },
       pincode: { type: String },
     },
-    // chartData: [
-    //   {
-    //     year: {
-    //       value: { type: String },
-    //       total: [0,0,0],
-    //       months: [
-    //         {
-    //           value: { type: String },
-    //           total: [0,0,0],
-    //           days: [
-    //             {
-    //               value: { type: String },
-    //               total: [0,0,0],
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // ],
+    chartData: [
+      {
+        year: {
+          value: { type: String },
+          total: [0, 0, 0],
+          months: [
+            {
+              value: { type: String },
+              total: [0, 0, 0],
+              days: [
+                {
+                  value: { type: String },
+                  total: [0, 0, 0],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    ],
     description: { type: String },
     appointmentList: [
       {
-        AID: { type: String, unique: true },
+        AID: { type: String },
         name: { type: String },
         email: { type: String },
         contactNumber: { type: String },
