@@ -25,9 +25,9 @@ ChartJS.register(
   Legend
 );
 
-export const PieC = ({pieData}) => {
+export const PieC = ({ pieData }) => {
   const data = {
-    labels: ["Canceled", "Success"],
+    labels: ["Canceled", "Success", "Not Booked"],
     datasets: [
       {
         label: "Appointments",
@@ -53,7 +53,12 @@ export const PieC = ({pieData}) => {
   );
 };
 
-export const LineC = ({cancelAppointmentData,successAppointmentData,lineLabel}) => {
+export const LineC = ({
+  leftToBook,
+  cancelAppointmentData,
+  successAppointmentData,
+  lineLabel,
+}) => {
   const options = {
     responsive: true,
     plugins: {
@@ -67,7 +72,7 @@ export const LineC = ({cancelAppointmentData,successAppointmentData,lineLabel}) 
     },
   };
   const data = {
-    labels:lineLabel,
+    labels: lineLabel,
     datasets: [
       {
         label: "Canceled Appointments",
@@ -80,6 +85,12 @@ export const LineC = ({cancelAppointmentData,successAppointmentData,lineLabel}) 
         data: successAppointmentData,
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+      {
+        label: "Not Booked Appointments",
+        data: leftToBook,
+        borderColor: "rgb(255, 206, 86)",
+        backgroundColor: "rgba(255, 206, 86, 0.2)",
       },
     ],
   };

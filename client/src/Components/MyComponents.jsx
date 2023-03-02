@@ -4,44 +4,53 @@ import {
   Box,
   Button,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { City } from "country-state-city";
 import React, { useEffect, useState } from "react";
 import FlexBetween from "./FlexBetween";
 import FlexEvenly from "./FlexEvenly";
-export const SelectAutoComplete = ({ setInputVal, options, label, value }) => {
+export const SelectAutoComplete = ({
+  msg,
+  setInputVal,
+  options,
+  label,
+  value,
+}) => {
   return (
-    <Autocomplete
-      sx={{ width: "100%" }}
-      options={options}
-      autoHighlight
-      value={value}
-      getOptionLabel={(option) => option}
-      onInputChange={(e, newInputValue) => {
-        setInputVal(newInputValue, String(label).replace(" ", ""));
-      }}
-      renderOption={(props, option) => (
-        <Box
-          component="li"
-          sx={{ width: "100%" }}
-          // sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-          {...props}
-        >
-          {option}
-        </Box>
-      )}
-      renderInput={(params) => (
-        <TextField
-          required
-          value={value}
-          {...params}
-          label={
-            String(label).charAt(0).toUpperCase() + String(label).substring(1)
-          }
-        />
-      )}
-    />
+    <Tooltip title={msg}>
+      <Autocomplete
+        sx={{ width: "100%" }}
+        options={options}
+        autoHighlight
+        value={value}
+        getOptionLabel={(option) => option}
+        onInputChange={(e, newInputValue) => {
+          setInputVal(newInputValue, String(label).replace(" ", ""));
+        }}
+        renderOption={(props, option) => (
+          <Box
+            component="li"
+            sx={{ width: "100%" }}
+            // sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+            {...props}
+          >
+            {option}
+          </Box>
+        )}
+        renderInput={(params) => (
+          <TextField
+            required
+            value={value}
+            {...params}
+            label={
+              String(label).charAt(0).toUpperCase() + String(label).substring(1)
+            }
+          />
+        )}
+      />
+    </Tooltip>
   );
 };
 
@@ -105,6 +114,10 @@ export const SelectLocation = ({ location, inputValues }) => {
             /> */}
         <TextField
           required
+          inputProps={{
+            minLength: 6,
+            maxLength: 6,
+          }}
           label="Pincode"
           onChange={(e) => onChangehandle(e.target.value, "pincode")}
           name="pincode"
@@ -152,7 +165,7 @@ export const MyBtn = ({ onclickHandle, label = "x" }) => {
 };
 export const DisplayDataComp = ({ ky, value }) => {
   const theme = useTheme();
-  console.log(ky, value);
+  // console.log(ky, value);
   return (
     <>
       <FlexBetween my={"0.5rem"} flexWrap={"wrap"}>

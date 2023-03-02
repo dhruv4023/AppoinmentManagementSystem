@@ -136,7 +136,7 @@ export const getSingleBookedData = async (req, res) => {
 export const getAllBookedData = async (req, res) => {
   try {
     const { SID, date } = req.params;
-    console.log(date, SID);
+    // console.log(date, SID);
     const data = await Services.aggregate([
       {
         $match: {

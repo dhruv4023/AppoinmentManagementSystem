@@ -10,7 +10,7 @@ import FlexBetween from "Components/FlexBetween";
 import { MyBtn } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
-import { DDMMYYYY } from "state/globalFunctions";
+import { DDMMYYYY, MXMNDate } from "state/globalFunctions";
 import { getAllBookedData } from "./AppointmentData";
 import CollapsibleTable, { createData } from "./CollapsibleTable";
 
@@ -44,8 +44,6 @@ const TableData = ({ SID }) => {
     };
   }, [selectDate]);
   // console.log(selectDate, dataList);
-  const maxDate = new Date();
-  maxDate.setDate(maxDate.getDate() + 7);
   return (
     <WidgetWrapper width={"100%"}>
       <Typography
@@ -65,8 +63,8 @@ const TableData = ({ SID }) => {
           type={"date"}
           InputProps={{
             inputProps: {
-              min: "2023-01-01",
-              max: maxDate.toISOString().substring(0, 10),
+              min: MXMNDate(-7).toISOString().substring(0, 10),
+              max: MXMNDate(7).toISOString().substring(0, 10),
             },
           }}
           value={selectDate}

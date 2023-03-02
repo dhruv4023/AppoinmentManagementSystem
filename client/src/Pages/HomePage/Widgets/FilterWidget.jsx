@@ -48,16 +48,21 @@ const FilterWidget = ({ setFilteredData }) => {
         </Typography>
         <FlexBetween flexDirection={"column"} gap={"1rem"} my={"0.5rem"}>
           <SelectAutoComplete
+            msg={"Select Category Name"}
             setInputVal={setInputVal}
             label={"Category"}
             options={categories}
           />
           <SelectAutoComplete
+            msg={"Select City Name"}
             label={"Select City"}
             setInputVal={setInputVal}
-            options={City.getCitiesOfState("IN", "GJ").map((m) => m.name).filter(f=>!f.includes(","))}
+            options={City.getCitiesOfState("IN", "GJ")
+              .map((m) => m.name)
+              .filter((f) => !f.includes(","))}
           />
           <TextField
+            required
             label="Pincode"
             onChange={(e) => setInputVal(e.target.value, "pincode")}
             name="pincode"

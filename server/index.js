@@ -13,6 +13,7 @@ import authRoute from "./routes/authRoutes.js";
 import appoinmentRoute from "./routes/appoinmentRoutes.js";
 import serviceRoute from "./routes/serviceRoute.js";
 import userRoute from "./routes/userRoutes.js";
+import chartDataRoute from "./routes/chartRoute.js";
 
 // configuration
 const __filename = fileURLToPath(import.meta.url);
@@ -34,6 +35,7 @@ app.use("/auth", authRoute);
 app.use("/appointment", appoinmentRoute);
 app.use("/service", serviceRoute);
 app.use("/user", userRoute);
+app.use("/chart", chartDataRoute);
 // app.use("/posts", postRoute);
 app.listen(process.env.PORT, () => {
   console.log("Server running...");

@@ -79,7 +79,7 @@ const BookForm = ({ servData, setAppointmentData }) => {
             2
           </Button>
           <Button
-            // disabled={tabNo === 2 || !dateAndTime || !details}
+            disabled={tabNo === 2 || !dateAndTime || !details}
             onClick={() => setTabNo(2)}
           >
             3

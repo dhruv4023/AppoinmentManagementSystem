@@ -16,6 +16,7 @@ const serviceSchema = mongoose.Schema(
       max: 50,
     },
     category: {
+      unique: true,
       type: String,
       require: true,
       min: 2,
@@ -25,8 +26,8 @@ const serviceSchema = mongoose.Schema(
       type: String,
       max: 30,
     },
-    serviceTime: { Start: String, End: String },
-    breakTime: { Start: String, End: String },
+    serviceTime: { Start: { type: String }, End: { type: String } },
+    breakTime: { Start: { type: String }, End: { type: String } },
     appoinmentTime: String,
     location: {
       state: { type: String },
@@ -34,8 +35,27 @@ const serviceSchema = mongoose.Schema(
       city: { type: String },
       pincode: { type: String },
     },
-    chartData: {},
-    description: String,
+    // chartData: [
+    //   {
+    //     year: {
+    //       value: { type: String },
+    //       total: [0,0,0],
+    //       months: [
+    //         {
+    //           value: { type: String },
+    //           total: [0,0,0],
+    //           days: [
+    //             {
+    //               value: { type: String },
+    //               total: [0,0,0],
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // ],
+    description: { type: String },
     appointmentList: [
       {
         AID: { type: String, unique: true },

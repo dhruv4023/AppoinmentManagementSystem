@@ -25,7 +25,7 @@ export const createService = async (req, res) => {
       End: breakEndTime,
     };
 
-    // console.log(req.body);
+    console.log(req.body);
     // console.log(mongoose.isValidObjectId(_id))
     const serviceData = await Services.find({ SID });
     if (SID) {
@@ -54,6 +54,7 @@ export const createService = async (req, res) => {
       res.status(200).json(servData);
       // res.status(200).json(servData);
     } else {
+      // console.log("eroor-----------------")
       if (
         await Services.findOne({
           username: username,
@@ -75,12 +76,13 @@ export const createService = async (req, res) => {
         location: location,
         description: description,
         serviceName: serviceName,
-        AppoinmentList: [],
+        chartData:[],
+        appointmentList: [],
       });
-      // console.log(newService);
-
-      await newService.save();
-      returnServData({ username }, res);
+      console.log(newService);
+      const dt = await newService.save();
+      console.log(dt);
+      // returnServData({ username }, res);
     }
   } catch (error) {
     // console.log(error)
@@ -98,7 +100,7 @@ export const getAdminServices = async (req, res) => {
 
 export const getServicesOnBookingPage = async (req, res) => {
   try {
-    const servData = await Services.findOne(req.params,{
+    const servData = await Services.findOne(req.params, {
       SID: 1,
       username: 1,
       category: 1,
@@ -114,7 +116,6 @@ export const getServicesOnBookingPage = async (req, res) => {
     res.status(409).json({ mess: "error" });
   }
 };
-
 
 const returnServData = async (
   searchKey,
@@ -139,63 +140,82 @@ export const getFilteredData = async (req, res) => {
   try {
     const { Category, SelectCity, pincode } = req.body;
     // console.log(req.body);
-    returnServData(
-      {
-        category: Category,
-        "location.city": SelectCity,
-        "location.pincode": pincode,
-      },
-      res,
-      100
-    );
+    if (pincode === "")
+      returnServData(
+        {
+          category: Category,
+          "location.city": SelectCity,
+        },
+        res,
+        100
+      );
+    else if (SelectCity === "")
+      returnServData(
+        {
+          category: Category,
+          "location.pincode": pincode,
+        },
+        res,
+        100
+      );
+    else
+      returnServData(
+        {
+          category: Category,
+          "location.pincode": pincode,
+          "location.city": SelectCity,
+        },
+        res,
+        100
+      );
   } catch (error) {
     res.status(404).json("null");
   }
 };
-const getYearData = async (sy, ey) => {
-  const yearlyData = await Services.aggregate([
-    {
-      $match: {
-        SID: "abc123_Gym",
-      },
-    },
-    {
-      $project: {
-        years: {
-          $filter: {
-            input: { $objectToArray: "$chartData" },
-            cond: {
-              $and: [
-                { $gte: [{ $toInt: "$$this.k" }, sy] },
-                { $lte: [{ $toInt: "$$this.k" }, ey] },
-              ],
-            },
-          },
-        },
-      },
-    },
-    {
-      $project: {
-        yearTotals: {
-          $reduce: {
-            input: "$years",
-            initialValue: {},
-            in: {
-              $mergeObjects: [
-                "$$value",
-                {
-                  $arrayToObject: [[{ k: "$$this.k", v: "$$this.v.total" }]],
-                },
-              ],
-            },
-          },
-        },
-      },
-    },
-    { $replaceRoot: { newRoot: "$yearTotals" } },
-  ]);
-  console.log(yearlyData);
-};
+// const getYearData = async (sy, ey) => {
+//   const yearlyData = await Services.aggregate([
+//     {
+//       $match: {
+//         SID: "abc123_Gym",
+//       },
+//     },
+//     {
+//       $project: {
+//         years: {
+//           $filter: {
+//             input: { $objectToArray: "$chartData" },
+//             cond: {
+//               $and: [
+//                 { $gte: [{ $toInt: "$$this.k" }, sy] },
+//                 { $lte: [{ $toInt: "$$this.k" }, ey] },
+//               ],
+//             },
+//           },
+//         },
+//       },
+//     },
+//     {
+//       $project: {
+//         yearTotals: {
+//           $reduce: {
+//             input: "$years",
+//             initialValue: {},
+//             in: {
+//               $mergeObjects: [
+//                 "$$value",
+//                 {
+//                   $arrayToObject: [[{ k: "$$this.k", v: "$$this.v.total" }]],
+//                 },
+//               ],
+//             },
+//           },
+//         },
+//       },
+//     },
+//     { $replaceRoot: { newRoot: "$yearTotals" } },
+//   ]);
+//   console.log(yearlyData);
+// };
 
 // getYearData(2020, 2022);
 
@@ -359,41 +379,38 @@ const getYearData = async (sy, ey) => {
 //     // },
 //   ];
 //   const monthlyData = await Services.aggregate(pipeline);
-  //.toArray();
-  //   [
-  //   {
-  //     $match: {
-  //       SID: "abc123_Gym",
-  //     },
-  //   },
-  //   { $match: { ["chartData." + y]: { $exists: true } } }, // filter documents that have 2021 data
-  //   {
-  //     $project: {
-  //       _id: 0,
-  //       monthlyTotals: { $objectToArray: "$chartData." + y },
-  //     },
-  //   },
-  //   // { $unwind: "$monthlyTotals" }, // unwind the monthlyTotals array
-  //   // { $match: { "monthlyTotals.k": { $ne: "total" } } }, // exclude the 'total' key
-  //   // {
-  //   //   $group: {
-  //   //     _id: "$monthlyTotals.k",
-  //   //     // total: { $sum: "$monthlyTotals.v.total" },
-  //   //   },
-  //   // },
-  //   // group by month key and sum the 'total' value
-  //   // { $project: { _id: 0, month: "$_id", total: 1 } }, // rename _id to month and remove _id from the output
-  //   // {
-  //   //   $group: {
-  //   //     _id: null,
-  //   //     monthlyTotals: { $push: { k: "$month", v: "$total" } },
-  //   //   },
-  //   // }, // group all documents into one, and create an array of key-value pairs
-  //   { $replaceRoot: { newRoot: { $arrayToObject: "$monthlyTotals" } } }, // convert the array of key-value pairs into an object
-  // ]
+//.toArray();
+//   [
+//   {
+//     $match: {
+//       SID: "abc123_Gym",
+//     },
+//   },
+//   { $match: { ["chartData." + y]: { $exists: true } } }, // filter documents that have 2021 data
+//   {
+//     $project: {
+//       _id: 0,
+//       monthlyTotals: { $objectToArray: "$chartData." + y },
+//     },
+//   },
+//   // { $unwind: "$monthlyTotals" }, // unwind the monthlyTotals array
+//   // { $match: { "monthlyTotals.k": { $ne: "total" } } }, // exclude the 'total' key
+//   // {
+//   //   $group: {
+//   //     _id: "$monthlyTotals.k",
+//   //     // total: { $sum: "$monthlyTotals.v.total" },
+//   //   },
+//   // },
+//   // group by month key and sum the 'total' value
+//   // { $project: { _id: 0, month: "$_id", total: 1 } }, // rename _id to month and remove _id from the output
+//   // {
+//   //   $group: {
+//   //     _id: null,
+//   //     monthlyTotals: { $push: { k: "$month", v: "$total" } },
+//   //   },
+//   // }, // group all documents into one, and create an array of key-value pairs
+//   { $replaceRoot: { newRoot: { $arrayToObject: "$monthlyTotals" } } }, // convert the array of key-value pairs into an object
+// ]
 //   console.log(monthlyData);
 // };
 // getMonthData(2021);
-
-
-
