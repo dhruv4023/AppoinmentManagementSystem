@@ -17,6 +17,7 @@ export const SelectAutoComplete = ({
   options,
   label,
   value,
+  req = true,
 }) => {
   return (
     <Tooltip title={msg}>
@@ -41,7 +42,7 @@ export const SelectAutoComplete = ({
         )}
         renderInput={(params) => (
           <TextField
-            required
+            required={req}
             value={value}
             {...params}
             label={

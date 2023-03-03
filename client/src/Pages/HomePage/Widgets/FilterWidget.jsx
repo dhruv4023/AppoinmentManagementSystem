@@ -13,7 +13,7 @@ const initialValues = {
   SelectCity: "",
   pincode: "",
 };
-const FilterWidget = ({ setFilteredData }) => {
+const FilterWidget = ({ setFilteredData, loading, setLoading }) => {
   const theme = useTheme();
   const categories = useSelector((s) => s.categories);
   // console.log(categories);
@@ -28,8 +28,20 @@ const FilterWidget = ({ setFilteredData }) => {
   // console.log(Country.getCountryByCode("IN"));
   // console.log(State.getStatesOfCountry("IN"));
   // console.log();
-  const doFilter = () => {
-    getFilteredData(setFilteredData, values);
+  const doFilter = (e) => {
+    e.preventDefault();
+    if (
+      values.Category === "" ||
+      (values.SelectCity === "" && values.pincode === "")
+    )
+      alert("Please select Category and City or Category and Pincode");
+    else {
+      setLoading(true);
+      getFilteredData(values).then((data) => {
+        setFilteredData(data);
+        setLoading(false);
+      });
+    }
   };
   return (
     <WidgetWrapper>
@@ -46,44 +58,51 @@ const FilterWidget = ({ setFilteredData }) => {
         >
           Filter
         </Typography>
-        <FlexBetween flexDirection={"column"} gap={"1rem"} my={"0.5rem"}>
-          <SelectAutoComplete
-            msg={"Select Category Name"}
-            setInputVal={setInputVal}
-            label={"Category"}
-            options={categories}
-          />
-          <SelectAutoComplete
-            msg={"Select City Name"}
-            label={"Select City"}
-            setInputVal={setInputVal}
-            options={City.getCitiesOfState("IN", "GJ")
-              .map((m) => m.name)
-              .filter((f) => !f.includes(","))}
-          />
-          <TextField
-            required
-            label="Pincode"
-            onChange={(e) => setInputVal(e.target.value, "pincode")}
-            name="pincode"
-            value={values.pincode}
-            sx={{ width: "100%" }}
-          />
-          <Button
-            fullWidth
-            type="submit"
-            onClick={doFilter}
-            sx={{
-              m: "2rem 0",
-              p: "1rem",
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.background.alt,
-              "&:hover": { color: theme.palette.primary.main },
-            }}
-          >
-            Do Filter
-          </Button>
-        </FlexBetween>
+        <form onSubmit={doFilter}>
+          <FlexBetween flexDirection={"column"} gap={"1rem"} my={"0.5rem"}>
+            <SelectAutoComplete
+              msg={"Select Category Name"}
+              setInputVal={setInputVal}
+              label={"Category"}
+              options={categories}
+            />
+            <SelectAutoComplete
+              req={false}
+              msg={"Select City Name"}
+              label={"Select City"}
+              setInputVal={setInputVal}
+              options={City.getCitiesOfState("IN", "GJ")
+                .map((m) => m.name)
+                .filter((f) => !f.includes(","))}
+            />
+            <TextField
+              error={0 < values.pincode.length && values.pincode.length < 6}
+              inputProps={{
+                minLength: 6,
+                maxLength: 6,
+              }}
+              label="Pincode"
+              onChange={(e) => setInputVal(e.target.value, "pincode")}
+              name="pincode"
+              value={values.pincode}
+              sx={{ width: "100%" }}
+            />
+            <Button
+              fullWidth
+              disabled={loading}
+              type="submit"
+              sx={{
+                m: "2rem 0",
+                p: "1rem",
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.background.alt,
+                "&:hover": { color: theme.palette.primary.main },
+              }}
+            >
+              Do Filter
+            </Button>
+          </FlexBetween>
+        </form>
       </Box>
     </WidgetWrapper>
   );

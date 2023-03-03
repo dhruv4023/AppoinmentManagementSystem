@@ -39,12 +39,12 @@ const timeSlote = (duration, startTime, endTime) => {
   }
   return timeStops;
 };
-const serviceTime = (h=6,e=21) => {
+const serviceTime = (h = 6, e = 21) => {
   var startTime = moment().utc().set({ hour: h, minute: 0 });
   var endTime = moment().utc().set({ hour: e, minute: 59 });
   return timeSlote("60", startTime, endTime);
 };
-const breakTime = (s=11,e=14) => {
+const breakTime = (s = 11, e = 15) => {
   var startTime = moment().utc().set({ hour: s, minute: 0 });
   var endTime = moment().utc().set({ hour: e, minute: 59 });
   return timeSlote("60", startTime, endTime);
@@ -136,7 +136,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
                 value={values.serviceStartTime}
                 label={"Service Start Time"}
               >
-                {serviceTime(6,20)?.map((m) => (
+                {serviceTime(6, 20)?.map((m) => (
                   <MenuItem value={m} key={m}>
                     {m}
                   </MenuItem>
@@ -155,7 +155,9 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
                 value={values.serviceEndTime}
                 label={"Service End Time"}
               >
-                {serviceTime(parseInt(values.serviceStartTime?.split(":")[0])+1)?.map((m) => (
+                {serviceTime(
+                  parseInt(values.serviceStartTime?.split(":")[0]) + 1
+                )?.map((m) => (
                   <MenuItem value={m} key={m}>
                     {m}
                   </MenuItem>
@@ -168,6 +170,13 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               <InputLabel id="category">Break Start Time</InputLabel>
               <Select
                 required
+                disabled={
+                  !values.serviceEndTime ||
+                  !values.serviceStartTime ||
+                  parseInt(values.serviceStartTime?.split(":")[0]) > 13 ||
+                  (parseInt(values.serviceStartTime?.split(":")[0]) < 10 &&
+                    parseInt(values.serviceEndTime?.split(":")[0]) < 15)
+                }
                 sx={{ marginRight: "0.3rem" }}
                 onChange={(e) =>
                   onChangehandle(e.target.value, "breakStartTime")
@@ -175,7 +184,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
                 value={values.breakStartTime}
                 label={"Break Start Time"}
               >
-                {breakTime(10,15)?.map((m) => (
+                {breakTime( parseInt(values.serviceStartTime?.split(":")[0])+1, 15)?.map((m) => (
                   <MenuItem value={m} key={m}>
                     {m}
                   </MenuItem>
@@ -192,11 +201,13 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
                 value={values.breakEndTime}
                 label={"Break End Time"}
               >
-                {breakTime(parseInt(values.breakStartTime?.split(":")[0])+1)?.map((m) => (
-                  <MenuItem value={m} key={m}>
-                    {m}
-                  </MenuItem>
-                ))}
+                {breakTime(parseInt(values.breakStartTime?.split(":")[0]))?.map(
+                  (m) => (
+                    <MenuItem value={m} key={m}>
+                      {m}
+                    </MenuItem>
+                  )
+                )}
               </Select>
             </FormControl>
           </FlexEvenly>

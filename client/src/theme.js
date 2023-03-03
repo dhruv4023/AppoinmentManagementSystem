@@ -57,20 +57,20 @@ export const colorTokens = {
           : {
               // palette values for light mode
               primary: {
-                dark: colorTokens.primary[700],
+                dark: colorTokens.primary[800],
                 main: colorTokens.primary[500],
-                light: colorTokens.primary[50],
+                light: colorTokens.primary[100],
               },
               neutral: {
-                dark: colorTokens.grey[700],
-                main: colorTokens.grey[500],
+                dark: colorTokens.grey[1000],
+                main: colorTokens.grey[700],
                 mediumMain: colorTokens.grey[400],
-                medium: colorTokens.grey[300],
+                medium: colorTokens.grey[500],
                 light: colorTokens.grey[50],
               },
               background: {
-                default: colorTokens.grey[10],
-                alt: colorTokens.grey[0],
+                default: colorTokens.grey[200],
+                alt: colorTokens.grey[100],
               },
             }),
       },

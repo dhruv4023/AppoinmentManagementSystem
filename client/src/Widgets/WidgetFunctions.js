@@ -8,7 +8,7 @@ export const getUser = async (setUser, UID, navigate) => {
   return data;
 };
 
-export const getFilteredData = async (setFilteredData, values) => {
+export const getFilteredData = async (values) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/service/getfiltereddata/`,
     {
@@ -17,7 +17,5 @@ export const getFilteredData = async (setFilteredData, values) => {
       body: JSON.stringify(values),
     }
   );
-  const data = await res.json();
-  setFilteredData(data);
+  return await res.json();
 };
-  
