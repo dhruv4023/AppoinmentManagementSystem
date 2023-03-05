@@ -1,4 +1,6 @@
+import { Facebook, LinkedIn, Twitter } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import SocialLinkComp from "Components/SocialLinkComp";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
 
@@ -14,6 +16,24 @@ const SocialLink = () => {
       >
         Social Links
       </Typography>
+      <SocialLinkComp
+        icon={<Twitter />}
+        username={"dhruv4023"}
+        link={"https://twitter.com/dhruv4023"}
+        name={"Dhruv Patel"}
+      />
+      <SocialLinkComp
+        icon={<LinkedIn />}
+        username={"dhruv4023"}
+        link={"https://www.linkedin.com/in/dhruv4023/"}
+        name={"Dhruv Patel"}
+      />
+      <SocialLinkComp
+        icon={<Facebook />}
+        username={"dhruv4023"}
+        link={"https://www.facebook.com/dhruv4023/"}
+        name={"Dhruv Patel"}
+      />
     </WidgetWrapper>
   );
 };

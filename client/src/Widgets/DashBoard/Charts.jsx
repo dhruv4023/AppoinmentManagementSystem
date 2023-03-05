@@ -86,12 +86,12 @@ export const LineC = ({
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
-      {
-        label: "Not Booked Appointments",
-        data: leftToBook,
-        borderColor: "rgb(255, 206, 86)",
-        backgroundColor: "rgba(255, 206, 86, 0.2)",
-      },
+      // {
+      //   label: "Not Booked Appointments",
+      //   data: leftToBook,
+      //   borderColor: "rgb(255, 206, 86)",
+      //   backgroundColor: "rgba(255, 206, 86, 0.2)",
+      // },
     ],
   };
   return (

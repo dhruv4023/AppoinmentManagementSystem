@@ -15,7 +15,7 @@ const PrintPan = ({ details, AID }) => {
         link={`printreceipt/${AID}`}
       />
       {Object.keys(details.details).map((m) => {
-        return <DisplayDataComp ky={m} value={details.details[m]} />;
+        return <DisplayDataComp ky={m} key={m} value={details.details[m]} />;
       })}
       <Button
         type="submit"

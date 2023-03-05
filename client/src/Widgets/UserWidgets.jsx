@@ -2,8 +2,8 @@ import { useTheme } from "@emotion/react";
 import {
   AbcOutlined,
   EditOutlined,
+  Email,
   LocationOnOutlined,
-  Twitter,
 } from "@mui/icons-material";
 import { Divider, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserWidgets = ({ user, admin, setEditProf }) => {
   const theme = useTheme();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const dark = theme.palette.neutral.dark;
   const medium = theme.palette.neutral.medium;
   const main = theme.palette.neutral.main;
@@ -37,7 +37,7 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
       <FlexBetween gap={"1rem"} pb="1.1rem">
         <UserImg image={picPath} />
         <Box flexGrow={"1"}>
-          <IconButton onClick={()=>navigate(`/profile/${username}`)}>
+          <IconButton onClick={() => navigate(`/profile/${username}`)}>
             <Typography
               variant="h4"
               color={dark}
@@ -60,8 +60,12 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
           </IconButton>
         )}
       </FlexBetween>
-      <Box margin={"0 1rem"} display={"flex"} alignItems="center">
-        <Typography color={medium}>{email}</Typography>
+      <Divider />
+      <Box p="0.2rem 0">
+        <Box display={"flex"} alignItems="center" gap="1rem" m={"0.2rem 0"}>
+          <Email fontSize="large" sx={{ color: main }} />{" "}
+          <Typography color={medium}>{email}</Typography>
+        </Box>
       </Box>
       <Divider />
       <Box p="0.2rem 0">
@@ -85,15 +89,15 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
           <Typography color={medium}>{about}</Typography>
         </Box>
       </Box>
-      <Divider />
+      {/* <Divider />
       <Box p="1rem 0">
         <FlexBetween gap={"0.5rem"}>
           <Typography color={medium}>Impressions of your Profile</Typography>
           <Typography color={main}>{impressions}</Typography>
         </FlexBetween>
       </Box>
-      <Divider />
-      <Box>
+      <Divider /> */}
+      {/* <Box>
         <Typography fontSize={"1rem"} color={main} fontWeight="500" my="0.7rem">
           Social Profiles
         </Typography>
@@ -110,7 +114,7 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
             </Box>
           </FlexBetween>
         </FlexBetween>
-      </Box>
+      </Box> */}
     </WidgetWrapper>
   );
 };

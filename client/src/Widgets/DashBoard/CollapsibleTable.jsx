@@ -92,24 +92,27 @@ function Row({ changeStatus, row }) {
                     );
                   })}
               </Table>
-              <FlexBetween>
-                <FlexEvenly gap={"1rem"} width={"100%"} padding={"1rem"}>
-                  <Button
-                    disabled={!(row.status === 0)}
-                    onClick={() => changeStatus(1, row.AID)}
-                    sx={{ width: "2rem", background: "blue", color: "white" }}
-                  >
-                    <Done />
-                  </Button>
-                  <Button
-                    onClick={() => changeStatus(-1, row.AID)}
-                    disabled={!(row.status === 0)}
-                    sx={{ width: "2rem", background: "red", color: "white" }}
-                  >
-                    <Close />
-                  </Button>
-                </FlexEvenly>
-              </FlexBetween>
+              {new Date().toISOString().substring(0, 10) ===
+                row?.AllData.Date && (
+                <FlexBetween>
+                  <FlexEvenly gap={"1rem"} width={"100%"} padding={"1rem"}>
+                    <Button
+                      disabled={!(row.status === 0)}
+                      onClick={() => changeStatus(1, row.AID)}
+                      sx={{ width: "2rem", background: "blue", color: "white" }}
+                    >
+                      <Done />
+                    </Button>
+                    <Button
+                      onClick={() => changeStatus(-1, row.AID)}
+                      disabled={!(row.status === 0)}
+                      sx={{ width: "2rem", background: "red", color: "white" }}
+                    >
+                      <Close />
+                    </Button>
+                  </FlexEvenly>
+                </FlexBetween>
+              )}
             </Box>
           </Collapse>
         </TableCell>
@@ -119,7 +122,7 @@ function Row({ changeStatus, row }) {
 }
 export default function CollapsibleTable({ data }) {
   const [rows, setRows] = React.useState(data);
-  console.log(rows, data);
+  // console.log(rows, data);
   const [refresh, setRefresh] = React.useState(0);
   const changeStatus = (newStatus, AID) => {
     rows.find((f) => f.AID === AID).status = newStatus;
@@ -128,7 +131,7 @@ export default function CollapsibleTable({ data }) {
     changeAppointmentStatus({ AID: AID, status: newStatus });
   };
   React.useEffect(() => {
-    console.log("r");
+    // console.log("r");
     setRows(data);
   }, [refresh, data]);
 
@@ -150,7 +153,11 @@ export default function CollapsibleTable({ data }) {
 
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.AID} row={row} changeStatus={changeStatus} />
+            <Row
+              key={row.AID}
+              row={row}
+              changeStatus={changeStatus}
+            />
           ))}
         </TableBody>
       </Table>

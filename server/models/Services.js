@@ -39,20 +39,20 @@ const serviceSchema = mongoose.Schema(
       {
         year: {
           value: { type: String },
-          total: [0, 0, 0],
-          months: [
-            {
-              value: { type: String },
-              total: [0, 0, 0],
-              days: [
-                {
-                  value: { type: String },
-                  total: [0, 0, 0],
-                },
-              ],
-            },
-          ],
+          total: [0, 0],
         },
+        months: [
+          {
+            value: { type: String },
+            total: [0, 0],
+          },
+        ],
+        days: [
+          {
+            value: { type: String },
+            total: [0, 0],
+          },
+        ],
       },
     ],
     description: { type: String },

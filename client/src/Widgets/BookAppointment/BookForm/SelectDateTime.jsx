@@ -10,7 +10,17 @@ import Loading from "Components/Loading";
 import { MXMNDate } from "state/globalFunctions";
 // import Calender from "./Calender";
 
-
+const changePickCalanderDateToISOdate = (date) => {
+  return (
+    date["$y"] +
+    "-" +
+    (String(date["$M"] + 1).length === 1
+      ? "0" + (date["$M"] + 1)
+      : date["$M"] + 1 + "") +
+    "-" +
+    (String(date["$D"]).length === 1 ? "0" + date["$D"] : date["$D"] + "")
+  );
+};
 const SelectDateTime = ({ setDateAndTime, servData }) => {
   const theme = useTheme();
 
@@ -23,6 +33,8 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
     getBookedDtTm(setBookedDtTm, servData?.SID);
   }, [servData]);
   // console.log(bookedDtTm);
+  // console.log(d.toISOString().substring(0, 10));
+  // console.log(date);
   // console.log();
   // const bkd =
   //   bookedDtTm &&
@@ -55,7 +67,7 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
           maxDate={MXMNDate(7).toISOString().substring(0, 10)}
           value={date}
           onChange={(newValue) => {
-            setDate(newValue["$d"]);
+            setDate(changePickCalanderDateToISOdate(newValue));
           }}
           renderInput={AdapterDayjs}
         />
@@ -113,7 +125,6 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
 };
 
 export default SelectDateTime;
-
 
 // const timeArray = (x, startTim, endTim) => {
 //   const st = startTim.split(":");

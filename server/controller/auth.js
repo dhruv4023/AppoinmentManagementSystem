@@ -110,8 +110,16 @@ export const updateRegisteredData = async (req, res) => {
   const _file = req.file;
   try {
     const { id: _id } = req.params;
-    const { firstName, lastName, username, email, friends, about, location } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      friends,
+      about,
+      location,
+      socialLinks,
+    } = req.body;
     // console.log(req.body);
     const user = await Users.findOne({ username: _id });
     if (user.email !== email && (await Users.findOne({ email: email }))) {
@@ -129,6 +137,7 @@ export const updateRegisteredData = async (req, res) => {
           about: about,
           friends: friends,
           location: location,
+          socialLinks: socialLinks,
         },
       }
     );

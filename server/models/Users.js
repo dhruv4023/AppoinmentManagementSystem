@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
-    
     firstName: {
       type: String,
       require: true,
@@ -46,6 +45,12 @@ const userSchema = mongoose.Schema(
       pincode: { type: String },
     },
     impressions: { type: Number, default: 0 },
+    socialLinks: {
+      twitter: { type: String},
+      instagram: { type: String},
+      linkedIn: { type: String},
+      facebook: { type: String},
+    },
   },
   { timestamps: true }
 );

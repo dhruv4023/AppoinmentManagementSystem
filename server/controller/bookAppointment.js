@@ -1,11 +1,13 @@
 import Services from "../models/Services.js";
 import moment from "moment";
+import updateChartData from "./chartData.js";
 export const changeAppointmentStatus = async (req, res) => {
   try {
     const { AID } = req.params;
     const { status } = req.body;
     // console.log(AID, status, "--------------------------------");
     const SID = AID.split("_")[0] + "_" + AID.split("_")[1];
+    updateChartData(SID, status);
     await Services.updateOne(
       { SID: SID, "appointmentList.AID": AID },
       { $set: { "appointmentList.$.status": status } }
@@ -157,7 +159,7 @@ export const getAllBookedData = async (req, res) => {
         },
       },
     ]);
-    console.log("SDD", data[0].validDateTime);
+    // console.log("SDD", data[0].validDateTime);
     // date.map((m) => console.?log(m));
     res.status(200).json({ data: data[0].validDateTime });
   } catch (error) {
