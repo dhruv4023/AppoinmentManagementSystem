@@ -16,7 +16,6 @@ const serviceSchema = mongoose.Schema(
       max: 50,
     },
     category: {
-      unique: true,
       type: String,
       require: true,
       min: 2,

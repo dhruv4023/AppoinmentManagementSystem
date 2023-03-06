@@ -71,9 +71,9 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     if (values.category) {
       sendServiceData({ token, values, dispatch });
     }
-    setCrudServData({
-      openForm: false,
-    });
+    // setCrudServData({
+    //   openForm: false,
+    // });
   };
   return (
     <WidgetWrapper>

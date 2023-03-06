@@ -11,7 +11,7 @@ const ServiceWidgets = ({ user }) => {
   });
 
   const { serviceData } = useSelector((s) => s.services);
-  // console.log(serviceData);
+  console.log(serviceData);
   return (
     <Box>
       {user && (
@@ -31,7 +31,6 @@ const ServiceWidgets = ({ user }) => {
       <DisplayServicesWidget
         serviceData={serviceData}
         CrudServData={CrudServData}
-        user={user}
         setCrudServData={setCrudServData}
       />
     </Box>

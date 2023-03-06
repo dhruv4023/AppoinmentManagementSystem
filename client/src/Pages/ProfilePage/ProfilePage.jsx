@@ -16,12 +16,12 @@ export const ProfilePage = () => {
   const admin = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    getUser(setUser, UID, navigate);
+    UID && getUser(setUser, UID, navigate);
   }, [UID]);
 
   useEffect(() => {
     const username = user?.username;
-    getAllServices(dispatch, username);
+    username && getAllServices(dispatch, username);
   }, [user, dispatch]);
 
   const [editProf, setEditProf] = useState(false);
@@ -30,11 +30,13 @@ export const ProfilePage = () => {
     <>
       <WidgetsOnPage
         leftComponent={
-          <UserWidgets
-            setEditProf={setEditProf}
-            user={admin?.username === UID ? admin : user}
-            admin={admin?.username === UID}
-          />
+          admin && (
+            <UserWidgets
+              setEditProf={setEditProf}
+              user={admin?.username === UID ? admin : user}
+              admin={admin?.username === UID}
+            />
+          )
         }
         rightComponent={
           editProf ? (
@@ -48,10 +50,10 @@ export const ProfilePage = () => {
                   <ServiceWidgets user={admin} />
                 </>
               ) : (
-                <>{
-                  <ServiceUserSide user={user} />
-                }</>
-                )}
+                <>
+                  <ServiceUserSide />
+                </>
+              )}
             </>
           )
         }

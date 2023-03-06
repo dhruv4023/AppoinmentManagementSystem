@@ -25,7 +25,7 @@ export const createService = async (req, res) => {
       End: breakEndTime,
     };
 
-    console.log(req.body);
+    // console.log(req.body);
     // console.log(mongoose.isValidObjectId(_id))
     const serviceData = await Services.find({ SID });
     if (SID) {
