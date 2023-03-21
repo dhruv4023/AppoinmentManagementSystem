@@ -30,7 +30,7 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
     email,
     picPath,
     location,
-    impressions,
+    // impressions,
   } = user;
   return (
     <WidgetWrapper>

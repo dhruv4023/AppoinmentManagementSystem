@@ -1,24 +1,19 @@
 import { useTheme } from "@emotion/react";
 import { Bookmark } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
-import FlexBetween from "Components/FlexBetween";
-import { DisplayDataComp } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
-import { DDMMYYYY } from "state/globalFunctions";
-import QRWidget from "Widgets/QRWidget";
+import { useNavigate } from "react-router-dom";
 import { getSinglebookedData } from "./PrintAndVerifyAppointment";
+import PrintData from "./PrintData";
 
 const PrintAndView = ({ AIDNo, doRetrive }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [apDt, setApDt] = useState();
-  const [dateTime, setdateTime] = useState();
   useEffect(() => {
     AIDNo &&
       getSinglebookedData(AIDNo).then((d) => {
-        setdateTime(d.data.dateTime);
-        delete d.data.status;
-        delete d.data.dateTime;
         delete d.data._id;
         setApDt(d.data);
       });
@@ -35,17 +30,10 @@ const PrintAndView = ({ AIDNo, doRetrive }) => {
       </Typography>
       {apDt && (
         <>
-          {Object.keys(apDt).map((m) => {
-            return <DisplayDataComp ky={m} value={apDt[m]} />;
-          })}
-          <DisplayDataComp ky={"TIME"} value={dateTime.time} />
-          <DisplayDataComp ky={"DATE"} value={DDMMYYYY(dateTime.date)} />
-          <QRWidget
-            description={"Scan QR To Open Your Appointment Data"}
-            link={`printreceipt/${AIDNo}`}
-          />
+          <PrintData data={apDt} />
           <Button
             type="submit"
+            onClick={() => navigate("/preview", { state: apDt })}
             sx={{
               m: "2rem 0",
               p: "1rem",
@@ -56,6 +44,38 @@ const PrintAndView = ({ AIDNo, doRetrive }) => {
           >
             Print
           </Button>
+
+          {/* <PDFComponent
+            ComponentToPrint={
+              <>
+                <Typography
+                  fontSize={"1rem"}
+                  color={"primary"}
+                  fontWeight="500"
+                  width={"100%"}
+                >
+                  <Bookmark /> Your Appointment Receipt
+                </Typography>
+                {Object.keys(apDt).map((m) => {
+                  return (
+                    <DisplayDataComp fontSz="8px" ky={m} value={apDt[m]} />
+                  );
+                })}
+                <DisplayDataComp
+                  ky={"TIME"}
+                  fontSz="8px"
+                  value={dateTime.time}
+                />
+                <DisplayDataComp
+                  ky={"DATE"}
+                  fontSz="8px"
+                  value={DDMMYYYY(dateTime.date)}
+                />
+              </>
+            }
+            cd={<QRCode value="xyz" size={50} id={"qrcode"} />}
+            link={`printreceipt/${AIDNo}`}
+          /> */}
         </>
       )}
       {apDt === false ? (

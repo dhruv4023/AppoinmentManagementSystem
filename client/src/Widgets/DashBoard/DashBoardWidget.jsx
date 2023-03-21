@@ -10,13 +10,13 @@ const DashBoardWidget = ({ SID }) => {
   const [lineLbl, setLineLbl] = useState();
   const [cancelData, setCancelData] = useState();
   const [successData, setsuccessData] = useState();
-  const [leftBookData, setLeftBookData] = useState();
+  // const [leftBookData, setLeftBookData] = useState();
   const [chartType, setChartType] = useState(0);
   // console.log(chartType);
   const l = [];
   const cad = [];
   const sad = [];
-  const ltb = [];
+  // const ltb = [];
   const changeChartData = (m) => {
     // console.log(m);
     m.map((x) => {

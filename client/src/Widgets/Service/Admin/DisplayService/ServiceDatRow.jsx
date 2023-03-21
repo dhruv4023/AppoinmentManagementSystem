@@ -1,13 +1,12 @@
 import { useTheme } from "@emotion/react";
 import { Box, Divider, Typography } from "@mui/material";
-import FlexBetween from "Components/FlexBetween";
 import FlexEvenly from "Components/FlexEvenly";
 import React from "react";
 
 const ServiceDatRow = ({ cel1, icon1, cel2, icon2 }) => {
   const theme = useTheme();
   const medium = theme.palette.neutral.medium;
-  const main = theme.palette.neutral.main;
+  // const main = theme.palette.neutral.main;
   return (
     <FlexEvenly width={"100%"}>
       <Box p="0.2rem 0" width={"50%"}>

@@ -8,6 +8,7 @@ import { themeSettings } from "./theme";
 import { getCategoriesArray } from "state/globalFunctions";
 
 const App = () => {
+  // console.log(useSelector((s) => s.help));
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const dispatch = useDispatch();

@@ -89,7 +89,7 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
 function appendData(formData, object, parentKey) {
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
-      const currentKey = parentKey ? `${parentKey}[${key}]` : key;
+      const currentKey = parentKey ? `${parentKey}.${key}` : key;
       if (typeof object[key] === "object" && !(object[key] instanceof File)) {
         appendData(formData, object[key], currentKey);
       } else {

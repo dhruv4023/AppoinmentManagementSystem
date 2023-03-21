@@ -5,12 +5,16 @@ const initialState = {
   token: null,
   services: [],
   categories: [],
+  help: false,
 };
 
 export const authState = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setHelp: (state) => {
+      state.help = !state.help;
+    },
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
@@ -32,6 +36,12 @@ export const authState = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setServiceData, setCategories } =
-  authState.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setServiceData,
+  setCategories,
+  setHelp,
+} = authState.actions;
 export default authState.reducer;

@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {  useSelector } from "react-redux";
 import DisplayServicesWidget from "../Admin/DisplayService/DisplayServices";
-import { getAllServices } from "../Admin/WidgetAdminServiceFun";
 
 const ServiceUserSide = () => {
   const { serviceData } = useSelector((s) => s.services);

@@ -164,14 +164,14 @@ export const MyBtn = ({ onclickHandle, label = "x" }) => {
     </Button>
   );
 };
-export const DisplayDataComp = ({ ky, value }) => {
+export const DisplayDataComp = ({ ky, value, fontSz = "1rem" }) => {
   const theme = useTheme();
   // console.log(ky, value);
   return (
     <>
       <FlexBetween my={"0.5rem"} flexWrap={"wrap"}>
         <Typography
-          fontSize={"1rem"}
+          fontSize={fontSz}
           color={theme.palette.primary.alt}
           fontWeight="500"
           width={"10rem"}
@@ -179,9 +179,10 @@ export const DisplayDataComp = ({ ky, value }) => {
           {String(ky).toUpperCase()}
         </Typography>
         <Typography
-          width={"70%"}
+          // border={"1px solid "}
+          // width={"60%"}
           flexGrow={"1"}
-          fontSize={"1rem"}
+          fontSize={fontSz}
           color={theme.palette.primary.dark}
           fontWeight="500"
         >

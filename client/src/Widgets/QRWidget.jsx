@@ -1,4 +1,4 @@
-import { QrCode, QrCode2Outlined } from "@mui/icons-material";
+import { QrCode2Outlined } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
@@ -18,7 +18,11 @@ const QRWidget = ({ sz = 256, link, description }) => {
         <QrCode2Outlined />
         {description}
       </Typography>
-      <Box p={"0.5rem"} sx={{ background: "white", width:"fit-content" }} m={"auto"}>
+      <Box
+        p={"0.5rem"}
+        sx={{ background: "white", width: "fit-content" }}
+        m={"auto"}
+      >
         <QRCode
           size={sz}
           style={{ maxWidth: "100%", width: "100%" }}

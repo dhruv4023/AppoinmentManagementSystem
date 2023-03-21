@@ -6,6 +6,7 @@ import HomePage from "Pages/HomePage/HomePage";
 import { LoginPage } from "Pages/LoginPage/LoginPage";
 import PageNotFound from "Pages/PageNotFound";
 import PrintAndVerifyAppointment from "Pages/PrintAndVerifyAppointment/PrintAndVerifyAppointment";
+import PrintPreview from "Pages/PrintAndVerifyAppointment/Widget/PrintPreview";
 import { ProfilePage } from "Pages/ProfilePage/ProfilePage";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
@@ -19,8 +20,12 @@ export const AllRoutes = () => {
       <Route path={"/about"} element={<AboutUs />} />
       <Route path={"/contact"} element={<ContactUsPage />} />
       <Route path={"/profile/:UID"} element={<ProfilePage />} />
-      <Route path={"/printreceipt"} element={<PrintAndVerifyAppointment/>} />
-      <Route path={"/printreceipt/:AID"} element={<PrintAndVerifyAppointment/>} />
+      <Route path={"/preview"} element={<PrintPreview />} />
+      <Route path={"/printreceipt"} element={<PrintAndVerifyAppointment />} />
+      <Route
+        path={"/printreceipt/:AID"}
+        element={<PrintAndVerifyAppointment />}
+      />
       <Route path={"/service/:UID/:SID"} element={<DashBoardAndUserView />} />
       <Route path={"/404"} element={<PageNotFound />} />
     </Routes>

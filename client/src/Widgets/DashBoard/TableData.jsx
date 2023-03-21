@@ -1,13 +1,6 @@
-import {
-  DataArray,
-  TableBar,
-  TableBarOutlined,
-  TableBarSharp,
-  TableView,
-} from "@mui/icons-material";
-import { Button, TextField, Typography } from "@mui/material";
+import { TableView } from "@mui/icons-material";
+import { TextField, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
-import { MyBtn } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
 import { DDMMYYYY, MXMNDate } from "state/globalFunctions";
@@ -42,7 +35,7 @@ const TableData = ({ SID }) => {
       // console.log(data, rows);
       setDataList(rows);
     };
-  }, [selectDate]);
+  }, [selectDate,SID]);
   // console.log(selectDate, dataList);
   return (
     <WidgetWrapper width={"100%"}>

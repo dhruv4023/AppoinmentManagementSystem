@@ -7,7 +7,7 @@ import {
   ContactSupport,
   TaskAltRounded,
 } from "@mui/icons-material";
-import { setMode, setLogout } from "state";
+import { setMode, setLogout, setHelp } from "state";
 import {
   IconButton,
   Select,
@@ -56,7 +56,7 @@ const MenuItems = () => {
         </Tooltip>
       </IconButton>
       {/* <Notifications sx={{ fontSize: "25px" }} /> */}
-      <IconButton onClick={() => navigate("/help")}>
+      <IconButton onClick={() => dispatch(setHelp())}>
         <Tooltip title="Need Help !">
           <Help sx={{ fontSize: "25px" }} />
         </Tooltip>
