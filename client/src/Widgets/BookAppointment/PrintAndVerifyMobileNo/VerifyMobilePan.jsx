@@ -21,6 +21,7 @@ const VerifyMobilePan = ({ setAID, appointmentData, setTabNo }) => {
         setVerified={setVerified}
         // capchaRender={capchaRender}
         // setCapchaRender={setCapchaRender}
+        btnValue={"Verify OTP"}
       />
       {/* {capchaRender &&  */}
       <div id="sign-in-button"></div>

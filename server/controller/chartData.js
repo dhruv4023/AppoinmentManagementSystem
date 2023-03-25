@@ -80,10 +80,13 @@ export const getDayData = async (req, res) => {
 // const d = new Date();
 // console.log(typeof ("" + d.getFullYear()), d.getMonth() + 1, d.getDate());
 
-const updateChartData = async (SID, status) => {
+const updateChartData = async (SID, status, date) => {
   try {
-    const d = new Date();
+    var d;
+    if (date) d = new Date(date);
+    else d = new Date();
     const ymd = d.toISOString().substring(0, 10).split("-");
+    console.log(ymd)
     // console.log(d.getFullYear(), d.getMonth() + 1, d.getDate());
     insertDateObj(SID, ymd[0], ymd[1], ymd[2]).then(() => {
       if (status === -1) {

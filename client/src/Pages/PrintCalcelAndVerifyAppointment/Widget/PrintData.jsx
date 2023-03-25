@@ -1,3 +1,5 @@
+import { Bookmark } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 import { DisplayDataComp } from "Components/MyComponents";
 import React from "react";
 import { DDMMYYYY } from "state/globalFunctions";
@@ -7,14 +9,22 @@ const PrintData = ({ data }) => {
   console.log(data);
   return (
     <>
+      <Typography
+        fontSize={"1.5rem"}
+        color={"primary"}
+        fontWeight="500"
+        width={"100%"}
+      >
+        <Bookmark /> Your Appointment Receipt
+      </Typography>
       <DisplayDataComp ky={"AID"} value={data.AID} />
       <DisplayDataComp
         ky={"STATUS"}
         value={
           data.status === 0
-            ? "pending"
+            ? "PENDING"
             : data.status === 1
-            ? "success"
+            ? "SUCCESS"
             : data.status === -1 && "CANCELED"
         }
       />

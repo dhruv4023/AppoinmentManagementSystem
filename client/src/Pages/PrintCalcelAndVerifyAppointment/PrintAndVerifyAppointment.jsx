@@ -1,13 +1,16 @@
 import WidgetsOnPage from "Components/WidgetsOnPage";
 import React, { useState } from "react";
-import AppointmentNo from "Pages/PrintAndVerifyAppointment/Widget/AppointmentNo";
-import PrintAndView from "Pages/PrintAndVerifyAppointment/Widget/PrintAndView";
+
 import { useParams } from "react-router-dom";
+import AppointmentNo from "./Widget/AppointmentNo";
+import CancelAppointment from "./Widget/CancelAppointment";
+import PrintAndView from "./Widget/PrintAndView";
 
 const PrintAndVerifyAppointment = () => {
   const { AID } = useParams();
   const [AIDNo, setAID] = useState(!AID ? "" : AID);
   const [doRetrive, setdoRetrive] = useState(false);
+  const [cancel, setCancel] = useState(false);
   return (
     <WidgetsOnPage
       title={"Check Your Appointment Details"}
@@ -19,7 +22,23 @@ const PrintAndVerifyAppointment = () => {
           AIDNo={AIDNo}
         />
       }
-      rightComponent={<PrintAndView doRetrive={doRetrive} AIDNo={AIDNo} />}
+      rightComponent={
+        <>
+          {cancel ? (
+            <CancelAppointment
+              setCancel={setCancel}
+              number={cancel}
+              AID={AIDNo}
+            />
+          ) : (
+            <PrintAndView
+              doRetrive={doRetrive}
+              setCancel={setCancel}
+              AIDNo={AIDNo}
+            />
+          )}
+        </>
+      }
     />
   );
 };

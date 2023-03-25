@@ -1,6 +1,38 @@
 import Services from "../models/Services.js";
 import moment from "moment";
 import updateChartData from "./chartData.js";
+export const cancelAppointment = async (req, res) => {
+  try {
+    const { AID } = req.params;
+    const status = -1;
+    const SID = AID.split("_")[0] + "_" + AID.split("_")[1];
+    const dt = await Services.findOne(
+      { SID: SID },
+      { appointmentList: { $elemMatch: { AID: AID } } }
+    );
+    const date = dt.appointmentList[0].dateTime.date;
+    updateChartData(SID, status, date);
+    const dateTime = { date: "0000-00-00", time: "00:00:00" };
+    // const dateTime = { date: "2023-03-05", time: "0:00:00" };
+    await Services.updateOne(
+      { SID: SID, "appointmentList.AID": AID },
+      {
+        $set: {
+          "appointmentList.$.status": status,
+          "appointmentList.$.dateTime": dateTime,
+        },
+      }
+    );
+    res.status(200).json("Successfully Canceled");
+  } catch (error) {
+    res.status(409).json("Server Error");
+  }
+};
+const cancelAppointmentFun = async (SID, AID, status) => {
+  var x = -1;
+
+  return x;
+};
 export const changeAppointmentStatus = async (req, res) => {
   try {
     const { AID } = req.params;
@@ -217,6 +249,8 @@ const createTimeArray = async (SID, bkd) => {
   // console.log(obj);
   return obj;
 };
+
+// cancel();
 // createTimeArray("abc123_Office", []).then((m) => console.log(m));
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // const zz = async () => {
