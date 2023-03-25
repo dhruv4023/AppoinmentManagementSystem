@@ -43,6 +43,8 @@ app.listen(process.env.PORT, () => {
 
 /* ----------------------------MONGODB SETUP------------------- */
 import mongoose from "mongoose";
+import Services from "./models/Services.js";
+import { insertDateObj } from "./controller/insertToChartData/insertNewObj.js";
 mongoose.set("strictQuery", true);
 
 mongoose
@@ -56,3 +58,15 @@ mongoose
   .catch((e) => {
     console.log("db not connected");
   });
+
+/*********************daily date add to chart************************************* */
+const interval = 24 * 60 * 60 * 1000;
+
+setInterval(() => {
+  const d = new Date();
+  d.setDate(d.getDate() + 2);
+  const ymd = d.toISOString().substring(0, 10).split("-");
+  Services.distinct("SID").then((x) =>
+    x.map((m) => insertDateObj(m, ymd[0], ymd[1], ymd[2]))
+  );
+}, interval);

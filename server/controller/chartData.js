@@ -1,7 +1,6 @@
 import Services from "../models/Services.js";
 import { incrementValBy1 } from "./insertToChartData/incVal.js";
 import { insertDateObj } from "./insertToChartData/insertNewObj.js";
-
 export const getYearData = async (req, res) => {
   try {
     const { SID, yr, yr2 } = req.body;
@@ -86,15 +85,13 @@ const updateChartData = async (SID, status, date) => {
     if (date) d = new Date(date);
     else d = new Date();
     const ymd = d.toISOString().substring(0, 10).split("-");
-    console.log(ymd)
+    // console.log(ymd);
     // console.log(d.getFullYear(), d.getMonth() + 1, d.getDate());
-    insertDateObj(SID, ymd[0], ymd[1], ymd[2]).then(() => {
-      if (status === -1) {
-        incrementValBy1(SID, ymd[0], ymd[1], ymd[2], 0, 1);
-      } else if (status === 1) {
-        incrementValBy1(SID, ymd[0], ymd[1], ymd[2], 1, 0);
-      }
-    });
+    if (status === -1) {
+      incrementValBy1(SID, ymd[0], ymd[1], ymd[2], 0, 1);
+    } else if (status === 1) {
+      incrementValBy1(SID, ymd[0], ymd[1], ymd[2], 1, 0);
+    }
   } catch (error) {
     console.log("error");
   }
