@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import FlexBetween from "Components/FlexBetween";
+import { SelectAutoComplete } from "Components/MyComponents";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker } from "@mui/x-date-pickers";
-import { Button, Divider, useTheme } from "@mui/material";
+import {
+  Button,
+  Divider,
+  MenuItem,
+  Select,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import FlexEvenly from "Components/FlexEvenly";
 import { getBookedDtTm } from "../BookAppoinmentFun";
-import Loading from "Components/Loading";
 import { MXMNDate } from "state/globalFunctions";
+import Loading from "Components/Loader/Loading";
 // import Calender from "./Calender";
 
 const changePickCalanderDateToISOdate = (date) => {
@@ -23,55 +31,59 @@ const changePickCalanderDateToISOdate = (date) => {
 };
 const SelectDateTime = ({ setDateAndTime, servData }) => {
   const theme = useTheme();
+  const isNonMobileScreens = useMediaQuery("(min-width: 475px)");
 
   // const times = ["10", "11", "12", "1", "2", "3", "4"];
 
   const [date, setDate] = useState(MXMNDate(1).toISOString().substring(0, 10));
   const [time, setTime] = useState("");
   const [bookedDtTm, setBookedDtTm] = useState();
+  const [BookingDate, setBookingDate] = useState();
   useEffect(() => {
-    getBookedDtTm(setBookedDtTm, servData?.SID);
+    getBookedDtTm(servData?.SID).then((t) => {
+      setBookedDtTm(t);
+      setBookingDate(Object.keys(t));
+    });
   }, [servData]);
-  // console.log(bookedDtTm);
-  // console.log(d.toISOString().substring(0, 10));
-  // console.log(date);
-  // console.log();
-  // const bkd =
-  //   bookedDtTm &&
-  //   bookedDtTm[
-  //     date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-  //   ];
-  // const times =
-  //   servData &&
-  //     bookedDtTm &&
-  //     [
-  //       ...timeArray(
-  //         servData?.appoinmentTime,
-  //         servData?.serviceTime?.Start,
-  //         servData?.breakTime?.Start
-  //       ),
-  //       ...timeArray(
-  //         servData?.appoinmentTime,
-  //         servData?.breakTime?.End,
-  //         servData?.serviceTime?.End
-  //       ),
-  //     ].filter((f) => !bkd?.includes(f));
-  // console.log(times, servData);
+
   return (
     <FlexBetween gap={"0.5rem"} flexWrap={"wrap"}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StaticDatePicker
-          displayStaticWrapperAs="desktop"
-          openTo="day"
-          minDate={MXMNDate(1).toISOString().substring(0, 10)}
-          maxDate={MXMNDate(7).toISOString().substring(0, 10)}
-          value={date}
-          onChange={(newValue) => {
-            setDate(changePickCalanderDateToISOdate(newValue));
-          }}
-          renderInput={AdapterDayjs}
-        />
-      </LocalizationProvider>
+      {isNonMobileScreens ? (
+        <FlexEvenly width={"100%"}>
+           
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <StaticDatePicker
+              displayStaticWrapperAs="desktop"
+              openTo="day"
+              minDate={MXMNDate(1).toISOString().substring(0, 10)}
+              maxDate={MXMNDate(7).toISOString().substring(0, 10)}
+              value={date}
+              onChange={(newValue) => {
+                setDate(changePickCalanderDateToISOdate(newValue));
+              }}
+              renderInput={AdapterDayjs}
+            />
+          </LocalizationProvider>
+        </FlexEvenly>
+      ) : (
+        <FlexEvenly paddingY={"1rem"} width={"100%"}>
+          {BookingDate ? (
+            <Select
+              required
+              onChange={(e) => setDate(e.target.value)}
+              value={date}
+            >
+              {BookingDate.map((m) => (
+                <MenuItem value={m} key={m}>
+                  {m}
+                </MenuItem>
+              ))}
+            </Select>
+          ) : (
+            <Loading />
+          )}
+        </FlexEvenly>
+      )}
       {/* <Calender /> */}
       <Divider />
       <FlexEvenly
@@ -91,11 +103,6 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
                     setTime(m);
                     setDateAndTime({
                       date: date,
-                      // date.getFullYear() +
-                      // "-" +
-                      // (date.getMonth() + 1) +
-                      // "-" +
-                      // date.getDate(),
                       time: m,
                     });
                   }}

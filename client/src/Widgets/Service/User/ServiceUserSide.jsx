@@ -1,5 +1,6 @@
+import Loading from "Components/Loader/Loading";
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DisplayServicesWidget from "../Admin/DisplayService/DisplayServices";
 
 const ServiceUserSide = () => {
@@ -10,7 +11,15 @@ const ServiceUserSide = () => {
   // }, []);
   // console.log(serviceData);
   return (
-    <>{serviceData && <DisplayServicesWidget serviceData={serviceData} />}</>
+    <>
+      {serviceData ? (
+        <DisplayServicesWidget serviceData={serviceData} />
+      ) : (
+        <>
+          <Loading />
+        </>
+      )}
+    </>
   );
 };
 

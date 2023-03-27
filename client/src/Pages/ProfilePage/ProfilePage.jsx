@@ -1,3 +1,4 @@
+import Loading from "Components/Loader/Loading";
 import WidgetsOnPage from "Components/WidgetsOnPage";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,12 +31,14 @@ export const ProfilePage = () => {
     <>
       <WidgetsOnPage
         leftComponent={
-          admin && (
+          user ? (
             <UserWidgets
               setEditProf={setEditProf}
               user={admin?.username === UID ? admin : user}
               admin={admin?.username === UID}
             />
+          ) : (
+            <Loading />
           )
         }
         rightComponent={

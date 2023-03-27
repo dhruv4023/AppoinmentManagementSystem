@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
 
-const AppointmentNo = ({ AIDNo, setdoRetrive,doRetrive, setAID }) => {
+const AppointmentNo = ({ AIDNo, loading, setdoRetrive, doRetrive, setAID }) => {
   const theme = useTheme();
   return (
     <WidgetWrapper>
@@ -11,11 +11,13 @@ const AppointmentNo = ({ AIDNo, setdoRetrive,doRetrive, setAID }) => {
         label="Enter AID Number here"
         onChange={(e) => setAID(e.target.value)}
         name="AID"
+        disabled={loading}
         value={AIDNo}
         sx={{ width: "100%" }}
       />
       <Button
         fullWidth
+        disabled={loading || !AIDNo}
         type="submit"
         onClick={() => setdoRetrive(!doRetrive)}
         sx={{

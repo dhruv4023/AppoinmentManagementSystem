@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Typography } from "@mui/material";
-import Loading from "Components/Loading";
+import Loading from "Components/Loader/Loading";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React from "react";
 import DisplayServices from "Widgets/Service/Admin/DisplayService/DisplayServices";
@@ -20,7 +20,10 @@ const DisplayFilterData = ({ filteredData, loading }) => {
         </Typography>
       </WidgetWrapper>
       {loading ? (
-        <>Loading...</>
+        <>
+          <h3>Loading...</h3>
+          <Loading />
+        </>
       ) : (
         <>
           {filteredData === "" ? (

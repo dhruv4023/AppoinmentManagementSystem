@@ -1,5 +1,5 @@
 export const getUser = async (setUser, UID, navigate) => {
-  const res = await fetch(`${process.env.REACT_APP_SERVER}/user/get/${UID}`, {
+  const res = await fetch(`${process.env.REACT_APP_SERVER}/user/get/${UID}`, {   
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -11,7 +11,7 @@ export const getUser = async (setUser, UID, navigate) => {
 export const getFilteredData = async (values) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/service/getfiltereddata/`,
-    {
+    {   
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

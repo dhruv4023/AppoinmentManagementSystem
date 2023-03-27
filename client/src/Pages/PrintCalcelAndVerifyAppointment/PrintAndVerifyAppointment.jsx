@@ -11,6 +11,7 @@ const PrintAndVerifyAppointment = () => {
   const [AIDNo, setAID] = useState(!AID ? "" : AID);
   const [doRetrive, setdoRetrive] = useState(false);
   const [cancel, setCancel] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
     <WidgetsOnPage
       title={"Check Your Appointment Details"}
@@ -19,6 +20,7 @@ const PrintAndVerifyAppointment = () => {
           doRetrive={doRetrive}
           setdoRetrive={setdoRetrive}
           setAID={setAID}
+          loading={loading}
           AIDNo={AIDNo}
         />
       }
@@ -32,6 +34,8 @@ const PrintAndVerifyAppointment = () => {
             />
           ) : (
             <PrintAndView
+              loading={loading}
+              setLoading={setLoading}
               doRetrive={doRetrive}
               setCancel={setCancel}
               AIDNo={AIDNo}

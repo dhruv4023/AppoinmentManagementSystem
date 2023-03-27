@@ -9,8 +9,16 @@ const HomePage = () => {
     <>
       <WidgetsOnPage
         title={"All Appointments Category"}
-        leftComponent={<FilterWidget loading={loading} setLoading={setLoading} setFilteredData={setFilteredData} />}
-        rightComponent={<DisplayFilterData loading={loading} filteredData={filteredData} />}
+        leftComponent={
+          <FilterWidget
+            loading={loading}
+            setLoading={setLoading}
+            setFilteredData={setFilteredData}
+          />
+        }
+        rightComponent={
+          <DisplayFilterData loading={loading} filteredData={filteredData} />
+        }
       />
     </>
   );

@@ -22,6 +22,7 @@ import {
 } from "./LoginRegisterChangePass";
 import { SelectLocation } from "../../Components/MyComponents";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
+import Loading from "Components/Loader/Loading";
 const Form = ({ pgType, editProfile, user }) => {
   const initialValuesRegister = {
     username: "",
@@ -68,7 +69,7 @@ const Form = ({ pgType, editProfile, user }) => {
   const token = useSelector((s) => s.token);
   // console.log(token);
   // console.log(values);
-  const [userNames, setUserNames] = useState([]);
+  const [userNames, setUserNames] = useState();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (editProfile) values["_id"] = true;
@@ -138,17 +139,27 @@ const Form = ({ pgType, editProfile, user }) => {
         )}
         {isRegister && (
           <>
-            <TextField
-              disabled={editProfile}
-              required
-              label="Username"
-              error={userNames?.includes(values.username) && !editProfile}
-              onChange={(e) => onChangehandle(e.target.value, "username")}
-              value={values.username}
-              name="username"
-              helperText={"Enter Unique Username"}
-              sx={{ margin: "0.5rem", width: "100%" }}
-            />{" "}
+            {editProfile ? (
+              <TextField
+                disabled={editProfile}
+                value={values.username}
+                sx={{ margin: "0.5rem", width: "100%" }}
+              />
+            ) : userNames ? (
+              <TextField
+                disabled={editProfile}
+                required
+                label="Username"
+                error={userNames?.includes(values.username) && !editProfile}
+                onChange={(e) => onChangehandle(e.target.value, "username")}
+                value={values.username}
+                name="username"
+                helperText={"Enter Unique Username"}
+                sx={{ margin: "0.5rem", width: "100%" }}
+              />
+            ) : (
+              <Loading />
+            )}
             <TextField
               required
               label="About"

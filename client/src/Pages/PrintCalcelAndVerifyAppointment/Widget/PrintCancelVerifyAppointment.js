@@ -1,7 +1,7 @@
 export const getSinglebookedData = async (AID) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/getsinglebookeddata/${AID}`,
-    {
+    {   
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }
@@ -13,7 +13,7 @@ export const cancelAppointment = async (AID) => {
   // console.log("AID",AID)
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/cancelAppointment/${AID}`,
-    {
+    {   
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }

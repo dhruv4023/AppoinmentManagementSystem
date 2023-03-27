@@ -6,7 +6,7 @@ import { DDMMYYYY } from "state/globalFunctions";
 import QRWidget from "Widgets/QRWidget";
 
 const PrintData = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <Typography

@@ -2,25 +2,36 @@ import { useTheme } from "@emotion/react";
 import { Bookmark, Cancel, Delete, TramSharp } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
+import Loading from "Components/Loader/Loading";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSinglebookedData } from "./PrintCancelVerifyAppointment";
 import PrintData from "./PrintData";
 
-const PrintAndView = ({ AIDNo, doRetrive, setCancel }) => {
+const PrintAndView = ({ loading, setLoading, AIDNo, doRetrive, setCancel }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [apDt, setApDt] = useState();
   useEffect(() => {
-    AIDNo &&
-      getSinglebookedData(AIDNo).then((d) => {
-        delete d.data._id;
-        setApDt(d.data);
-      });
+    setLoading(true);
+    AIDNo
+      ? getSinglebookedData(AIDNo)
+          .then((d) => {
+            delete d.data._id;
+            setApDt(d.data);
+            setLoading(false);
+          })
+          .catch((e) => {
+            setApDt(false);
+            setLoading(false);
+          })
+      : setLoading(false);
   }, [doRetrive]);
+  // console.log(apDt, loading);
   return (
     <WidgetWrapper>
+      {loading && <Loading />}
       {apDt && (
         <>
           <PrintData data={apDt} />
@@ -59,10 +70,10 @@ const PrintAndView = ({ AIDNo, doRetrive, setCancel }) => {
         </>
       )}
       {apDt === false ? (
-        <>Not Found</>
+        <>No Appointment Record Found</>
       ) : (
         apDt === undefined &&
-        "Enter Your Appointment No to Check Yout Appointment Details"
+        "Enter Your Appointment Number to Check Yout Appointment Details"
       )}
     </WidgetWrapper>
   );

@@ -2,7 +2,7 @@ export const saveAppointmentData = async ({ details, SID }) => {
   //   console.log(Details);
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/post/${SID}`,
-    {
+    {   
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const checkWhetherAppointmentAlredyBooked = async ({
   //   console.log(Details);
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/checkWhetherAppointmentAlredyBooked/${SID}`,
-    {
+    {   
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,15 +34,15 @@ export const checkWhetherAppointmentAlredyBooked = async ({
   return rs.alredyBooked;
 };
 
-export const getBookedDtTm = async (setBookedDtTm, id) => {
+export const getBookedDtTm = async ( id) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/getbookedtime/${id}`,
-    {
+    {   
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }
   );
   const data = await res.json();
-  setBookedDtTm(data);
+  return (data);
   // setUserNames(user ? data.filter((f) => f !== user.username) : data);
 };

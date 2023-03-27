@@ -1,3 +1,4 @@
+import Loading from "Components/Loader/Loading";
 import WidgetsOnPage from "Components/WidgetsOnPage";
 import WidgetWrapper from "Components/WidgetWrapper";
 import React, { useEffect, useState } from "react";
@@ -25,23 +26,37 @@ const DashBoardAndUserView = () => {
     <WidgetsOnPage
       leftComponent={
         <>
-          <UserWidgets user={user} />
-          {UID && (
+          {user ? <UserWidgets user={user} /> : <Loading />}
+          {UID ? (
             <QRWidget
               description={"Scan QR To Open Book Appointment Form"}
               link={`/service/${UID}/${SID}`}
             />
+          ) : (
+            <Loading />
           )}
         </>
       }
       rightComponent={
         <>
-          {servData && <DisplayServiceWidget servData={servData} />}{" "}
+          {servData ? (
+            <DisplayServiceWidget servData={servData} />
+          ) : (
+            <Loading />
+          )}{" "}
           {UID === admin?.username ? (
-            <>{servData && <DashBoardWidget SID={servData.SID} />}</>
+            <>
+              {servData ? <DashBoardWidget SID={servData.SID} /> : <Loading />}
+            </>
           ) : (
             <WidgetWrapper mt={"0.8rem"}>
-              <>{servData && <BookAppointMentWidget servData={servData} />}</>
+              <>
+                {servData ? (
+                  <BookAppointMentWidget servData={servData} />
+                ) : (
+                  <Loading />
+                )}
+              </>
             </WidgetWrapper>
           )}
         </>
