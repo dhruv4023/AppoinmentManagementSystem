@@ -3,7 +3,6 @@ export const getServDataDashBordAndBook = async (UID, SID, setServData) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/service/getServDtOnBookPage/${SID}`,
     {
-      mode: "no-cors",
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }
