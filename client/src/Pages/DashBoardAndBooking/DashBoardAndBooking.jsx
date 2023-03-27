@@ -18,9 +18,10 @@ const DashBoardAndUserView = () => {
   const [user, setUser] = useState(null);
   const [servData, setServData] = useState();
   useEffect(() => {
-    getServDataDashBordAndBook(UID, SID, setServData);
+    getServDataDashBordAndBook(UID, SID).then((data) => setServData(data));
     getUser(setUser, UID);
   }, [UID, SID, setServData]);
+  console.log(servData);
   // console.log(admin, UID, user?.username);
   return (
     <WidgetsOnPage

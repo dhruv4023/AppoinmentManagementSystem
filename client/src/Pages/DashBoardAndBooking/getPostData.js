@@ -1,4 +1,4 @@
-export const getServDataDashBordAndBook = async (UID, SID, setServData) => {
+export const getServDataDashBordAndBook = async (UID, SID) => {
   SID = UID + "_" + SID;
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/service/getServDtOnBookPage/${SID}`,
@@ -8,5 +8,5 @@ export const getServDataDashBordAndBook = async (UID, SID, setServData) => {
     }
   );
   const data = await res.json();
-  setServData(data);
+  return (data);
 };
