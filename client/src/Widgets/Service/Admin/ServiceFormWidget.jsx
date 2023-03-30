@@ -11,6 +11,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import FlexBetween from "Components/FlexBetween";
 import FlexEvenly from "Components/FlexEvenly";
 import { SelectLocation } from "Components/MyComponents";
@@ -65,15 +66,25 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     tmp[name] = val;
     setValues(tmp);
   };
+  // console.log(values);
+  const [holidayss, setHolidayss] = useState([]);
+  const addRemove = (d) => {
+    holidayss.indexOf(d) === -1
+      ? holidayss.push(d)
+      : holidayss.splice(holidayss.indexOf(d), d);
+    // console.log(holidayss);
+
+    onChangehandle(holidayss, "holidays");
+  };
   // console.log(values.serviceStartTime?.split(":")[0]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (values.category) {
       sendServiceData({ token, values, dispatch });
     }
-    // setCrudServData({
-    //   openForm: false,
-    // });
+    setCrudServData({
+      openForm: false,
+    });
   };
   return (
     <WidgetWrapper>
@@ -117,6 +128,78 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               ))}
             </Select>
           </FormControl>
+          <FlexBetween
+            flexWrap={"wrap"}
+            p="0.5rem"
+            width="100%"
+            borderRadius={"0.2rem"}
+            border={"1px solid grey"}
+          >
+            <Typography>Select Holidays</Typography>
+            <FlexEvenly
+              flexWrap={"wrap"}
+              width="100%"
+              borderRadius={"0.2rem"}
+              gap={"0.5rem"}
+            >
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 0).length == 1 && "green",
+                }}
+                onClick={() => addRemove(0)}
+              >
+                S
+              </Button>
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 1).length == 1 && "green",
+                }}
+                onClick={() => addRemove(1)}
+              >
+                M
+              </Button>
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 2).length == 1 && "green",
+                }}
+                onClick={() => addRemove(2)}
+              >
+                T
+              </Button>
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 3).length == 1 && "green",
+                }}
+                onClick={() => addRemove(3)}
+              >
+                W
+              </Button>
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 4).length == 1 && "green",
+                }}
+                onClick={() => addRemove(4)}
+              >
+                T
+              </Button>
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 5).length == 1 && "green",
+                }}
+                onClick={() => addRemove(5)}
+              >
+                F
+              </Button>
+              <Button
+                sx={{
+                  color: holidayss.filter((x) => x == 6).length == 1 && "green",
+                }}
+                onClick={() => addRemove(6)}
+              >
+                S
+              </Button>
+            </FlexEvenly>
+          </FlexBetween>
           <TextField
             required
             sx={{ margin: "0.5rem .5rem", width: "100%" }}
@@ -184,7 +267,10 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
                 value={values.breakStartTime}
                 label={"Break Start Time"}
               >
-                {breakTime( parseInt(values.serviceStartTime?.split(":")[0])+1, 15)?.map((m) => (
+                {breakTime(
+                  parseInt(values.serviceStartTime?.split(":")[0]) + 1,
+                  15
+                )?.map((m) => (
                   <MenuItem value={m} key={m}>
                     {m}
                   </MenuItem>

@@ -14,6 +14,7 @@ export const createService = async (req, res) => {
       location,
       description,
       serviceName,
+      holidays,
     } = req.body;
 
     const serviceTime = {
@@ -48,6 +49,7 @@ export const createService = async (req, res) => {
           location,
           description,
           serviceName,
+          holidays,
         }
       );
       const servData = await Services.find({ username });
@@ -76,6 +78,7 @@ export const createService = async (req, res) => {
         location: location,
         description: description,
         serviceName: serviceName,
+        holidays: [],
         chartData: [],
         appointmentList: [],
       });
@@ -113,6 +116,7 @@ export const getServicesOnBookingPage = async (req, res) => {
       location: 1,
       description: 1,
       serviceName: 1,
+      holidays: 1,
     });
     res.status(200).json(servData);
   } catch (error) {
@@ -135,6 +139,7 @@ const returnServData = async (
     location: 1,
     description: 1,
     serviceName: 1,
+    holidays: 1,
   }).limit(limit);
   res.status(200).json(servData);
 };

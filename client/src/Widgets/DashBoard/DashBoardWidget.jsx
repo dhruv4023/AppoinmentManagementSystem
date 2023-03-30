@@ -81,7 +81,7 @@ const DashBoardWidget = ({ SID }) => {
           fontSize={"1.5rem"}
           color={"primary"}
         >
-          DashBoardWidget
+          DashBoard
         </Typography>
       </WidgetWrapper>
       <TableData SID={SID} />

@@ -13,6 +13,7 @@ const ServiceBtnWidget = ({ setCrudServData, CrudServData, user }) => {
     breakEndTime: "",
     appoinmentTime: "",
     description: "",
+    holidays: [],
     username: user.username,
     location: user.location,
   };

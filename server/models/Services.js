@@ -34,6 +34,7 @@ const serviceSchema = mongoose.Schema(
       city: { type: String },
       pincode: { type: String },
     },
+    holidays:[],
     chartData: [
       {
         year: {

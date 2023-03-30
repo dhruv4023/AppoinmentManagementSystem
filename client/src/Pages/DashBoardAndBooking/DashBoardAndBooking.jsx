@@ -21,7 +21,7 @@ const DashBoardAndUserView = () => {
     getServDataDashBordAndBook(UID, SID).then((data) => setServData(data));
     getUser(setUser, UID);
   }, [UID, SID, setServData]);
-  console.log(servData);
+  // console.log(servData);
   // console.log(admin, UID, user?.username);
   return (
     <WidgetsOnPage

@@ -7,16 +7,14 @@ export const registerControl = async (req, res) => {
   // console.log();
   const _file = req.file;
   try {
-    const {
-      firstName,
-      lastName,
-      username,
-      email,
-      password,
-      friends,
-      about,
-      location,
-    } = req.body;
+    const { firstName, lastName, username, email, password, friends, about } =
+      req.body;
+    const location = {
+      state: req.body["location.state"],
+      district: req.body["location.district"],
+      city: req.body["location.city"],
+      pincode: req.body["location.pincode"],
+    };
     const user = await Users.findOne({ email: email });
     if (user) {
       _file && deleteFile(_file.path);

@@ -3,13 +3,14 @@ import {
   Description,
   DinnerDining,
   EditOutlined,
+  HolidayVillage,
   LocationOnOutlined,
   TimelapseRounded,
   Timeline,
   WorkOutline,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
 import WidgetWrapper from "Components/WidgetWrapper";
 import { useTheme } from "@emotion/react";
@@ -32,8 +33,10 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
       appoinmentTime: m.appoinmentTime,
       username: m.username,
       location: m.location,
+      holidays: m?.holidays,
     };
   };
+  const days = ["S", "M", "T", "W", "T", "F", "S"];
   return (
     <WidgetWrapper key={servData?.SID} m={"0.5rem 0 0  0"}>
       <FlexBetween flexDirection={"column"}>
@@ -87,6 +90,22 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
             icon1={<TimelapseRounded fontSize="large" sx={{ color: main }} />}
             cel2={servData?.breakTime?.Start + " " + servData?.breakTime?.End}
             icon2={<DinnerDining fontSize="large" sx={{ color: main }} />}
+          />
+          <ServiceDatRow
+            cel1={
+              <Box gap={"0.2rem"} display={"flex"}>
+                {days.map((m, i) => (
+                  <>
+                    {servData?.holidays.indexOf(i) === -1 ? (
+                      <Box >{m}</Box>
+                    ) : (
+                      <Box color="red">{m}</Box>
+                    )}
+                  </>
+                ))}
+              </Box>
+            }
+            icon1={<HolidayVillage fontSize="large" sx={{ color: main }} />}
           />
         </FlexBetween>
       </FlexBetween>

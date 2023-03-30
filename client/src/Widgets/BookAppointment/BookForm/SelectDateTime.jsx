@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import FlexBetween from "Components/FlexBetween";
-import { SelectAutoComplete } from "Components/MyComponents";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker } from "@mui/x-date-pickers";
@@ -46,25 +45,36 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
     });
   }, [servData]);
 
+  const shouldDisableDate = (day) => {
+    // check if the day of the week of the provided day is in the list of disabled days
+    return servData.holidays.includes(day.day());
+  };
+
   return (
     <FlexBetween gap={"0.5rem"} flexWrap={"wrap"}>
       {isNonMobileScreens ? (
-        <FlexEvenly width={"100%"}>
-           
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <StaticDatePicker
-              displayStaticWrapperAs="desktop"
-              openTo="day"
-              minDate={MXMNDate(1).toISOString().substring(0, 10)}
-              maxDate={MXMNDate(7).toISOString().substring(0, 10)}
-              value={date}
-              onChange={(newValue) => {
-                setDate(changePickCalanderDateToISOdate(newValue));
-              }}
-              renderInput={AdapterDayjs}
-            />
-          </LocalizationProvider>
-        </FlexEvenly>
+        <>
+          {servData.holidays ? (
+            <FlexEvenly width={"100%"}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <StaticDatePicker
+                  displayStaticWrapperAs="desktop"
+                  openTo="day"
+                  shouldDisableDate={shouldDisableDate}
+                  minDate={MXMNDate(1).toISOString().substring(0, 10)}
+                  maxDate={MXMNDate(7).toISOString().substring(0, 10)}
+                  value={date}
+                  onChange={(newValue) => {
+                    setDate(changePickCalanderDateToISOdate(newValue));
+                  }}
+                  renderInput={AdapterDayjs}
+                />
+              </LocalizationProvider>
+            </FlexEvenly>
+          ) : (
+            <Loading />
+          )}
+        </>
       ) : (
         <FlexEvenly paddingY={"1rem"} width={"100%"}>
           {BookingDate ? (
