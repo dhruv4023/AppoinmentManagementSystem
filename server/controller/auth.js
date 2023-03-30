@@ -39,6 +39,7 @@ export const registerControl = async (req, res) => {
         $set: { picPath: picPath },
       });
     }
+    console.log(savedUser)
     res.status(200).json(savedUser);
   } catch (error) {
     _file && deleteFile(_file.path);

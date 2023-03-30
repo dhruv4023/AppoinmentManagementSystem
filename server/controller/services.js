@@ -78,7 +78,7 @@ export const createService = async (req, res) => {
         location: location,
         description: description,
         serviceName: serviceName,
-        holidays: [],
+        holidays: holidays,
         chartData: [],
         appointmentList: [],
       });

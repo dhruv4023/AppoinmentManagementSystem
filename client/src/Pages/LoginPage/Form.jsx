@@ -17,6 +17,7 @@ import FlexEvenly from "Components/FlexEvenly";
 import {
   getUserNames,
   login,
+  register,
   // register,
   updateProfile,
 } from "./LoginRegisterChangePass";
@@ -74,7 +75,7 @@ const Form = ({ pgType, editProfile, user }) => {
     e.preventDefault();
     if (editProfile) values["_id"] = true;
     if (isLogin) await login(values, dispatch, setLogin, navigate);
-    else if (userNames.includes(values.username))
+    else if (userNames?.includes(values.username))
       alert("Plz Select Unique Username");
     else if (editProfile && values.email === user.email) {
       updateProfile(values, dispatch, token, navigate);
