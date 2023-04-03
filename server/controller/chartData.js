@@ -71,9 +71,8 @@ export const getDayData = async (req, res) => {
     res.status(409).json({ mess: "error" });
   }
 };
-
-// insertDateObj("abc123_Salon", "2051", "2", "1");
-
+// SID: 'dhruv4023_Consultant', yr: '2023'
+// 2023-03-25
 // incrementValBy1("abc123_Salon", "2051", "2", "1", 1, 1);
 
 // const d = new Date();
@@ -97,6 +96,9 @@ const updateChartData = async (SID, status, date) => {
   }
 };
 export default updateChartData;
+// insertDateObj("dhruv4023_Consultant", "2023", "03", "29");
+// updateChartData("dhruv4023_Consultant",-1,"2023-03-29")
+
 
 // const d = new Date();
 // const ymd = d.toISOString().substring(0, 10).split("-");

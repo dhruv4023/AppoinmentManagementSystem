@@ -1,0 +1,25 @@
+{
+  "step": 0,
+  "instruction": "You can access our website Using the link https://aasdp.vercel.app/",
+  "imgpath": "/helpData/imgs/step1.png",
+  "AdminUser": [
+    {
+      "step": 1,
+      "instruction": "Click here to open Login Or Sign Up",
+      "imgpath": "/helpData/imgs/step2.png"
+    },
+    {
+      "Login": {
+        "step": 2,
+        "instruction": "Fill your Login Credentials to Login to your account",
+        "imgpath": "/helpData/imgs/step3.png"
+      },
+      "Signup": {
+        "step": 2,
+        "instruction": "Fill your Login Credentials to Login to your account",
+        "imgpath": "/helpData/imgs/step3.png"
+      }
+    }
+  ],
+  "User": []
+}

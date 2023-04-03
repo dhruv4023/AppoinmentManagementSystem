@@ -56,7 +56,8 @@ const MenuItems = () => {
         </Tooltip>
       </IconButton>
       {/* <Notifications sx={{ fontSize: "25px" }} /> */}
-      <IconButton onClick={() => dispatch(setHelp())}>
+      <IconButton onClick={() => navigate('/help')}>
+      {/* <IconButton onClick={() => dispatch(setHelp())}> */}
         <Tooltip title="Need Help !">
           <Help sx={{ fontSize: "25px" }} />
         </Tooltip>

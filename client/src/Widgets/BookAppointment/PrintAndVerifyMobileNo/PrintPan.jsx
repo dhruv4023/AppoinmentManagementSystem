@@ -3,11 +3,13 @@ import { Button, Typography } from "@mui/material";
 import FlexBetween from "Components/FlexBetween";
 import { DisplayDataComp } from "Components/MyComponents";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import QRWidget from "Widgets/QRWidget";
 
 const PrintPan = ({ details, AID }) => {
   const theme = useTheme();
   details.details["AID"] = AID;
+  const navigate=useNavigate();
   return (
     <>
       <QRWidget
@@ -19,6 +21,7 @@ const PrintPan = ({ details, AID }) => {
       })}
       <Button
         type="submit"
+        onClick={() => navigate("/preview", { state: details.details })}
         sx={{
           m: "2rem 0",
           p: "1rem",
