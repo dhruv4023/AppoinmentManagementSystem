@@ -95,13 +95,13 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
             cel1={
               <Box gap={"0.2rem"} display={"flex"}>
                 {days.map((m, i) => (
-                  <>
+                  <Box key={i}>
                     {servData?.holidays.indexOf(i) === -1 ? (
                       <Box >{m}</Box>
                     ) : (
                       <Box color="red">{m}</Box>
                     )}
-                  </>
+                  </Box>
                 ))}
               </Box>
             }

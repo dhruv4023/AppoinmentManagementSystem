@@ -28,11 +28,7 @@ export const cancelAppointment = async (req, res) => {
     res.status(409).json("Server Error");
   }
 };
-const cancelAppointmentFun = async (SID, AID, status) => {
-  var x = -1;
 
-  return x;
-};
 export const changeAppointmentStatus = async (req, res) => {
   try {
     const { AID } = req.params;
@@ -53,13 +49,16 @@ export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
   try {
     const { SID } = req.params;
     const { contactNumber } = req.body;
-    // console.log(contactNumber);
+    console.log(contactNumber);
     let dy = new Date();
     // dy.setDate(dy.getDate() - 1);
     const data = await Services.findOne({ SID: SID });
+    // console.log(data,dy,data.appointmentList.filter(
+    //   (f) => f.contactNumber === contactNumber && String(f.bookedOn).substring(0,10) == String(dy).substring(0,10)
+    // ))
     if (
       data.appointmentList.filter(
-        (f) => f.contactNumber === contactNumber && f.bookedOn > dy
+        (f) => f.contactNumber === contactNumber && String(f.bookedOn).substring(0,10) == String(dy).substring(0,10)
       ).length > 0
     )
       return res.status(200).json({
