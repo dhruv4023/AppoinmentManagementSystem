@@ -2,6 +2,7 @@ import { setLogin } from "state";
 
 export const register = async (values) => {
   const formData = new FormData();
+  if(values["picPath"]==="") delete values["picPath"];
   appendData(formData, values);
   const savedUserResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/register`,
@@ -10,8 +11,8 @@ export const register = async (values) => {
       body: formData,
     }
   );
-  const savedUser = await savedUserResponse.json();
-  return savedUser.email;
+  const res = await savedUserResponse.json();
+  alert(res.msg);
 };
 
 export const login = async (values, dispatch, setLogin, navigate) => {
@@ -98,3 +99,16 @@ function appendData(formData, object, parentKey) {
     }
   }
 }
+
+/***************************************** */
+
+export const sendMail = async (email, otp) => {
+  // console.log(values);
+  const res = await fetch(`${process.env.REACT_APP_SERVER}/mail/send`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, otp }),
+  });
+  const msg = await res.json();
+  alert(msg.msg);
+};

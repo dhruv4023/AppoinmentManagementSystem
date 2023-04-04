@@ -18,7 +18,7 @@ export const registerControl = async (req, res) => {
     const user = await Users.findOne({ email: email });
     if (user) {
       _file && deleteFile(_file.path);
-      return res.status(400).json("user already exist !");
+      return res.status(400).json({ msg: "user already exist !" });
     }
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -39,11 +39,10 @@ export const registerControl = async (req, res) => {
         $set: { picPath: picPath },
       });
     }
-    console.log(savedUser)
-    res.status(200).json(savedUser);
+    res.status(200).json({ msg: "SAVE SUCCESFULLY" });
   } catch (error) {
     _file && deleteFile(_file.path);
-    res.status(500).json("something went wrong");
+    res.status(500).json({ msg: "something went wrong" });
   }
 };
 export const loginControl = async (req, res) => {

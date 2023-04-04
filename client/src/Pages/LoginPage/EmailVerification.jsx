@@ -4,7 +4,7 @@ import emailjs from "@emailjs/browser";
 import FlexEvenly from "Components/FlexEvenly";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { register, updateProfile } from "./LoginRegisterChangePass";
+import { register, sendMail, updateProfile } from "./LoginRegisterChangePass";
 import { useDispatch, useSelector } from "react-redux";
 const EmailVerification = () => {
   const location = useLocation();
@@ -34,9 +34,7 @@ const EmailVerification = () => {
           state: { email: values.email, page: "makenewpass" },
         });
       } else if (!values._id) {
-        register(values, dispatch, navigate)
-          ? alert("Registered Successfully")
-          : alert("Registration Failed");
+        register(values, dispatch, navigate);
         navigate("/login", { state: null });
       } else {
         updateProfile(values, dispatch, token, navigate);
@@ -47,27 +45,28 @@ const EmailVerification = () => {
   };
   const sendOtpMail = (otpnum, to_mail) => {
     setSentOtp(otpnum);
+    sendMail(to_mail, otpnum);
     // console.log(otpnum, to_mail);
-    emailjs
-      .send(
-        process.env.REACT_APP_MAIL_VERIFY_SERVICE_ID,
-        process.env.REACT_APP_MAIL_VERIFY_TEMPLATE_ID,
-        {
-          name: "dhruv",
-          otp: otpnum,
-          email: to_mail,
-        },
-        process.env.REACT_APP_MAIL_VERIFY_PUBLIC_ID
-      )
-      .catch((e) => {
-        // console.log(e);
-        alert("Somethings wents wrong Plz Try again later !");
-      });
+    // emailjs
+    //   .send(
+    //     process.env.REACT_APP_MAIL_VERIFY_SERVICE_ID,
+    //     process.env.REACT_APP_MAIL_VERIFY_TEMPLATE_ID,
+    //     {
+    //       name: "dhruv",
+    //       otp: otpnum,
+    //       email: to_mail,
+    //     },
+    //     process.env.REACT_APP_MAIL_VERIFY_PUBLIC_ID
+    //   )
+    //   .catch((e) => {
+    //     // console.log(e);
+    //     alert("Somethings wents wrong Plz Try again later !");
+    //   });
   };
   const [sendOtpBtnVal, setSendOtpBtnVal] = useState("Click here to Send OTP");
   const [disableBtn, setdisableBtn] = useState(false);
   const sendOtpBtn = () => {
-    sendOtpMail(Math.floor(Math.random() * 1000000),values.email);
+    sendOtpMail(Math.floor(Math.random() * 1000000), values.email);
     let sec = 30;
     setSendOtpBtnVal("didn't received OTP ? send Again ");
     setdisableBtn(true);
