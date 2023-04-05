@@ -35,7 +35,11 @@ const UserWidgets = ({ user, admin, setEditProf }) => {
   return (
     <WidgetWrapper>
       <FlexBetween gap={"1rem"} pb="1.1rem">
-        <UserImg image={picPath} />
+        {picPath ? (
+          <UserImg image={picPath} />
+        ) : (
+          <UserImg image={`user/img/${username}`} />
+        )}
         <Box flexGrow={"1"}>
           <IconButton onClick={() => navigate(`/profile/${username}`)}>
             <Typography

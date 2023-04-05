@@ -232,53 +232,6 @@ const Form = ({ pgType, editProfile, user }) => {
             location={values?.location}
             inputValues={onChangehandle}
           />
-          {/* <FlexEvenly>
-            <TextField
-              required
-              label="State"
-              onChange={(e) => onChangehandle(e.target.value, "state")}
-              name="state"
-              value={values.state}
-              disabled={true}
-              sx={{ margin: "0.5rem", width: "100%" }}
-            />
-            <TextField
-              required
-              label="District"
-              onChange={(e) => onChangehandle(e.target.value, "district")}
-              name="district"
-              value={values.district}
-              sx={{ margin: "0.5rem", width: "100%" }}
-            />
-          </FlexEvenly>
-          <FlexEvenly>
-            <Box sx={{ margin: "0.5rem", width: "100%" }}>
-              <SelectAutoComplete
-                label={"city"}
-                value={values.city}
-                setInputVal={onChangehandle}
-                options={City.getCitiesOfState("IN", "GJ")
-                  .map((m) => m.name)
-                  .filter((f) => !f.includes(","))}
-              />
-            </Box>
-             <TextField
-              required
-              label="City"
-              onChange={(e) => onChangehandle(e,e.target.value, "city")}
-              name="city"
-              value={values.city}
-              sx={{ margin: "0.5rem", width: "100%" }}
-            /> 
-            <TextField
-              required
-              label="Pincode"
-              onChange={(e) => onChangehandle(e.target.value, "pincode")}
-              name="pincode"
-              value={values.pincode}
-              sx={{ width: "100%", margin: "0.5rem" }}
-            />
-          </FlexEvenly> */}
         </>
       )}
       <Box>

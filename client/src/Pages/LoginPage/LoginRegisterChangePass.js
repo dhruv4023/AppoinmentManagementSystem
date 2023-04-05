@@ -66,6 +66,8 @@ export const getUserNames = async (setUserNames) => {
 export const updateProfile = async (values, dispatch, token, navigate) => {
   const formData = new FormData();
   appendData(formData, values);
+  if(values["picPath"]==="") delete values["picPath"];
+  console.log(values);
   const savedUserResponse = await fetch(
     `${process.env.REACT_APP_SERVER}/auth/update/${values.username}`,
     {
