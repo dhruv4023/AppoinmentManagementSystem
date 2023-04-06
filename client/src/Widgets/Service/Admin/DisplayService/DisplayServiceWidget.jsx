@@ -22,23 +22,21 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
   // console.log(servData)
   const edtDt = (m) => {
     return {
-      SID: m.SID,
+      sid: m.sid,
       category: m.category,
       serviceName: m.serviceName,
       description: m.description,
-      serviceStartTime: m?.serviceTime?.Start,
-      serviceEndTime: m?.serviceTime?.End,
-      breakStartTime: m?.breakTime?.Start,
-      breakEndTime: m?.breakTime?.End,
+      serviceTime: m.serviceTime,
+      breakTime: m.breakTime,
       appoinmentTime: m.appoinmentTime,
       username: m.username,
       location: m.location,
-      holidays: m?.holidays,
+      holidays: m.holidays,
     };
   };
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   return (
-    <WidgetWrapper key={servData?.SID} m={"0.5rem 0 0  0"}>
+    <WidgetWrapper key={servData?.sid} m={"0.5rem 0 0  0"}>
       <FlexBetween flexDirection={"column"}>
         <FlexBetween width={"100%"}>
           <Button
@@ -85,10 +83,10 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
           />
           <ServiceDatRow
             cel1={
-              servData?.serviceTime?.Start + " " + servData?.serviceTime?.End
+              servData?.serviceTime?.start + " " + servData?.serviceTime?.end
             }
             icon1={<TimelapseRounded fontSize="large" sx={{ color: main }} />}
-            cel2={servData?.breakTime?.Start + " " + servData?.breakTime?.End}
+            cel2={servData?.breakTime?.start + " " + servData?.breakTime?.end}
             icon2={<DinnerDining fontSize="large" sx={{ color: main }} />}
           />
           <ServiceDatRow
@@ -97,7 +95,7 @@ const DisplayServiceWidget = ({ servData, CrudServData, setCrudServData }) => {
                 {days.map((m, i) => (
                   <Box key={i}>
                     {servData?.holidays.indexOf(i) === -1 ? (
-                      <Box >{m}</Box>
+                      <Box>{m}</Box>
                     ) : (
                       <Box color="red">{m}</Box>
                     )}

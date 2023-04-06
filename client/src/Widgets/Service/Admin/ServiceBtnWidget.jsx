@@ -7,10 +7,8 @@ const ServiceBtnWidget = ({ setCrudServData, CrudServData, user }) => {
   const initialServiceData = {
     category: "",
     serviceName: "",
-    serviceStartTime: "",
-    serviceEndTime: "",
-    breakStartTime: "",
-    breakEndTime: "",
+    breakTime: { start: "", end: "" },
+    serviceTime: { start: "", end: "" },
     appoinmentTime: "",
     description: "",
     holidays: [],

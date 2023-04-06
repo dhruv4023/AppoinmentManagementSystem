@@ -1,7 +1,7 @@
-export const getAllBookedData = async ({ SID,date }) => {
-  // console.log(SID)
+export const getAllBookedData = async ({ sid,date }) => {
+  // console.log(sid)
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/appointment/getallbookeddata/${SID}/${date}`,
+    `${process.env.REACT_APP_SERVER}/appointment/getallbookeddata/${sid}/${date}`,
     {   
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -11,10 +11,10 @@ export const getAllBookedData = async ({ SID,date }) => {
   const data = await res.json();
   return data;
 };
-export const changeAppointmentStatus = async ({ AID, status }) => {
-  // console.log(AID, status);
+export const changeAppointmentStatus = async ({ aid, status }) => {
+  // console.log(aid, status);
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/appointment/changeAppointmentStatus/${AID}`,
+    `${process.env.REACT_APP_SERVER}/appointment/changeAppointmentStatus/${aid}`,
     {   
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -8,9 +8,9 @@ const VerifyMobilePan = ({ setAID, appointmentData, setTabNo }) => {
   // console.log(appointmentData?.details.contactNumber);
   useEffect(() => {
     verified === 1 &&
-      saveAppointmentData(appointmentData).then((AID) => {
-        setAID(AID);
-        AID && setTabNo(1);
+      saveAppointmentData(appointmentData).then((aid) => {
+        setAID(aid);
+        aid && setTabNo(1);
       });
     verified === -1 && alert("Wrong OTP");
   }, [verified]);

@@ -11,15 +11,15 @@ import {
 
 const routes = express.Router();
 
-routes.post("/post/:SID", saveAppointment);
-routes.get("/getbookedtime/:SID", getBookedTime);
-routes.get("/getsinglebookeddata/:AID", getSingleBookedData);
-routes.post("/getallbookeddata/:SID/:date", getAllBookedData);
-routes.post("/changeAppointmentStatus/:AID", changeAppointmentStatus);
-routes.get("/cancelAppointment/:AID",cancelAppointment );
+routes.post("/post/:sid", saveAppointment);
+routes.get("/getbookedtime/:sid", getBookedTime);
+routes.get("/getsinglebookeddata/:aid", getSingleBookedData);
+routes.post("/getallbookeddata/:sid/:date", getAllBookedData);
+routes.post("/changeAppointmentStatus/:aid", changeAppointmentStatus);
+routes.get("/cancelAppointment/:aid",cancelAppointment );
 
 routes.post(
-  "/checkWhetherAppointmentAlredyBooked/:SID",
+  "/checkWhetherAppointmentAlredyBooked/:sid",
   checkWhetherAppointmentAlredyBooked
 );
 

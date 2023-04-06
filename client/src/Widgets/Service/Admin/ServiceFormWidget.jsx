@@ -11,45 +11,16 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { Box } from "@mui/system";
+
 import FlexBetween from "Components/FlexBetween";
 import FlexEvenly from "Components/FlexEvenly";
 import { SelectLocation } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
-import moment from "moment";
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendServiceData } from "./WidgetAdminServiceFun";
-
-// const initialValues = {
-//   category: "",
-//   description: "",
-//   timeRange: "",
-//   username: "",
-//   state: "",
-//   district: "",
-//   city: "",
-//   pincode: "",
-// };
-
-const timeSlote = (duration, startTime, endTime) => {
-  var timeStops = [];
-  while (startTime <= endTime) {
-    timeStops.push(new moment(startTime).format("HH:mm"));
-    startTime.add(duration, "minutes");
-  }
-  return timeStops;
-};
-const serviceTime = (h = 6, e = 21) => {
-  var startTime = moment().utc().set({ hour: h, minute: 0 });
-  var endTime = moment().utc().set({ hour: e, minute: 59 });
-  return timeSlote("60", startTime, endTime);
-};
-const breakTime = (s = 11, e = 15) => {
-  var startTime = moment().utc().set({ hour: s, minute: 0 });
-  var endTime = moment().utc().set({ hour: e, minute: 59 });
-  return timeSlote("60", startTime, endTime);
-};
+import SelectTime from "./SelectTime";
 
 const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
   const dispatch = useDispatch();
@@ -66,13 +37,11 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     tmp[name] = val;
     setValues(tmp);
   };
-  // console.log(values);
-  const [holidayss, setHolidayss] = useState([]);
+  const [holidayss, setHolidayss] = useState(values?.holidays);
   const addRemove = (d) => {
     holidayss.indexOf(d) === -1
       ? holidayss.push(d)
       : holidayss.splice(holidayss.indexOf(d), d);
-    // console.log(holidayss);
 
     onChangehandle(holidayss, "holidays");
   };
@@ -82,15 +51,16 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     if (values.category) {
       sendServiceData({ token, values, dispatch });
     }
-    setCrudServData({
-      openForm: false,
-    });
+    // setCrudServData({
+    //   openForm: false,
+    // });
   };
+  console.log(CrudServData.data);
   return (
     <WidgetWrapper>
       <FlexBetween>
         <Typography color={"primary"} variant="h3" textAlign={"center"}>
-          {CrudServData.data.SID ? (
+          {CrudServData.data.sid ? (
             <>Update Service Data</>
           ) : (
             <>Create New Service</>
@@ -207,96 +177,18 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             value={values.serviceName}
             label={"Service Name"}
           />
-          <FlexEvenly sx={{ my: "0.5rem" }} width={"100%"}>
-            <FormControl sx={{ width: "100%" }}>
-              <InputLabel id="category">Service Start Time</InputLabel>
-              <Select
-                required
-                sx={{ marginRight: "0.3rem" }}
-                onChange={(e) =>
-                  onChangehandle(e.target.value, "serviceStartTime")
-                }
-                value={values.serviceStartTime}
-                label={"Service Start Time"}
-              >
-                {serviceTime(6, 20)?.map((m) => (
-                  <MenuItem value={m} key={m}>
-                    {m}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ width: "100%" }}>
-              <InputLabel id="category">Service End Time</InputLabel>
-              <Select
-                required
-                sx={{ marginLeft: "0.3rem" }}
-                onChange={(e) =>
-                  onChangehandle(e.target.value, "serviceEndTime")
-                }
-                disabled={!values.serviceStartTime}
-                value={values.serviceEndTime}
-                label={"Service End Time"}
-              >
-                {serviceTime(
-                  parseInt(values.serviceStartTime?.split(":")[0]) + 1
-                )?.map((m) => (
-                  <MenuItem value={m} key={m}>
-                    {m}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </FlexEvenly>
-          <FlexEvenly sx={{ my: "0.5rem" }} width={"100%"}>
-            <FormControl sx={{ width: "100%" }}>
-              <InputLabel id="category">Break Start Time</InputLabel>
-              <Select
-                required
-                disabled={
-                  !values.serviceEndTime ||
-                  !values.serviceStartTime ||
-                  parseInt(values.serviceStartTime?.split(":")[0]) > 13 ||
-                  (parseInt(values.serviceStartTime?.split(":")[0]) < 10 &&
-                    parseInt(values.serviceEndTime?.split(":")[0]) < 15)
-                }
-                sx={{ marginRight: "0.3rem" }}
-                onChange={(e) =>
-                  onChangehandle(e.target.value, "breakStartTime")
-                }
-                value={values.breakStartTime}
-                label={"Break Start Time"}
-              >
-                {breakTime(
-                  parseInt(values.serviceStartTime?.split(":")[0]) + 1,
-                  15
-                )?.map((m) => (
-                  <MenuItem value={m} key={m}>
-                    {m}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ width: "100%" }}>
-              <InputLabel id="category">Break End Time</InputLabel>
-              <Select
-                required
-                sx={{ marginLeft: "0.3rem" }}
-                disabled={!values.breakStartTime}
-                onChange={(e) => onChangehandle(e.target.value, "breakEndTime")}
-                value={values.breakEndTime}
-                label={"Break End Time"}
-              >
-                {breakTime(parseInt(values.breakStartTime?.split(":")[0]))?.map(
-                  (m) => (
-                    <MenuItem value={m} key={m}>
-                      {m}
-                    </MenuItem>
-                  )
-                )}
-              </Select>
-            </FormControl>
-          </FlexEvenly>
+          <SelectTime
+            time={values.serviceTime}
+            label={"service"}
+            inputValues={onChangehandle}
+          />
+          <SelectTime
+            sH={11}
+            eH={14}
+            time={values.breakTime}
+            label={"break"}
+            inputValues={onChangehandle}
+          />
           <FormControl sx={{ my: ".5rem", width: "100%" }}>
             <InputLabel id="category">Appointment Duration</InputLabel>
             <Select
@@ -374,7 +266,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               "&:hover": { color: palette.primary.main },
             }}
           >
-            {CrudServData.data.SID ? <>Update Data</> : <>Create Service</>}
+            {CrudServData.data.sid ? <>Update Data</> : <>Create Service</>}
           </Button>
         </FlexBetween>
       </form>

@@ -66,7 +66,7 @@ const interval = 24 * 60 * 60 * 1000;
 //   const d = new Date();
 //   d.setDate(d.getDate() + 2);
 //   const ymd = d.toISOString().substring(0, 10).split("-");
-//   Services.distinct("SID").then((x) =>
+//   Services.distinct("sid").then((x) =>
 //     x.map((m) => insertDateObj(m, ymd[0], ymd[1], ymd[2]))
 //   );
 // }, interval);

@@ -1,14 +1,14 @@
 import Services from "../../models/Services.js";
 
-const insertDayObj = async (SID, y, m, d) => {
+const insertDayObj = async (sid, y, m, d) => {
   const dayExists = await Services.find({
-    SID: SID,
+    sid: sid,
     "chartData.days.value": y + "-" + m + "-" + d,
   });
   if (dayExists.length === 0) {
     await Services.updateMany(
       {
-        SID: SID,
+        sid: sid,
         "chartData.year.value": y,
       },
       {
@@ -22,15 +22,15 @@ const insertDayObj = async (SID, y, m, d) => {
     );
   }
 };
-const insertMonthObj = async (SID, y, m, d) => {
+const insertMonthObj = async (sid, y, m, d) => {
   const monthExists = await Services.find({
-    SID: SID,
+    sid: sid,
     "chartData.months.value": y + "-" + m,
   });
   if (monthExists.length === 0) {
     Services.updateMany(
       {
-        SID: SID,
+        sid: sid,
         "chartData.year.value": y,
       },
       {
@@ -41,19 +41,19 @@ const insertMonthObj = async (SID, y, m, d) => {
           },
         },
       }
-    ).then(() => insertDayObj(SID, y, m, d));
+    ).then(() => insertDayObj(sid, y, m, d));
   } else {
-    insertDayObj(SID, y, m, d);
+    insertDayObj(sid, y, m, d);
   }
 };
-const insertYearObj = async (SID, y, m, d) => {
+const insertYearObj = async (sid, y, m, d) => {
   const yearExists = await Services.findOne({
-    SID: SID,
+    sid: sid,
     "chartData.year.value": y,
   });
   if (!yearExists) {
     Services.updateOne(
-      { SID: SID },
+      { sid: sid },
       {
         $push: {
           chartData: {
@@ -64,12 +64,12 @@ const insertYearObj = async (SID, y, m, d) => {
           },
         },
       }
-    ).then(() => insertMonthObj(SID, y, m, d));
+    ).then(() => insertMonthObj(sid, y, m, d));
   } else {
-    insertMonthObj(SID, y, m, d);
+    insertMonthObj(sid, y, m, d);
   }
 };
 
-export const insertDateObj = async (SID, y, m, d) => {
-  await insertYearObj(SID, y, m, d);
+export const insertDateObj = async (sid, y, m, d) => {
+  await insertYearObj(sid, y, m, d);
 };

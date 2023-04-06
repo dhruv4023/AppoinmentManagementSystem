@@ -7,8 +7,8 @@ import CancelAppointment from "./Widget/CancelAppointment";
 import PrintAndView from "./Widget/PrintAndView";
 
 const PrintAndVerifyAppointment = () => {
-  const { AID } = useParams();
-  const [AIDNo, setAID] = useState(!AID ? "" : AID);
+  const { aid } = useParams();
+  const [AIDNo, setAID] = useState(!aid ? "" : aid);
   const [doRetrive, setdoRetrive] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ const PrintAndVerifyAppointment = () => {
             <CancelAppointment
               setCancel={setCancel}
               number={cancel}
-              AID={AIDNo}
+              aid={AIDNo}
             />
           ) : (
             <PrintAndView

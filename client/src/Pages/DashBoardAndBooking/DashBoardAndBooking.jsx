@@ -14,13 +14,13 @@ import { getServDataDashBordAndBook } from "./getPostData";
 
 const DashBoardAndUserView = () => {
   const admin = useSelector((state) => state.user);
-  const { UID, SID } = useParams();
+  const { UID, sid } = useParams();
   const [user, setUser] = useState(null);
   const [servData, setServData] = useState();
   useEffect(() => {
-    getServDataDashBordAndBook(UID, SID).then((data) => setServData(data));
+    getServDataDashBordAndBook(UID, sid).then((data) => setServData(data));
     getUser(setUser, UID);
-  }, [UID, SID, setServData]);
+  }, [UID, sid, setServData]);
   // console.log(servData);
   // console.log(admin, UID, user?.username);
   return (
@@ -31,7 +31,7 @@ const DashBoardAndUserView = () => {
           {UID ? (
             <QRWidget
               description={"Scan QR To Open Book Appointment Form"}
-              link={`/service/${UID}/${SID}`}
+              link={`/service/${UID}/${sid}`}
             />
           ) : (
             <Loading />
@@ -47,7 +47,7 @@ const DashBoardAndUserView = () => {
           )}{" "}
           {UID === admin?.username ? (
             <>
-              {servData ? <DashBoardWidget SID={servData.SID} /> : <Loading />}
+              {servData ? <DashBoardWidget sid={servData.sid} /> : <Loading />}
             </>
           ) : (
             <WidgetWrapper mt={"0.8rem"}>

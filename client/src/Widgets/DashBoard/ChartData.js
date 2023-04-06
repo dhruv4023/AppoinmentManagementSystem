@@ -1,5 +1,5 @@
 export const getYearlydata = async (values) => {
-    // console.log(SID)
+    // console.log(sid)
     const res = await fetch(
       `${process.env.REACT_APP_SERVER}/chart/yealyData`,
       {   
@@ -12,7 +12,7 @@ export const getYearlydata = async (values) => {
     return data;
   };
 export const getMonthlydata = async (values) => {
-    // console.log(SID)
+    // console.log(sid)
     const res = await fetch(
       `${process.env.REACT_APP_SERVER}/chart/monthlyData`,
       {   
@@ -25,7 +25,7 @@ export const getMonthlydata = async (values) => {
     return data;
   };
 export const getDailydata = async (values) => {
-    // console.log(SID)
+    // console.log(sid)
     const res = await fetch(
       `${process.env.REACT_APP_SERVER}/chart/daysData`,
       {   

@@ -39,7 +39,7 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
   const [bookedDtTm, setBookedDtTm] = useState();
   const [BookingDate, setBookingDate] = useState();
   useEffect(() => {
-    getBookedDtTm(servData?.SID).then((t) => {
+    getBookedDtTm(servData?.sid).then((t) => {
       setBookedDtTm(t);
       setBookingDate(Object.keys(t));
     });

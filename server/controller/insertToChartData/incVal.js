@@ -1,7 +1,7 @@
 import Services from "../../models/Services.js";
 
 export const incrementValBy1 = async function update(
-  SID,
+  sid,
   yr,
   mn,
   dy,
@@ -11,7 +11,7 @@ export const incrementValBy1 = async function update(
   try {
     Services.updateOne(
       {
-        SID: SID,
+        sid: sid,
         "chartData.year.value": yr,
       },
       {
@@ -23,7 +23,7 @@ export const incrementValBy1 = async function update(
     ).then((result) => {
       // console.log(result);
       Services.updateOne(
-        { SID: SID, "chartData.months.value": yr + "-" + mn },
+        { sid: sid, "chartData.months.value": yr + "-" + mn },
         {
           $inc: {
             "chartData.$[].months.$[month].total.0": done,
@@ -34,7 +34,7 @@ export const incrementValBy1 = async function update(
       )
         .then(() => {
           Services.updateOne(
-            { SID: SID, "chartData.days.value": yr + "-" + mn + "-" + dy },
+            { sid: sid, "chartData.days.value": yr + "-" + mn + "-" + dy },
             {
               $inc: {
                 "chartData.$[].days.$[day].total.0": done,

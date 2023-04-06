@@ -17,7 +17,7 @@ const PrintData = ({ data }) => {
       >
         <Bookmark /> Your Appointment Receipt
       </Typography>
-      <DisplayDataComp ky={"AID"} value={data.AID} />
+      <DisplayDataComp ky={"aid"} value={data.aid} />
       <DisplayDataComp
         ky={"STATUS"}
         value={
@@ -36,7 +36,7 @@ const PrintData = ({ data }) => {
       <DisplayDataComp ky={"DATE"} value={DDMMYYYY(data.dateTime.date)} />
       <QRWidget
         description={"Scan QR To Open Your Appointment Data"}
-        link={`printreceipt/${data.AID}`}
+        link={`printreceipt/${data.aid}`}
       />
     </>
   );

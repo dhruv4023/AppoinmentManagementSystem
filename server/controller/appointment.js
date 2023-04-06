@@ -3,19 +3,19 @@ import moment from "moment";
 import updateChartData from "./chartData.js";
 export const cancelAppointment = async (req, res) => {
   try {
-    const { AID } = req.params;
+    const { aid } = req.params;
     const status = -1;
-    const SID = AID.split("_")[0] + "_" + AID.split("_")[1];
+    const sid = aid.split("_")[0] + "_" + aid.split("_")[1];
     const dt = await Services.findOne(
-      { SID: SID },
-      { appointmentList: { $elemMatch: { AID: AID } } }
+      { sid: sid },
+      { appointmentList: { $elemMatch: { aid: aid } } }
     );
     const date = dt.appointmentList[0].dateTime.date;
-    updateChartData(SID, status, date);
+    updateChartData(sid, status, date);
     const dateTime = { date: "0000-00-00", time: "00:00:00" };
     // const dateTime = { date: "2023-03-05", time: "0:00:00" };
     await Services.updateOne(
-      { SID: SID, "appointmentList.AID": AID },
+      { sid: sid, "appointmentList.aid": aid },
       {
         $set: {
           "appointmentList.$.status": status,
@@ -31,13 +31,13 @@ export const cancelAppointment = async (req, res) => {
 
 export const changeAppointmentStatus = async (req, res) => {
   try {
-    const { AID } = req.params;
+    const { aid } = req.params;
     const { status } = req.body;
-    // console.log(AID, status, "--------------------------------");
-    const SID = AID.split("_")[0] + "_" + AID.split("_")[1];
-    updateChartData(SID, status);
+    // console.log(aid, status, "--------------------------------");
+    const sid = aid.split("_")[0] + "_" + aid.split("_")[1];
+    updateChartData(sid, status);
     await Services.updateOne(
-      { SID: SID, "appointmentList.AID": AID },
+      { sid: sid, "appointmentList.aid": aid },
       { $set: { "appointmentList.$.status": status } }
     );
     res.status(200).json("Successfully Done");
@@ -47,12 +47,12 @@ export const changeAppointmentStatus = async (req, res) => {
 };
 export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
   try {
-    const { SID } = req.params;
+    const { sid } = req.params;
     const { contactNumber } = req.body;
     console.log(contactNumber);
     let dy = new Date();
     // dy.setDate(dy.getDate() - 1);
-    const data = await Services.findOne({ SID: SID });
+    const data = await Services.findOne({ sid: sid });
     // console.log(data,dy,data.appointmentList.filter(
     //   (f) => f.contactNumber === contactNumber && String(f.bookedOn).substring(0,10) == String(dy).substring(0,10)
     // ))
@@ -75,17 +75,17 @@ export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
 
 export const saveAppointment = async (req, res) => {
   try {
-    const { SID } = req.params;
+    const { sid } = req.params;
     const { name, email, contactNumber, message, date, time } = req.body;
-    // console.log(req.body,SID);
+    // console.log(req.body,sid);
 
-    const AID = SID + "_" + parseInt(new Date().getTime() / 1000);
+    const aid = sid + "_" + parseInt(new Date().getTime() / 1000);
     const data = await Services.findOneAndUpdate(
-      { SID: SID },
+      { sid: sid },
       {
         $push: {
           appointmentList: {
-            AID: AID,
+            aid: aid,
             name: name,
             email: email,
             contactNumber: contactNumber,
@@ -98,7 +98,7 @@ export const saveAppointment = async (req, res) => {
     data
       ? res.status(200).json({
           msg: "You have booked an Appoinment for " + date,
-          id: AID,
+          id: aid,
         })
       : res.status(200).json({
           msg: "Sorry Server Error ",
@@ -113,11 +113,11 @@ export const getBookedTime = async (req, res) => {
   try {
     const today = new Date().toISOString().substring(0, 10);
     // console.log(req.params, today);
-    const { SID } = req.params;
+    const { sid } = req.params;
     const timeArr = await Services.aggregate([
       {
         $match: {
-          SID: SID,
+          sid: sid,
         },
       },
       {
@@ -141,7 +141,7 @@ export const getBookedTime = async (req, res) => {
       else bkTime[m.date].push(m.time);
     });
     // console.log(bkTime);
-    const leftTime = await createTimeArray(SID, bkTime);
+    const leftTime = await createTimeArray(sid, bkTime);
     // console.log(leftTime);
     res.status(200).json(leftTime);
   } catch (error) {
@@ -150,12 +150,12 @@ export const getBookedTime = async (req, res) => {
 };
 export const getSingleBookedData = async (req, res) => {
   try {
-    const { AID } = req.params;
-    const SID = AID.split("_")[0] + "_" + AID.split("_")[1];
-    // console.log(SID,AID);
+    const { aid } = req.params;
+    const sid = aid.split("_")[0] + "_" + aid.split("_")[1];
+    // console.log(sid,aid);
     const data = await Services.findOne(
-      { SID: SID },
-      { appointmentList: { $elemMatch: { AID: AID } } }
+      { sid: sid },
+      { appointmentList: { $elemMatch: { aid: aid } } }
     );
     // console.log(data);
     res.status(200).json({
@@ -168,12 +168,12 @@ export const getSingleBookedData = async (req, res) => {
 
 export const getAllBookedData = async (req, res) => {
   try {
-    const { SID, date } = req.params;
-    // console.log(date, SID);
+    const { sid, date } = req.params;
+    // console.log(date, sid);
     const data = await Services.aggregate([
       {
         $match: {
-          SID: SID,
+          sid: sid,
         },
       },
       {
@@ -198,9 +198,9 @@ export const getAllBookedData = async (req, res) => {
   }
 };
 
-const createTimeArray = async (SID, bkd) => {
+const createTimeArray = async (sid, bkd) => {
   const servData = await Services.findOne(
-    { SID: SID },
+    { sid: sid },
     {
       serviceTime: 1,
       breakTime: 1,
@@ -226,13 +226,13 @@ const createTimeArray = async (SID, bkd) => {
   const allTimeSlotes = [
     ...timeArray(
       servData?.appoinmentTime,
-      servData?.serviceTime?.Start,
-      servData?.breakTime?.Start
+      servData?.serviceTime?.start,
+      servData?.breakTime?.start
     ),
     ...timeArray(
       servData?.appoinmentTime,
-      servData?.breakTime?.End,
-      servData?.serviceTime?.End
+      servData?.breakTime?.end,
+      servData?.serviceTime?.end
     ),
   ];
   const today = new Date();
@@ -254,17 +254,17 @@ const createTimeArray = async (SID, bkd) => {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // const zz = async () => {
 //   const data = await Services.find(
-//     { SID: "xyz123_Gym" },
+//     { sid: "xyz123_Gym" },
 //     { appointmentList: 1 }
 //   );
 //   console.log(data[0].appointmentList);
 // };
 // zz();
-// const z = async (AID) => {
-// const SID = AID.split("_")[0] + "_" + AID.split("_")[1];
-// console.log(SID);
+// const z = async (aid) => {
+// const sid = aid.split("_")[0] + "_" + aid.split("_")[1];
+// console.log(sid);
 // const x = await Services.findOne(
-//   { SID: SID, "appointmentList.AID": AID }
+//   { sid: sid, "appointmentList.aid": aid }
 //   // { $set: { "appointmentList.$.status": 1 } }
 // );
 // const x =
@@ -277,7 +277,7 @@ const createTimeArray = async (SID, bkd) => {
 //     return dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDate();
 //   };
 //   const data = await Services.aggregate([
-//     { $match: { SID: "xyz123_Gem" } },
+//     { $match: { sid: "xyz123_Gem" } },
 //     // {
 //     //   $match: {
 //     //     "appointmentList.bookedOn": {
@@ -310,10 +310,10 @@ const createTimeArray = async (SID, bkd) => {
 // x();
 
 // const x = {
-//   SID: "1",
+//   sid: "1",
 //   appointmentList: [
 //     {
-//       AID: "xyz123_Gym1676780796220",
+//       aid: "xyz123_Gym1676780796220",
 //       name: "9",
 //       email: "9",
 //       contactNumber: "9",
@@ -329,7 +329,7 @@ const createTimeArray = async (SID, bkd) => {
 //       },
 //     },
 //     {
-//       AID: "xyz123_Gym_673041",
+//       aid: "xyz123_Gym_673041",
 //       name: "9",
 //       email: "9",
 //       contactNumber: "9",
@@ -345,7 +345,7 @@ const createTimeArray = async (SID, bkd) => {
 //       },
 //     },
 //     {
-//       AID: "xyz123_Gym_673061",
+//       aid: "xyz123_Gym_673061",
 //       name: "9",
 //       email: "9",
 //       contactNumber: "9",
@@ -364,11 +364,11 @@ const createTimeArray = async (SID, bkd) => {
 // };
 
 // const x = {
-//   SID: "1",
+//   sid: "1",
 //   appointmentList: [
 //     {
 //       status: 0,
-//       AID: "xyz123_Gym_1676790595",
+//       aid: "xyz123_Gym_1676790595",
 //       name: "9",
 //       email: "9",
 //       contactNumber: "9409434932",
@@ -378,7 +378,7 @@ const createTimeArray = async (SID, bkd) => {
 //     },
 //     {
 //       status: 0,
-//       AID: "xyz123_Gym_1676802030",
+//       aid: "xyz123_Gym_1676802030",
 //       name: "py",
 //       email: "9",
 //       contactNumber: "9409434932",
@@ -388,7 +388,7 @@ const createTimeArray = async (SID, bkd) => {
 //     },
 //     {
 //       status: 0,
-//       AID: "xyz123_Gym_1676802427",
+//       aid: "xyz123_Gym_1676802427",
 //       name: "9",
 //       email: "9",
 //       contactNumber: "99999",
@@ -401,11 +401,11 @@ const createTimeArray = async (SID, bkd) => {
 
 // const today = new Date();
 // console.log(today.toISOString().substring(0, 10));
-// const zzzz = async (SID, date) => {
+// const zzzz = async (sid, date) => {
 //   const timeArr = await Services.aggregate([
 //     {
 //       $match: {
-//         SID: SID,
+//         sid: sid,
 //       },
 //     },
 //     {

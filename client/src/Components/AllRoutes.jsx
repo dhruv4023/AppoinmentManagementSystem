@@ -23,10 +23,10 @@ export const AllRoutes = () => {
       <Route path={"/preview"} element={<PrintPreview />} />
       <Route path={"/printreceipt"} element={<PrintAndVerifyAppointment />} />
       <Route
-        path={"/printreceipt/:AID"}
+        path={"/printreceipt/:aid"}
         element={<PrintAndVerifyAppointment />}
       />
-      <Route path={"/service/:UID/:SID"} element={<DashBoardAndUserView />} />
+      <Route path={"/service/:UID/:sid"} element={<DashBoardAndUserView />} />
       <Route path={"/404"} element={<PageNotFound />} />
     </Routes>
   );

@@ -13,7 +13,7 @@ const routes = express.Router();
 routes.post("/post", verifyToken, createService);
 
 routes.get("/get/:username", getAdminServices);
-routes.get("/getServDtOnBookPage/:SID", getServicesOnBookingPage);
+routes.get("/getServDtOnBookPage/:sid", getServicesOnBookingPage);
 
 routes.post("/getfiltereddata", getFilteredData);
 

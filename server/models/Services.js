@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const serviceSchema = mongoose.Schema(
   {
-    SID: {
+    sid: {
       type: String,
       require: true,
       min: 2,
@@ -25,8 +25,8 @@ const serviceSchema = mongoose.Schema(
       type: String,
       max: 30,
     },
-    serviceTime: { Start: { type: String }, End: { type: String } },
-    breakTime: { Start: { type: String }, End: { type: String } },
+    serviceTime: { start: { type: String }, end: { type: String } },
+    breakTime: { start: { type: String }, end: { type: String } },
     appoinmentTime: String,
     location: {
       state: { type: String },
@@ -58,7 +58,7 @@ const serviceSchema = mongoose.Schema(
     description: { type: String },
     appointmentList: [
       {
-        AID: { type: String },
+        aid: { type: String },
         name: { type: String },
         email: { type: String },
         contactNumber: { type: String },

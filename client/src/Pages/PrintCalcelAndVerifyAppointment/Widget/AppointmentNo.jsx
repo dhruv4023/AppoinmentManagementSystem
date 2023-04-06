@@ -8,9 +8,9 @@ const AppointmentNo = ({ AIDNo, loading, setdoRetrive, doRetrive, setAID }) => {
   return (
     <WidgetWrapper>
       <TextField
-        label="Enter AID Number here"
+        label="Enter aid Number here"
         onChange={(e) => setAID(e.target.value)}
-        name="AID"
+        name="aid"
         disabled={loading}
         value={AIDNo}
         sx={{ width: "100%" }}

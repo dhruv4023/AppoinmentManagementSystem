@@ -7,21 +7,21 @@ import { DDMMYYYY, MXMNDate } from "state/globalFunctions";
 import { getAllBookedData } from "./AppointmentData";
 import CollapsibleTable, { createData } from "./CollapsibleTable";
 
-const TableData = ({ SID }) => {
-  // console.log(SID);
+const TableData = ({ sid }) => {
+  // console.log(sid);
   const [dataList, setDataList] = useState();
   const [selectDate, setSelectDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
   useEffect(() => {
     // dataList &&
-    getAllBookedData({ SID, date: selectDate }).then((d) => setRows(d.data));
+    getAllBookedData({ sid, date: selectDate }).then((d) => setRows(d.data));
     const setRows = (data) => {
       const rows = [];
       data.map((m) =>
         rows.push(
           createData(
-            m.AID,
+            m.aid,
             m.dateTime?.time,
             m.status,
             m.dateTime?.date,
@@ -35,7 +35,7 @@ const TableData = ({ SID }) => {
       // console.log(data, rows);
       setDataList(rows);
     };
-  }, [selectDate,SID]);
+  }, [selectDate,sid]);
   // console.log(selectDate, dataList);
   return (
     <WidgetWrapper width={"100%"}>

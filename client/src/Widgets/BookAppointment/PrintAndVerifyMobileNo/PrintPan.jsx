@@ -7,9 +7,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import QRWidget from "Widgets/QRWidget";
 
-const PrintPan = ({ details, AID }) => {
+const PrintPan = ({ details, aid }) => {
   const theme = useTheme();
-  details.details["AID"] = AID;
+  details.details["aid"] = aid;
   details.details["status"] = 0;
   details.details["dateTime"] = {
     date: details.details["date"],
@@ -20,7 +20,7 @@ const PrintPan = ({ details, AID }) => {
     <>
       <QRWidget
         description={"Scan QR To Open Your Appointment Data"}
-        link={`printreceipt/${AID}`}
+        link={`printreceipt/${aid}`}
       />
       <PrintData data={details.details} />
       <Button

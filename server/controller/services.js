@@ -3,7 +3,7 @@ import fixData from "../public/FixData.json" assert { type: "json" };
 export const createService = async (req, res) => {
   try {
     const {
-      SID,
+      sid,
       username,
       category,
       appoinmentTime,
@@ -18,21 +18,22 @@ export const createService = async (req, res) => {
     } = req.body;
 
     const serviceTime = {
-      Start: serviceStartTime,
-      End: serviceEndTime,
+      start: serviceStartTime,
+      end: serviceEndTime,
     };
     const breakTime = {
-      Start: breakStartTime,
-      End: breakEndTime,
+      start: breakStartTime,
+      end: breakEndTime,
     };
 
     // console.log(req.body);
     // console.log(mongoose.isValidObjectId(_id))
-    const serviceData = await Services.find({ SID });
-    if (SID) {
+    const serviceData = await Services.find({ sid });
+    
+    if (sid) {
       const arr = serviceData.filter(
         (f) =>
-          (f.SID === SID && f.category === category) || f?.category !== category
+          (f.sid === sid && f.category === category) || f?.category !== category
       );
       if (arr.length !== serviceData.length) {
         return res.status(400).json({
@@ -40,7 +41,7 @@ export const createService = async (req, res) => {
         });
       }
       await Services.findOneAndUpdate(
-        { SID: SID },
+        { sid: sid },
         {
           category,
           serviceTime,
@@ -69,7 +70,7 @@ export const createService = async (req, res) => {
       }
       // const {user} =await User.findOne({username:username});
       const newService = new Services({
-        SID: username + "_" + category,
+        sid: username + "_" + category,
         username: username,
         category: category,
         serviceTime: serviceTime,
@@ -107,7 +108,7 @@ export const getAdminServices = async (req, res) => {
 export const getServicesOnBookingPage = async (req, res) => {
   try {
     const servData = await Services.findOne(req.params, {
-      SID: 1,
+      sid: 1,
       username: 1,
       category: 1,
       serviceTime: 1,
@@ -130,7 +131,7 @@ const returnServData = async (
   limit = fixData.category.length
 ) => {
   const servData = await Services.find(searchKey, {
-    SID: 1,
+    sid: 1,
     username: 1,
     category: 1,
     serviceTime: 1,
@@ -184,7 +185,7 @@ export const getFilteredData = async (req, res) => {
 //   const yearlyData = await Services.aggregate([
 //     {
 //       $match: {
-//         SID: "abc123_Gym",
+//         sid: "abc123_Gym",
 //       },
 //     },
 //     {
@@ -231,7 +232,7 @@ export const getFilteredData = async (req, res) => {
 //   const monthlyData = await Services.aggregate([
 //     {
 //       $match: {
-//         SID: "abc123_Gym",
+//         sid: "abc123_Gym",
 //       },
 //     },
 //     { $project: { _id: 0, monthlyData: "$chartData." + y + "." + m } }, // extract the data for March 2021
@@ -369,7 +370,7 @@ export const getFilteredData = async (req, res) => {
 //   const pipeline = [
 //     {
 //       $match: {
-//         SID: "abc123_Office",
+//         sid: "abc123_Office",
 //       },
 //     },
 //     {
@@ -391,7 +392,7 @@ export const getFilteredData = async (req, res) => {
 //   [
 //   {
 //     $match: {
-//       SID: "abc123_Gym",
+//       sid: "abc123_Gym",
 //     },
 //   },
 //   { $match: { ["chartData." + y]: { $exists: true } } }, // filter documents that have 2021 data

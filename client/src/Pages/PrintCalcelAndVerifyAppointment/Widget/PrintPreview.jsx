@@ -11,7 +11,7 @@ const PrintPreview = () => {
   useEffect(() => {
     apDt && window.print();
     apDt
-      ? navigate(`/printreceipt/${location.state.AID}`)
+      ? navigate(`/printreceipt/${location.state.aid}`)
       : navigate("/printreceipt");
   }, []);
   return (

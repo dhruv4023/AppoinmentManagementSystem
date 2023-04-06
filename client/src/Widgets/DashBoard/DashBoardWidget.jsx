@@ -6,7 +6,7 @@ import { getDailydata, getMonthlydata, getYearlydata } from "./ChartData";
 import { LineC, PieC } from "./Charts";
 import TableData from "./TableData";
 
-const DashBoardWidget = ({ SID }) => {
+const DashBoardWidget = ({ sid }) => {
   const [lineLbl, setLineLbl] = useState();
   const [cancelData, setCancelData] = useState();
   const [successData, setsuccessData] = useState();
@@ -32,21 +32,21 @@ const DashBoardWidget = ({ SID }) => {
   };
   useEffect(() => {
     // getYearlydata({
-    //   SID,
+    //   sid,
     //   yr: "2023",
     //   yr2: "" + new Date().getFullYear(),
     // }).then((m) => changeChartData(m.data));
     chartType === 0
       ? getYearlydata({
-          SID,
+          sid,
           yr: "2023",
           yr2: "" + new Date().getFullYear(),
         }).then((m) => changeChartData(m.data))
       : chartType === 1
-      ? getMonthlydata({ SID, yr: "" + new Date().getFullYear() }).then((m) =>
+      ? getMonthlydata({ sid, yr: "" + new Date().getFullYear() }).then((m) =>
           changeChartData(m.data)
         )
-      : getDailydata({ SID, yr: "" + new Date().getFullYear() }).then((m) =>
+      : getDailydata({ sid, yr: "" + new Date().getFullYear() }).then((m) =>
           changeChartData(m.data)
         );
   }, [chartType]);
@@ -84,7 +84,7 @@ const DashBoardWidget = ({ SID }) => {
           DashBoard
         </Typography>
       </WidgetWrapper>
-      <TableData SID={SID} />
+      <TableData sid={sid} />
       <WidgetWrapper width={"100%"}>
         <Typography
           py={"0.5rem"}
