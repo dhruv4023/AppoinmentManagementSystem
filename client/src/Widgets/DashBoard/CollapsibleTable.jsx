@@ -64,11 +64,11 @@ function Row({ changeStatus, row }) {
         <TableCell align="right">{row.time}</TableCell>
         <TableCell align="right">
           {row.status === 0 ? (
-            <Circle sx={{ color: "blue" }} />
+            <Box sx={{ color: "blue" }}>Pending</Box>
           ) : row.status === 1 ? (
-            <Circle sx={{ color: "green" }} />
+            <Box sx={{ color: "green" }}>Done</Box>
           ) : (
-            <Circle sx={{ color: "red" }} />
+            <Box sx={{ color: "red" }}>Canceled</Box>
           )}
         </TableCell>
       </TableRow>
@@ -153,11 +153,7 @@ export default function CollapsibleTable({ data }) {
 
         <TableBody>
           {rows.map((row) => (
-            <Row
-              key={row.aid}
-              row={row}
-              changeStatus={changeStatus}
-            />
+            <Row key={row.aid} row={row} changeStatus={changeStatus} />
           ))}
         </TableBody>
       </Table>

@@ -35,7 +35,7 @@ const Form = ({ pgType, editProfile, user }) => {
     picPath: "",
     location: {
       state: "Gujarat",
-      district: "",
+      // district: "",
       city: "",
       pincode: "",
     },
