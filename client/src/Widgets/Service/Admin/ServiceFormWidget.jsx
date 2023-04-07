@@ -17,7 +17,7 @@ import FlexEvenly from "Components/FlexEvenly";
 import { SelectLocation } from "Components/MyComponents";
 import WidgetWrapper from "Components/WidgetWrapper";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendServiceData } from "./WidgetAdminServiceFun";
 import SelectTime from "./SelectTime";
@@ -37,12 +37,19 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     tmp[name] = val;
     setValues(tmp);
   };
-  const [holidayss, setHolidayss] = useState(values?.holidays);
+
+  const [holidayss, setHolidayss] = useState([]);
+  // console.log(holidayss, values.holidays);
+  useEffect(() => {
+    values.holidays.map((m) => {
+      holidayss.indexOf(m) === -1 && holidayss.push(m);
+    }); // setHolidayss(values?.holidays);
+  }, []);
   const addRemove = (d) => {
     holidayss.indexOf(d) === -1
       ? holidayss.push(d)
       : holidayss.splice(holidayss.indexOf(d), d);
-
+    setHolidayss(holidayss);
     onChangehandle(holidayss, "holidays");
   };
   // console.log(values.serviceStartTime?.split(":")[0]);
@@ -55,7 +62,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     //   openForm: false,
     // });
   };
-  console.log(CrudServData.data);
+  // console.log(CrudServData.data);
   return (
     <WidgetWrapper>
       <FlexBetween>
@@ -114,7 +121,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
             >
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 0).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 0).length === 1 && "green",
                 }}
                 onClick={() => addRemove(0)}
               >
@@ -122,7 +130,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               </Button>
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 1).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 1).length === 1 && "green",
                 }}
                 onClick={() => addRemove(1)}
               >
@@ -130,7 +139,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               </Button>
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 2).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 2).length === 1 && "green",
                 }}
                 onClick={() => addRemove(2)}
               >
@@ -138,7 +148,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               </Button>
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 3).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 3).length === 1 && "green",
                 }}
                 onClick={() => addRemove(3)}
               >
@@ -146,7 +157,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               </Button>
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 4).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 4).length === 1 && "green",
                 }}
                 onClick={() => addRemove(4)}
               >
@@ -154,7 +166,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               </Button>
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 5).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 5).length === 1 && "green",
                 }}
                 onClick={() => addRemove(5)}
               >
@@ -162,7 +175,8 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
               </Button>
               <Button
                 sx={{
-                  color: holidayss.filter((x) => x == 6).length == 1 && "green",
+                  color:
+                    holidayss.filter((x) => x === 6).length === 1 && "green",
                 }}
                 onClick={() => addRemove(6)}
               >

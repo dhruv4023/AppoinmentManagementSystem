@@ -77,6 +77,7 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
     }
   );
   const savedUser = await savedUserResponse.json();
+  console.log(savedUser);
   if (savedUser.user) {
     dispatch(
       setLogin({

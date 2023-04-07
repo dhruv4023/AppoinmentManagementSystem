@@ -12,7 +12,7 @@ import {
 const routes = express.Router();
 
 routes.post("/post/:sid", saveAppointment);
-routes.get("/getbookedtime/:sid", getBookedTime);
+routes.get("/getremainingtimeslotes/:sid", getBookedTime);
 routes.get("/getsinglebookeddata/:aid", getSingleBookedData);
 routes.post("/getallbookeddata/:sid/:date", getAllBookedData);
 routes.post("/changeAppointmentStatus/:aid", changeAppointmentStatus);

@@ -10,7 +10,7 @@ export const getUser = async (setUser, UID, navigate) => {
 
 export const getFilteredData = async (values) => {
   const res = await fetch(
-    `${process.env.REACT_APP_SERVER}/service/getfiltereddata/`,
+    `${process.env.REACT_APP_SERVER}/service/getfiltereddata`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

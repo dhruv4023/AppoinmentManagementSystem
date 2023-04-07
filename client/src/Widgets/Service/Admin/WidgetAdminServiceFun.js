@@ -32,7 +32,7 @@ export const getAllServices = async (dispatch, username) => {
     }
   );
   const servData = await res.json();
-  console.log(servData);
+  // console.log(servData);
   if (!servData.mess) {
     dispatch(
       setServiceData({

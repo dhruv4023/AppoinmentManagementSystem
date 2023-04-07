@@ -35,7 +35,7 @@ const TableData = ({ sid }) => {
       // console.log(data, rows);
       setDataList(rows);
     };
-  }, [selectDate,sid]);
+  }, [selectDate, sid]);
   // console.log(selectDate, dataList);
   return (
     <WidgetWrapper width={"100%"}>

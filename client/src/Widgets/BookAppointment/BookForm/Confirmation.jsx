@@ -12,7 +12,6 @@ const Confirmation = ({ details, servData, setAppointmentData }) => {
       contactNumber: details.contactNumber,
       sid: servData.sid,
     }).then((alredyBooked) => {
-      console.log(alredyBooked)
       !alredyBooked &&
         setAppointmentData({ details: details, sid: servData.sid });
     });

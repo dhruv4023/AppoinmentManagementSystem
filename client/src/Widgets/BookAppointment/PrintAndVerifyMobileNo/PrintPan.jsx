@@ -11,17 +11,10 @@ const PrintPan = ({ details, aid }) => {
   const theme = useTheme();
   details.details["aid"] = aid;
   details.details["status"] = 0;
-  details.details["dateTime"] = {
-    date: details.details["date"],
-    time: details.details["time"],
-  };
+  // console.log(details)
   const navigate = useNavigate();
   return (
     <>
-      <QRWidget
-        description={"Scan QR To Open Your Appointment Data"}
-        link={`printreceipt/${aid}`}
-      />
       <PrintData data={details.details} />
       <Button
         type="submit"

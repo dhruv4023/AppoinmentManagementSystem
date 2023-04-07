@@ -49,7 +49,7 @@ export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
   try {
     const { sid } = req.params;
     const { contactNumber } = req.body;
-    console.log(contactNumber);
+    // console.log(contactNumber);
     let dy = new Date();
     // dy.setDate(dy.getDate() - 1);
     const data = await Services.findOne({ sid: sid });
@@ -58,7 +58,9 @@ export const checkWhetherAppointmentAlredyBooked = async (req, res) => {
     // ))
     if (
       data.appointmentList.filter(
-        (f) => f.contactNumber === contactNumber && String(f.bookedOn).substring(0,10) == String(dy).substring(0,10)
+        (f) =>
+          f.contactNumber === contactNumber &&
+          String(f.bookedOn).substring(0, 10) == String(dy).substring(0, 10)
       ).length > 0
     )
       return res.status(200).json({

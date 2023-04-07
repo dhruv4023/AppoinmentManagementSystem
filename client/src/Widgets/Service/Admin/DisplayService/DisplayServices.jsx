@@ -2,7 +2,7 @@ import React from "react";
 import DisplayServiceWidget from "./DisplayServiceWidget";
 
 const DisplayServices = ({ serviceData, CrudServData, setCrudServData }) => {
-  console.log(serviceData)
+  // console.log(serviceData)
   return (
     <>
       {serviceData?.map((m) => {

@@ -12,7 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import FlexEvenly from "Components/FlexEvenly";
-import { getBookedDtTm } from "../BookAppoinmentFun";
+import { getRemainingSlotes } from "../BookAppoinmentFun";
 import { MXMNDate } from "state/globalFunctions";
 import Loading from "Components/Loader/Loading";
 // import Calender from "./Calender";
@@ -39,7 +39,7 @@ const SelectDateTime = ({ setDateAndTime, servData }) => {
   const [bookedDtTm, setBookedDtTm] = useState();
   const [BookingDate, setBookingDate] = useState();
   useEffect(() => {
-    getBookedDtTm(servData?.sid).then((t) => {
+    getRemainingSlotes(servData?.sid).then((t) => {
       setBookedDtTm(t);
       setBookingDate(Object.keys(t));
     });

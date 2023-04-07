@@ -3,7 +3,7 @@ export const getAllBookedData = async ({ sid,date }) => {
   const res = await fetch(
     `${process.env.REACT_APP_SERVER}/appointment/getallbookeddata/${sid}/${date}`,
     {   
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
       //   body: JSON.stringify(values),
     }
