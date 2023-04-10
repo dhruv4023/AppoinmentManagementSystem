@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Circle, Close, Done } from "@mui/icons-material";
+import { Close, Done } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import FlexEvenly from "Components/FlexEvenly";
 import FlexBetween from "Components/FlexBetween";
@@ -64,11 +63,11 @@ function Row({ changeStatus, row }) {
         <TableCell align="right">{row.time}</TableCell>
         <TableCell align="right">
           {row.status === 0 ? (
-            <Box sx={{ color: "blue" }}>Pending</Box>
+            <Box sx={{ color: "blue" }}>PENDING</Box>
           ) : row.status === 1 ? (
-            <Box sx={{ color: "green" }}>Done</Box>
+            <Box sx={{ color: "green" }}>DONE</Box>
           ) : (
-            <Box sx={{ color: "red" }}>Canceled</Box>
+            <Box sx={{ color: "red" }}>CANCELLED</Box>
           )}
         </TableCell>
       </TableRow>

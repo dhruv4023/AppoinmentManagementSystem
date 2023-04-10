@@ -17,8 +17,6 @@ import FlexEvenly from "Components/FlexEvenly";
 import {
   getUserNames,
   login,
-  register,
-  // register,
   updateProfile,
 } from "./LoginRegisterChangePass";
 import { SelectLocation } from "../../Components/MyComponents";

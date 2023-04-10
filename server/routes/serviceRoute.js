@@ -10,7 +10,7 @@ import {
 import { verifyToken } from "../middleware/auth.js";
 const routes = express.Router();
 
-routes.post("/post", verifyToken, createService);
+routes.post("/postss", createService);
 
 routes.get("/get/:username", getAdminServices);
 routes.get("/getServDtOnBookPage/:sid", getServicesOnBookingPage);

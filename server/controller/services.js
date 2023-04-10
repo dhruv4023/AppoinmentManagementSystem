@@ -7,29 +7,31 @@ export const createService = async (req, res) => {
       username,
       category,
       appoinmentTime,
-      serviceStartTime,
-      serviceEndTime,
-      breakStartTime,
-      breakEndTime,
+      // serviceStartTime,
+      // serviceEndTime,
+      // breakStartTime,
+      // breakEndTime,
       location,
       description,
       serviceName,
+      breakTime,
+      serviceTime,
       holidays,
     } = req.body;
 
-    const serviceTime = {
-      start: serviceStartTime,
-      end: serviceEndTime,
-    };
-    const breakTime = {
-      start: breakStartTime,
-      end: breakEndTime,
-    };
+    // const serviceTime = {
+    //   start: serviceStartTime,
+    //   end: serviceEndTime,
+    // };
+    // const breakTime = {
+    //   start: breakStartTime,
+    //   end: breakEndTime,
+    // };
 
     // console.log(req.body);
     // console.log(mongoose.isValidObjectId(_id))
     const serviceData = await Services.find({ sid });
-    
+
     if (sid) {
       const arr = serviceData.filter(
         (f) =>

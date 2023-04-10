@@ -6,7 +6,7 @@ import { DDMMYYYY } from "state/globalFunctions";
 import QRWidget from "Widgets/QRWidget";
 
 const PrintData = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <Typography
@@ -25,7 +25,7 @@ const PrintData = ({ data }) => {
             ? "PENDING"
             : data.status === 1
             ? "SUCCESS"
-            : data.status === -1 && "CANCELED"
+            : data.status === -1 && "CANCELLED"
         }
       />
       <DisplayDataComp ky={"NAME"} value={data.name} />

@@ -34,7 +34,7 @@ export const checkWhetherAppointmentAlredyBooked = async ({
     }
   );
   const rs = await res.json();
-  console.log(rs);
+  // console.log(rs);
   rs.alredyBooked && alert(rs.msg);
   return rs.alredyBooked;
 };

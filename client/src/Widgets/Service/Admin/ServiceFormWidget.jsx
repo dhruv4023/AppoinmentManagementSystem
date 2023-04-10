@@ -62,7 +62,7 @@ const ServiceFormWidget = ({ setCrudServData, CrudServData }) => {
     //   openForm: false,
     // });
   };
-  // console.log(CrudServData.data);
+  console.log(CrudServData.data);
   return (
     <WidgetWrapper>
       <FlexBetween>

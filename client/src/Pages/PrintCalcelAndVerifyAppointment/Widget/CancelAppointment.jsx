@@ -2,7 +2,6 @@ import WidgetWrapper from "Components/WidgetWrapper";
 import MobileOtp from "Components/MobileOtp/MobileOtp";
 import React, { useEffect, useState } from "react";
 import { cancelAppointment } from "./PrintCancelVerifyAppointment";
-import { Button } from "@mui/material";
 
 const CancelAppointment = ({ number, aid, setCancel, setdoRetrive }) => {
   const [verify, setVerify] = useState(false);
@@ -10,7 +9,6 @@ const CancelAppointment = ({ number, aid, setCancel, setdoRetrive }) => {
     verify && cancelAppointment(aid);
     verify && setCancel(false) && setdoRetrive(true);
   }, [verify]);
-// console.log(aid)
   return (
     <WidgetWrapper marginTop={"1rem"}>
       <MobileOtp

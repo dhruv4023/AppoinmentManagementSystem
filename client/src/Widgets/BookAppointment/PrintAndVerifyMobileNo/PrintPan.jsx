@@ -1,11 +1,8 @@
 import { useTheme } from "@emotion/react";
-import { Button, Typography } from "@mui/material";
-import FlexBetween from "Components/FlexBetween";
-import { DisplayDataComp } from "Components/MyComponents";
+import { Button } from "@mui/material";
 import PrintData from "Pages/PrintCalcelAndVerifyAppointment/Widget/PrintData";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import QRWidget from "Widgets/QRWidget";
 
 const PrintPan = ({ details, aid }) => {
   const theme = useTheme();

@@ -32,9 +32,9 @@ app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 app.use("/auth", authRoute);
-app.use("/appointment", appoinmentRoute);
-app.use("/service", serviceRoute);
 app.use("/user", userRoute);
+app.use("/service", serviceRoute);
+app.use("/appointment", appoinmentRoute);
 app.use("/chart", chartDataRoute);
 // app.use("/posts", postRoute);
 app.listen(process.env.PORT, () => {

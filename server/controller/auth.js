@@ -45,6 +45,17 @@ export const registerControl = async (req, res) => {
     res.status(500).json({ msg: "something went wrong" });
   }
 };
+
+export const getUserNames = async (req, res) => {
+  try {
+    const useNames = await Users.distinct("username");
+    // console.log(useNames)
+    res.status(200).json(useNames);
+  } catch (error) {
+    res.status(404).json("Service not available");
+  }
+};
+
 export const loginControl = async (req, res) => {
   // console.log(req.body);
   try {
@@ -93,16 +104,6 @@ export const changePassControl = async (req, res) => {
   }
 };
 
-export const getUserNames = async (req, res) => {
-  try {
-    const useNames = await Users.distinct("username");
-    // console.log(useNames)
-    res.status(200).json(useNames);
-  } catch (error) {
-    res.status(404).json("Service not available");
-  }
-};
-
 export const updateRegisteredData = async (req, res) => {
   // console.log();
   const _file = req.file;
@@ -122,7 +123,7 @@ export const updateRegisteredData = async (req, res) => {
     const user = await Users.findOne({ username: _id });
     if (user.email !== email && (await Users.findOne({ email: email }))) {
       _file && deleteFile(_file.path);
-      return res.status(400).json("Email Already Used !");
+      return res.status(400).json({ msg: "Email Already Used !" });
     }
     await Users.findOneAndUpdate(
       { username: _id },
@@ -156,6 +157,6 @@ export const updateRegisteredData = async (req, res) => {
     res.status(200).json({ user: userDt });
   } catch (error) {
     _file && deleteFile(_file.path);
-    res.status(500).json("Server Error");
+    res.status(500).json({ msg: "Server Error" });
   }
 };

@@ -18,7 +18,7 @@ const Help = () => {
   useEffect(() => {
     getHelpdata();
   }, [step]);
-  console.log(stepData);
+  // console.log(stepData);
   return (
     <WidgetsOnPage
       title={"Help"}

@@ -40,7 +40,6 @@ const userSchema = mongoose.Schema(
     },
     location: {
       state: { type: String },
-      district: { type: String },
       city: { type: String },
       pincode: { type: String },
     },

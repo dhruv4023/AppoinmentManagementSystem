@@ -7,7 +7,7 @@ const VerifyMobilePan = ({ setAID, appointmentData, setTabNo }) => {
   // const [capchaRender, setCapchaRender] = useState(true);
   // console.log(appointmentData?.details.contactNumber);
   useEffect(() => {
-    // verified === 1 &&
+    verified === 1 &&
       saveAppointmentData(appointmentData).then((aid) => {
         setAID(aid);
         aid && setTabNo(1);
