@@ -46,8 +46,9 @@ export const getRemainingSlotes = async (id) => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }
-  );
-  const data = await res.json();
+    );
+    const data = await res.json();
+    console.log(data)
   return data;
   // setUserNames(user ? data.filter((f) => f !== user.username) : data);
 };

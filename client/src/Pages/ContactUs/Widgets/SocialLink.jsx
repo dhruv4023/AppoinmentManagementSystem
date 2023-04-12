@@ -16,6 +16,7 @@ const SocialLink = () => {
       >
         Social Links
       </Typography>
+        <hr></hr>
       <SocialLinkComp
         icon={<Twitter />}
         username={"dhruv4023"}
@@ -34,6 +35,26 @@ const SocialLink = () => {
         link={"https://www.facebook.com/dhruv4023/"}
         name={"Dhruv Patel"}
       />
+      <hr></hr>
+      <SocialLinkComp
+        icon={<Twitter />}
+        username={"JittamSakh97522"}
+        link={"https://twitter.com/JittamSakh97522"}
+        name={"Jittam Shakhia"}
+      />
+      <SocialLinkComp
+        icon={<LinkedIn />}
+        username={"jittam-sakhia"}
+        link={"https://www.linkedin.com/in/jittam-sakhia"}
+        name={"Jittam Shakhia"}
+      />
+      <SocialLinkComp
+        icon={<Facebook />}
+        username={"JittamSakh97522"}
+        link={"https://twitter.com/JittamSakh97522"}
+        name={"Dhruv Patel"}
+      />
+      <hr></hr>
     </WidgetWrapper>
   );
 };

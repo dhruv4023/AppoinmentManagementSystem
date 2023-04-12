@@ -1,5 +1,5 @@
 import { Bookmark } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DisplayDataComp } from "Components/MyComponents";
 import React from "react";
 import { DDMMYYYY } from "state/globalFunctions";
@@ -22,10 +22,10 @@ const PrintData = ({ data }) => {
         ky={"STATUS"}
         value={
           data.status === 0
-            ? "PENDING"
+            ? <i style={{ color: "green" }}>PENDING</i>
             : data.status === 1
             ? "SUCCESS"
-            : data.status === -1 && "CANCELLED"
+            : data.status === -1 && <i style={{ color: "red" }}>"CANCELLED"</i>
         }
       />
       <DisplayDataComp ky={"NAME"} value={data.name} />
