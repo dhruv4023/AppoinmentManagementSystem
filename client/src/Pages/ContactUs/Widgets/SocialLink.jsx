@@ -40,19 +40,19 @@ const SocialLink = () => {
         icon={<Twitter />}
         username={"JittamSakh97522"}
         link={"https://twitter.com/JittamSakh97522"}
-        name={"Jittam Shakhia"}
+        name={"Jittam Sakhia"}
       />
       <SocialLinkComp
         icon={<LinkedIn />}
         username={"jittam-sakhia"}
         link={"https://www.linkedin.com/in/jittam-sakhia"}
-        name={"Jittam Shakhia"}
-      />
+        name={"Jittam Sakhia"}
+        />
       <SocialLinkComp
         icon={<Facebook />}
         username={"JittamSakh97522"}
         link={"https://twitter.com/JittamSakh97522"}
-        name={"Dhruv Patel"}
+        name={"Jittam Sakhia"}
       />
       <hr></hr>
     </WidgetWrapper>
