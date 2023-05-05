@@ -50,8 +50,8 @@ const SocialLink = () => {
         />
       <SocialLinkComp
         icon={<Facebook />}
-        username={"JittamSakh97522"}
-        link={"https://twitter.com/JittamSakh97522"}
+        username={"jittam.sakhia.1"}
+        link={"https://www.facebook.com/jittam.sakhia.1"}
         name={"Jittam Sakhia"}
       />
       <hr></hr>
