@@ -18,8 +18,12 @@ const PrintAndView = ({ loading, setLoading, AIDNo, doRetrive, setCancel }) => {
     AIDNo
       ? getSinglebookedData(AIDNo)
           .then((d) => {
-            delete d.data._id;
-            setApDt(d.data);
+            if (d.data === "Error") {
+              setApDt(false);
+            } else {
+              delete d.data._id;
+              setApDt(d.data);
+            }
             setLoading(false);
           })
           .catch((e) => {
