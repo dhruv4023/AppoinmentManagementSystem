@@ -85,7 +85,7 @@ const DashBoardWidget = ({ sid }) => {
         </Typography>
       </WidgetWrapper>
       <TableData sid={sid} />
-      <WidgetWrapper width={"100%"}>
+      {/* <WidgetWrapper width={"100%"}>
         <Typography
           py={"0.5rem"}
           fontWeight={"bold"}
@@ -121,8 +121,8 @@ const DashBoardWidget = ({ sid }) => {
         >
           Daily
         </Button>
-      </WidgetWrapper>
-      {lineLabel && (
+      </WidgetWrapper> */}
+      {/* {lineLabel && (
         <>
           <PieC pieData={pieData} />
           <LineC
@@ -132,7 +132,7 @@ const DashBoardWidget = ({ sid }) => {
             // leftToBook={leftToBook}
           />
         </>
-      )}
+      )} */}
     </FlexBetween>
   );
 };
