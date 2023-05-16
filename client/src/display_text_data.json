@@ -1,0 +1,13 @@
+{
+  "homePage": { "title": "All Appointments Category" },
+  "filterWidget": {
+    "title": "Filter",
+    "doFilterFunAlert": "Please select Category and City or Category and Pincode"
+  },
+  "SelectTextField": {
+    "category": {
+      "msg": "Select Category Name",
+      "label": "Select Category"
+    }
+  }
+}
