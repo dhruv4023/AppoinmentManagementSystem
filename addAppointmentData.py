@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 import requests
 from pymongo import MongoClient
 import ssl
-DB_URL = "mongodb://localhost:27017"
+# DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb+srv://jittamsakhia02:azbxcy@cluster0.zcom8hp.mongodb.net/?retryWrites=true&w=majority"
 # adding not adding the security by Secure Socket Layer
 client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
 
@@ -51,9 +52,10 @@ def fun(howmanyDays, noOfAppointmentPerday):
         for i in range(noOfAppointmentPerday):
             "2023-05-05"
             time.sleep(0.5)
-            print(createData(_id="test_Gym", date=today,
+            print(createData(_id="jittam_Salon", date=today,
                   tm=timeSlotes[i % len(timeSlotes)]))
             print(today)
+    print("inserted succesfully !")
 
 
 fun(5, 5)
