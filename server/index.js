@@ -1,6 +1,6 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cors from "cors";
+import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -42,9 +42,9 @@ app.listen(process.env.PORT, () => {
 });
 
 /* ----------------------------MONGODB SETUP------------------- */
-import mongoose from "mongoose";
 import Services from "./models/Services.js";
 import { insertDateObj } from "./controller/insertToChartData/insertNewObj.js";
+import mongoose from "mongoose";
 mongoose.set("strictQuery", true);
 
 mongoose

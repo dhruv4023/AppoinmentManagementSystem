@@ -7,7 +7,7 @@ import ssl
 # DB_URL = "mongodb://localhost:27017"
 DB_URL = "mongodb+srv://jittamsakhia02:azbxcy@cluster0.zcom8hp.mongodb.net/?retryWrites=true&w=majority"
 # adding not adding the security by Secure Socket Layer
-client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
+client = MongoClient(DB_URL)#, ssl_cert_reqs=ssl.CERT_NONE)
 
 
 print("connected successfully")
@@ -23,7 +23,7 @@ def createData(_id, date, tm):
         "_id": _id+"_"+str(int(time.time()*10000)),
         "name": "jittam",
         "email": "jittam@gmail.com",
-        "contactNumber": "9409434932",
+        "contactNumber": "7600999183",
         "dateTime": {
             "date": str(date),
             "time": str(tm),
@@ -58,4 +58,4 @@ def fun(howmanyDays, noOfAppointmentPerday):
     print("inserted succesfully !")
 
 
-fun(5, 5)
+fun(6, 5)
